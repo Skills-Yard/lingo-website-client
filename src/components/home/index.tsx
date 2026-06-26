@@ -99,9 +99,8 @@ export default function HomePage() {
     level1: 'unlocked', level2: 'locked', level3: 'locked', level4: 'locked', level5: 'locked',
   });
 
-  // ── Stars: visualStars is what header shows; stars is the real total ──
-  const [stars, setStars] = useState(0);        // actual earned
-  const [visualStars, setVisualStars] = useState(0);       // animated display
+  const [stars, setStars] = useState(0);
+  const [visualStars, setVisualStars] = useState(0);
   const [flyingStars, setFlyingStars] = useState<FlyingStar[]>([]);
   const [headerBounce, setHeaderBounce] = useState(false);
   const [pendingStars, setPendingStars] = useState(0);     // stars pending animation

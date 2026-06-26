@@ -24,3 +24,45 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom animations for Duolingo game */
+@keyframes floatSlow {
+  0% { transform: translateX(-50px); }
+  50% { transform: translateX(100vw); }
+  100% { transform: translateX(-50px); }
+}
+@keyframes floatMedium {
+  0% { transform: translateX(50px); }
+  50% { transform: translateX(-100vw); }
+  100% { transform: translateX(55px); }
+}
+@keyframes floatFast {
+  0% { transform: translateX(-80px); }
+  50% { transform: translateX(100vw); }
+  100% { transform: translateX(-80px); }
+}
+@keyframes bobSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes slideUp {
+  0% { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-float-slow {
+  animation: floatSlow 75s infinite linear;
+}
+.animate-float-medium {
+  animation: floatMedium 55s infinite linear;
+}
+.animate-float-fast {
+  animation: floatFast 35s infinite linear;
+}
+.animate-bounce-slow {
+  animation: bobSlow 3s infinite ease-in-out;
+}
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+

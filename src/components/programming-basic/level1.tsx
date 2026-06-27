@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, Direction, Obstacle } from '../../config/levels';
+import { Position, Direction } from '../../config/levels';
 import { lesson1Level } from '../../config/levels/lesson1';
 
 interface Level1PlatformProps {
@@ -23,12 +23,10 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
     return lesson1Level.tileCoordinates[`${r},${c}`] || { x: 50, y: 50 };
   };
 
-  // ✅ Helper: Get tile width (per-tile or global fallback)
   const getTileWidth = (tile: any) => {
     return tile.width ?? dims.tileHighlightWidth ?? '31%';
   };
 
-  // ✅ Helper: Get tile height (per-tile or global fallback)
   const getTileHeight = (tile: any) => {
     return tile.height ?? dims.tileHighlightHeight ?? '22%';
   };
@@ -44,7 +42,7 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
       >
         {/* Game Platform Background */}
         <img
-          src="/images/platformlayers/3layer-platform.png"
+          src="/images/platformlayers/3layer-platform.webp"
           alt="Game Platform"
           className="w-full h-full object-contain transition-all duration-500"
           draggable={false}
@@ -95,9 +93,9 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
               }}
             >
               <img
-                src="/images/flag.png"
+                src="/images/red-flag.webp"
                 alt="Flag"
-                className="w-full h-auto object-contain drop-shadow-[0_3px_5px_rgba(0,0,0,0.25)]"
+                className="w-full h-12 object-contain drop-shadow-[0_3px_5px_rgba(0,0,0,0.25)]"
                 style={{ filter: 'url(#chroma-white)' }}
               />
             </div>

@@ -4,16 +4,10 @@ import { demoLevel } from '../../config/levels/demo';
 
 interface DemoPlatformProps {
   playerPos: Position;
-  playerDir: Direction;
-  isPlaying: boolean;
-  executingStep: number | null;
 }
 
 export const DemoPlatform: React.FC<DemoPlatformProps> = ({
   playerPos,
-  playerDir,
-  isPlaying,
-  executingStep,
 }) => {
   const dims = demoLevel.dimensions;
 

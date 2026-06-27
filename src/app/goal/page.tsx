@@ -6,7 +6,12 @@ import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { SelectionCard } from "@/components/ui/selection-card";
 import { Timer } from "lucide-react";
 
-export default function GoalPage() {
+interface GoalPageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function GoalPage({ onNext, onBack }: GoalPageProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>("20");
 
@@ -19,10 +24,17 @@ export default function GoalPage() {
 
   return (
     <OnboardingLayout
-      step={7}
-      totalSteps={8}
+      step={6}
       title="What's your daily learning goal?"
-      onContinue={() => router.push("/topics")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/topics");
+      }}
+      onBack={onBack}
       isContinueDisabled={!selected}
     >
       <div className="grid grid-cols-2 gap-4 mt-4">

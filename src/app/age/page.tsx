@@ -5,15 +5,28 @@ import { useRouter } from "next/navigation";
 import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { Input } from "@/components/ui/input"; // Shadcn Input
 
-export default function AgePage() {
+interface AgePageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function AgePage({ onNext, onBack }: AgePageProps) {
   const router = useRouter();
   const [age, setAge] = useState("");
 
   return (
     <OnboardingLayout
-      step={3}
+      step={2}
       title="How old are you?"
-      onContinue={() => router.push("/subject")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/subject");
+      }}
+      onBack={onBack}
       isContinueDisabled={!age}
     >
       <div className="mt-8 flex justify-center">

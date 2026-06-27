@@ -8,7 +8,7 @@ import { LevelCard } from "@/components/ui/level-card";
 const LEVELS = [
   {
     id: "beginner",
-    code: <span>print(<span className="text-blue-500">"hello"</span>)</span>,
+    code: <span>print(<span className="text-blue-500">&quot;hello&quot;</span>)</span>,
     level: "Beginner",
     description: "I want to start from the basics.",
   },
@@ -16,7 +16,7 @@ const LEVELS = [
     id: "novice",
     code: <span><span className="text-pink-500">if</span> b <span className="text-pink-500">&gt;</span> a:<br/>&nbsp;&nbsp;print b</span>,
     level: "Novice",
-    description: "I've seen, but not touched code before.",
+    description: "I&apos;ve seen, but not touched code before.",
   },
   {
     id: "intermediate",
@@ -28,20 +28,32 @@ const LEVELS = [
     id: "advanced",
     code: <span><span className="text-pink-500">def</span> <span className="text-blue-500">circle</span>(size):</span>,
     level: "Advanced",
-    description: "I've written longer programs.",
+    description: "I&apos;ve written longer programs.",
   },
 ];
 
-export default function LevelPage() {
+interface LevelPageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function LevelPage({ onNext, onBack }: LevelPageProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <OnboardingLayout
-      step={5}
-      totalSteps={8}
+      step={4}
       title="What level of programming are you currently at?"
-      onContinue={() => router.push("/schedule")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/schedule");
+      }}
+      onBack={onBack}
       isContinueDisabled={!selected}
     >
       <div className="grid grid-cols-2 gap-4 mt-4">

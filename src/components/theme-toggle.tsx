@@ -6,21 +6,19 @@ import { useEffect, useState } from "react";
 type ThemeMode = "dark" | "light";
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemeMode>("light");
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === "undefined") {
+      return "light";
+    }
 
-  useEffect(() => {
     const storedTheme = window.localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme: ThemeMode =
-      storedTheme === "light" || storedTheme === "dark"
-        ? storedTheme
-        : systemPrefersDark
-          ? "dark"
-          : "light";
-
-    setTheme(initialTheme);
-    document.documentElement.setAttribute("data-theme", initialTheme);
-  }, []);
+    return storedTheme === "light" || storedTheme === "dark"
+      ? storedTheme
+      : systemPrefersDark
+        ? "dark"
+        : "light";
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);

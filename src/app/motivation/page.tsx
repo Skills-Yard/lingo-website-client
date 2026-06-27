@@ -13,7 +13,12 @@ const MOTIVATIONS = [
   { id: "child", title: "Helping my child learn", icon: <Rocket className="text-gray-500 w-12 h-12" /> },
 ];
 
-export default function MotivationPage() {
+interface MotivationPageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function MotivationPage({ onNext, onBack }: MotivationPageProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -21,7 +26,15 @@ export default function MotivationPage() {
     <OnboardingLayout
       step={1}
       title="What motivates you to learn?"
-      onContinue={() => router.push("/voice")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/age");
+      }}
+      onBack={onBack}
       isContinueDisabled={!selected}
     >
       <div className="grid grid-cols-2 gap-4">

@@ -6,6 +6,7 @@ import { courseSubjects } from "../data/course-catalog";
 import { AllSubjectsOverview } from "./all-subjects-overview";
 import { CourseSection } from "./course-section";
 import { SubjectRail } from "./subject-rail";
+import Footer from "@/components/footer";
 
 export function CoursesPage() {
   const sectionIds = useMemo(
@@ -92,6 +93,8 @@ export function CoursesPage() {
       {courseSubjects.map((subject) => (
         <CourseSection key={subject.id} subject={subject} />
       ))}
+
+        <Footer />
     </main>
   );
 }

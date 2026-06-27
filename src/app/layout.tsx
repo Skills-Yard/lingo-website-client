@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 import ThemeToggle from "../components/theme-toggle";
 
 const geistSans = Geist({
@@ -32,11 +30,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[color:var(--background)] text-[color:var(--foreground)]">
         <ThemeToggle />
-        <Navbar />
         {children}
         <span className="sm:hidden" >
 
-        <Footer />
         </span>
       </body>
     </html>

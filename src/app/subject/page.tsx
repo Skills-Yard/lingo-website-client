@@ -6,16 +6,29 @@ import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { SelectionCard } from "@/components/ui/selection-card";
 import { Calculator, Code2 } from "lucide-react";
 
-export default function SubjectPage() {
+interface SubjectPageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function SubjectPage({ onNext, onBack }: SubjectPageProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <OnboardingLayout
-      step={4}
+      step={3}
       title="What do you want to learn first?"
       subtitle="You can make progress in both subjects later on"
-      onContinue={() => console.log("Finished Onboarding!")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/level");
+      }}
+      onBack={onBack}
       isContinueDisabled={!selected}
     >
       <div className="grid grid-cols-2 gap-4 mt-4">

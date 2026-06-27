@@ -6,16 +6,28 @@ import { OnboardingLayout } from "@/components/layout/onboarding-layout";
 import { SelectionCard } from "@/components/ui/selection-card";
 import { Sunrise, Sun, MoonStar, SunDim } from "lucide-react";
 
-export default function SchedulePage() {
+interface SchedulePageProps {
+  onNext?: () => void;
+  onBack?: () => void;
+}
+
+export default function SchedulePage({ onNext, onBack }: SchedulePageProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
     <OnboardingLayout
-      step={6}
-      totalSteps={8}
+      step={5}
       title="How will learning fit into your day?"
-      onContinue={() => router.push("/goal")}
+      onContinue={() => {
+        if (onNext) {
+          onNext();
+          return;
+        }
+
+        router.push("/goal");
+      }}
+      onBack={onBack}
       isContinueDisabled={!selected}
     >
       <div className="grid grid-cols-2 gap-4 mt-4">

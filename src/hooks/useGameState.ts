@@ -33,8 +33,10 @@ export function useGameState(
 
   // Reset state when level config changes
   useEffect(() => {
-    resetLevel();
-  }, [level, resetLevel]);
+    const t = setTimeout(() => resetLevel(), 0);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [level]);
 
   const addCommand = useCallback((type: CommandType) => {
     if (isPlaying || success !== null) return;

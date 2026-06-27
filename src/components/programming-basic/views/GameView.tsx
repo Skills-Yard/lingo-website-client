@@ -7,7 +7,7 @@ import { GameFooter } from '../sections/GameFooter';
 import { CompletionModal } from '../sections/CompletionModal';
 import { useGameExecution } from '../../../hooks/useGameExecution';
 import { GameState } from '../../../hooks/useGameState';
-import { LevelConfig, CommandType } from '../../../utils/types';
+import { LevelConfig } from '../../../utils/types';
 import { LEVELS } from '../../../lib/constants/levels';
 
 interface GameViewProps {

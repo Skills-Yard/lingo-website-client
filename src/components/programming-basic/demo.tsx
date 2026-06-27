@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, Direction } from '../../config/levels';
+import { Position, Direction, TileCoordinate } from '../../config/levels';
 import { demoLevel } from '../../config/levels/demo';
 
 interface DemoPlatformProps {
@@ -11,9 +11,9 @@ interface DemoPlatformProps {
 
 export const DemoPlatform: React.FC<DemoPlatformProps> = ({
   playerPos,
-  playerDir,
-  isPlaying,
-  executingStep,
+  playerDir: _playerDir,
+  isPlaying: _isPlaying,
+  executingStep: _executingStep,
 }) => {
   const dims = demoLevel.dimensions;
 
@@ -21,11 +21,11 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
     return demoLevel.tileCoordinates[`${r},${c}`] || { x: 50, y: 50 };
   };
 
-  const getTileWidth = (tile: any) => {
+  const getTileWidth = (tile: TileCoordinate) => {
     return tile.width ?? dims.tileHighlightWidth ?? '43.2%';
   };
 
-  const getTileHeight = (tile: any) => {
+  const getTileHeight = (tile: TileCoordinate) => {
     return tile.height ?? dims.tileHighlightHeight ?? '47.2%';
   };
 
@@ -42,6 +42,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
         }}
       >
         {/* Game Platform Background */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/platformlayers/2layer-platform-removebg-preview.webp"
           alt="Game Platform"
@@ -89,6 +90,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
                 transform: offset.transform || dims.flagTransform,
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/red-flag.webp"
                 alt="Flag"
@@ -114,6 +116,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
                 transform: offset.transform || (obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform),
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={obs.type === 'rock' ? '/images/rock.png' : '/images/tree.png'}
                 alt={obs.type}
@@ -138,8 +141,9 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
                 transform: offset.transform || dims.playerTransform,
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/lumi.png"
+                src="/images/lumis.png"
                 alt="Lumi"
                 className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
                 style={{ filter: 'url(#chroma-white)' }}

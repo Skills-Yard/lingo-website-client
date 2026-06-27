@@ -1,9 +1,10 @@
 import React from 'react';
-import { Home, BookOpen, Star, Trophy, User } from 'lucide-react';
+import { Home, BookOpen, Star, Trophy, User, ChevronLeft } from 'lucide-react';
 import { FlyingStar } from '../../../utils/types';
 import { MAP_NODES, PATH_D } from '../../../lib/constants/levels';
 import { MapNodeCard } from '../sections/MapNodeCard';
 import { FlyingStarParticle } from '../particles/FlyingStarParticle';
+import Link from 'next/link';
 
 interface MapViewProps {
   visualStars: number;
@@ -39,11 +40,11 @@ export function MapView({
 
       {/* ── Header ── */}
       <header className="w-full max-w-lg flex items-center justify-between px-4 py-3 mt-2">
-        <button className="w-9 h-9 flex items-center justify-center rounded-2xl bg-white/80 border border-slate-200 shadow-sm text-slate-500 hover:bg-white transition-all active:scale-95">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
+        <Link href={"/courses"}>
+          <button className="w-9 h-9 flex items-center justify-center rounded-2xl bg-white/80 border border-slate-200 shadow-sm text-slate-500 hover:bg-white transition-all active:scale-95">
+            <ChevronLeft />
+          </button>
+        </Link>
         <h1 className="text-[15px] font-black text-slate-800 tracking-tight">Programming Basics</h1>
         <div
           ref={starPillRef}
@@ -63,6 +64,7 @@ export function MapView({
         style={{ height: 520 }}
       >
         {/* Background image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/map_bg.png" alt="Map background" className="absolute inset-0 w-full h-full object-cover" />
 
         {/* Gradient overlay top & bottom for depth */}
@@ -113,6 +115,7 @@ export function MapView({
 
         {/* ── Mascot bottom right ── */}
         <div className="absolute -bottom-6 -left-4 w-40 h-40 pointer-events-none z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/bulb_mascot.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-lg" />
         </div>
       </div>

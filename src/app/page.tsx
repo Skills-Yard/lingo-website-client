@@ -1,9 +1,7 @@
-import Home from "../components/home";
+"use client";
 
-export default function Page() {
-  return (
-    <>
-      <Home />
-    </>
-  );
+import { redirect } from "next/navigation";
+
+export default function WelcomePage() {
+  redirect("/auth");
 }

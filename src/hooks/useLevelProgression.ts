@@ -21,14 +21,17 @@ export function useLevelProgression({
 
   // Load from localStorage
   useEffect(() => {
-    if (typeof window === 'undefined') return;
     const l = localStorage.getItem('lingo_level_states');
     if (l) {
-      try {
-        setLevelStates(JSON.parse(l));
-      } catch {}
+      const t = setTimeout(() => {
+        try {
+          setLevelStates(JSON.parse(l));
+        } catch {}
+      }, 0);
+      return () => clearTimeout(t);
     }
   }, []);
+
 
   // Save to localStorage
   useEffect(() => {

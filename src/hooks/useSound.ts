@@ -4,7 +4,7 @@ export function useSound(soundEnabled: boolean) {
   const triggerSound = useCallback((type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => {
     if (!soundEnabled || typeof window === 'undefined') return;
     try {
-      const AC = window.AudioContext || (window as any).webkitAudioContext;
+      const AC = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!AC) return;
       const ctx = new AC();
       const tone = (f: number, dur: number, kind: OscillatorType = 'sine', t0 = 0) => {

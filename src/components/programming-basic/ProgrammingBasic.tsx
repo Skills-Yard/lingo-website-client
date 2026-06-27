@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { MapView } from './views/MapView';
 import { LessonTheoryView } from './views/LessonTheoryView';
 import { GameView } from './views/GameView';
-import { useStarsAndHearts } from '@/src/hooks/useStarsAndHearts';
-import { useSound } from '@/src/hooks/useSound';
-import { useLevelProgression } from '@/src/hooks/useLevelProgression';
-import { LEVELS } from '@/src/config/levels';
-import { useGameState } from '@/src/hooks/useGameState';
+import { useStarsAndHearts } from '@/hooks/useStarsAndHearts';
+import { useSound } from '@/hooks/useSound';
+import { useLevelProgression } from '@/hooks/useLevelProgression';
+import { LEVELS } from '@/config/levels';
+import { useGameState } from '@/hooks/useGameState';
+
 
 export default function ProgrammingBasic() {
   const {

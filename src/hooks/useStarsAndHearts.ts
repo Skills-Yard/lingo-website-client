@@ -14,16 +14,19 @@ export function useStarsAndHearts() {
 
   // Load from localStorage
   useEffect(() => {
-    if (typeof window === 'undefined') return;
     const s = localStorage.getItem('lingo_stars');
     const h = localStorage.getItem('lingo_hearts');
-    if (s) {
-      const v = parseInt(s, 10);
-      setStars(v);
-      setVisualStars(v);
-    }
-    if (h) setHearts(parseInt(h, 10));
+    const t = setTimeout(() => {
+      if (s) {
+        const v = parseInt(s, 10);
+        setStars(v);
+        setVisualStars(v);
+      }
+      if (h) setHearts(parseInt(h, 10));
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
+
 
   // Save to localStorage
   useEffect(() => {

@@ -20,7 +20,7 @@ interface MapNodeCardProps {
 
 export function MapNodeCard({
   node,
-  status,
+  status: _status,
   isNext,
   isDone,
   isLocked,

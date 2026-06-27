@@ -25,6 +25,7 @@ export function CommandPalette({ level, isPlaying, success, addCommand }: Comman
               className={`flex-1 p-0 rounded-2xl bg-transparent border-0 shadow-lg transition-all cursor-pointer ${disabled ? 'opacity-30 cursor-not-allowed' : 'hover:scale-105 active:scale-95'
                 }`}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={d.imageSrc} alt={d.label} className="w-full h-auto object-contain" draggable={false} />
             </button>
           );

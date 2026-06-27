@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, Direction } from '../../config/levels';
+import { Position, Direction, TileCoordinate } from '../../config/levels';
 import { lesson1Level } from '../../config/levels/lesson1';
 
 interface Level1PlatformProps {
@@ -13,9 +13,9 @@ interface Level1PlatformProps {
 export const Level1Platform: React.FC<Level1PlatformProps> = ({
   playerPos,
   playerDir,
-  isPlaying,
-  executingStep,
-  collectedStar,
+  isPlaying: _isPlaying,
+  executingStep: _executingStep,
+  collectedStar: _collectedStar,
 }) => {
   const dims = lesson1Level.dimensions;
 
@@ -23,11 +23,11 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
     return lesson1Level.tileCoordinates[`${r},${c}`] || { x: 50, y: 50 };
   };
 
-  const getTileWidth = (tile: any) => {
+  const getTileWidth = (tile: TileCoordinate) => {
     return tile.width ?? dims.tileHighlightWidth ?? '31%';
   };
 
-  const getTileHeight = (tile: any) => {
+  const getTileHeight = (tile: TileCoordinate) => {
     return tile.height ?? dims.tileHighlightHeight ?? '22%';
   };
 
@@ -41,6 +41,7 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
         }}
       >
         {/* Game Platform Background */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/platformlayers/3layer-platform.webp"
           alt="Game Platform"
@@ -92,6 +93,7 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
                 transform: offset.transform || dims.flagTransform,
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/red-flag.webp"
                 alt="Flag"
@@ -117,6 +119,7 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
                 transform: offset.transform || (obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform),
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={obs.type === 'rock' ? '/images/rock.png' : '/images/tree.png'}
                 alt={obs.type}
@@ -155,8 +158,9 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
                 <span className="text-emerald-500 text-[8px] font-black leading-none">➔</span>
               </div>
 
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/lumi.png"
+                src="/images/lumis.png"
                 alt="Lumi"
                 className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
                 style={{ filter: 'url(#chroma-white)' }}

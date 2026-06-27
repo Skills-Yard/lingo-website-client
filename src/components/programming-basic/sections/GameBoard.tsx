@@ -96,6 +96,7 @@ export function GameBoard({
                     className={`w-12 h-12 shadow-md rounded-xl overflow-hidden transition-all p-0 bg-transparent cursor-pointer ${active ? 'scale-110 -translate-y-1' : 'hover:scale-105 border-gray-200 border active:scale-95'
                       }`}
                   >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={COMMAND_DETAILS[cmd].imageSrc}
                       alt={COMMAND_DETAILS[cmd].label}

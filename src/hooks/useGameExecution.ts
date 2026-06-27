@@ -163,7 +163,7 @@ export function useGameExecution({
       }, (idx + 1) * 700);
       executionTimerRef.current.push(t);
     });
-  }, [isPlaying, success, hearts, commands, level, triggerSound, setHearts, setExecutingStep, setFailureMsg, setSuccess, setIsPlaying, setPlayerPos, setCollectedStar, executionTimerRef]);
+  }, [isPlaying, success, hearts, commands, level, triggerSound, setHearts, setExecutingStep, setFailureMsg, setSuccess, setIsPlaying, setPlayerPos, setPlayerDir, setCollectedStar, executionTimerRef]);
 
   return {
     canvasRef,

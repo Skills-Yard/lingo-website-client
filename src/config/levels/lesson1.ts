@@ -2,7 +2,7 @@ import { LevelConfig } from './index';
 
 export const lesson1Level: LevelConfig = {
   name: "Lesson 1",
-  subtitle: "Robot Commands",
+  subtitle: "Lumi Commands",
   instructions: "Guide Lumi to the flag! Help Lumi navigate straight up and turn right to reach the flag.",
   gridCols: 3,
   gridRows: 3,

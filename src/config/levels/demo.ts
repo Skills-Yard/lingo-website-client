@@ -3,7 +3,7 @@ import { LevelConfig } from './index';
 export const demoLevel: LevelConfig = {
   name: "Demo",
   subtitle: "Welcome! Let's Learn",
-  instructions: "Namaste! 👋 Yeh ek chhoti si practice hai. Lumi ko seedha upar bhejo, phir daayein mudo aur seedha chalo — flag wahan hai!",
+  instructions: "Hello! 👋 This is a quick practice level. Guide Lumi straight up, then turn right and keep moving straight—the flag is waiting there!",
   gridCols: 2,
   gridRows: 2,
   startPos: { r: 1, c: 0 },

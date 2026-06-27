@@ -18,7 +18,7 @@ export const THEORY_SLIDES = [
     question: "What is a 'command' in programming?",
     options: [
       { text: "A special instruction we give to a computer to do a specific action.", isCorrect: true },
-      { text: "A hardware device used to power up a robot's screen.", isCorrect: false },
+      { text: "A hardware device used to power up Lumi's screen.", isCorrect: false },
       { text: "The name of a programmer's computer monitor.", isCorrect: false },
     ],
     hasQuiz: true,

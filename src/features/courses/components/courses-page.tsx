@@ -83,7 +83,7 @@ export function CoursesPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[color:var(--background)] pb-32 text-[color:var(--foreground)]">
+    <main className="min-h-screen p-2 bg-[color:var(--background)] pb-32 text-[color:var(--foreground)]">
       <SubjectRail
         subjects={courseSubjects}
         activeSubjectId={activeSubjectId}

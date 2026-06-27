@@ -14,7 +14,7 @@ export default function LimitlessPage({ onNext, onBack }: LimitlessPageProps) {
 
   return (
     <OnboardingLayout
-      step={8}
+      step={7}
       showLogo={false}
       title="There's no limit to how far you can go."
       onContinue={() => {

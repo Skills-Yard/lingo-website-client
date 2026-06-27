@@ -24,7 +24,7 @@ export default function GoalPage({ onNext, onBack }: GoalPageProps) {
 
   return (
     <OnboardingLayout
-      step={6}
+      step={5}
       title="What's your daily learning goal?"
       onContinue={() => {
         if (onNext) {
@@ -37,7 +37,7 @@ export default function GoalPage({ onNext, onBack }: GoalPageProps) {
       onBack={onBack}
       isContinueDisabled={!selected}
     >
-      <div className="grid grid-cols-2 gap-4 mt-4">
+      <div className="grid grid-cols-2 gap-4 mt-2">
         {goals.map((goal) => (
           <SelectionCard
             key={goal.id}
@@ -45,7 +45,7 @@ export default function GoalPage({ onNext, onBack }: GoalPageProps) {
             icon={<Timer className={`${goal.color} w-16 h-16`} strokeWidth={1.5} />}
             selected={selected === goal.id}
             onClick={() => setSelected(goal.id)}
-            className={`h-56 ${goal.bg || ""}`}
+            className={` ${goal.bg || ""}`}
           />
         ))}
       </div>

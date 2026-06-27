@@ -29,11 +29,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[color:var(--background)] text-[color:var(--foreground)]">
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
         {children}
-        <span className="sm:hidden" >
-
-        </span>
       </body>
     </html>
   );

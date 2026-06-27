@@ -16,7 +16,7 @@ const LEVELS = [
     id: "novice",
     code: <span><span className="text-pink-500">if</span> b <span className="text-pink-500">&gt;</span> a:<br/>&nbsp;&nbsp;print b</span>,
     level: "Novice",
-    description: "I&apos;ve seen, but not touched code before.",
+    description: "I've seen, but not touched code before.",
   },
   {
     id: "intermediate",
@@ -28,7 +28,7 @@ const LEVELS = [
     id: "advanced",
     code: <span><span className="text-pink-500">def</span> <span className="text-blue-500">circle</span>(size):</span>,
     level: "Advanced",
-    description: "I&apos;ve written longer programs.",
+    description: "I've written longer programs.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function LevelPage({ onNext, onBack }: LevelPageProps) {
 
   return (
     <OnboardingLayout
-      step={4}
+      step={3}
       title="What level of programming are you currently at?"
       onContinue={() => {
         if (onNext) {
@@ -56,7 +56,7 @@ export default function LevelPage({ onNext, onBack }: LevelPageProps) {
       onBack={onBack}
       isContinueDisabled={!selected}
     >
-      <div className="grid grid-cols-2 gap-4 mt-4">
+      <div className="grid grid-cols-2 gap-4 mt-2">
         {LEVELS.map((item) => (
           <LevelCard
             key={item.id}

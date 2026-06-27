@@ -20,20 +20,17 @@ interface StepProps {
 
 function WelcomeStep({ onNext, onBack }: StepProps) {
   return (
-    <OnboardingLayout
-      title="Welcome to Lingo"
-      subtitle="Let's personalize your learning path in a few quick steps."
-      onContinue={onNext ?? (() => {})}
-      onBack={onBack}
-    >
-      <div className="mt-6 rounded-3xl border border-[var(--border)] bg-[var(--surface-strong)]/70 p-6 text-center shadow-sm">
-        <p className="text-lg font-semibold">Your next lesson is ready.</p>
-        <p className="mt-2 text-sm text-[var(--muted)]">
-          We&apos;ll help you discover the right subjects, level, goals, and
-          schedule for your pace.
-        </p>
-      </div>
-    </OnboardingLayout>
+    <div className="flex justify-center item-center">
+      <OnboardingLayout
+        title="Hi! I am Lumi"
+        subtitle="I'll help you personalize your learning path in a few quick steps."
+        onContinue={onNext ?? (() => {})}
+        onBack={onBack}
+      >
+        {/* Pass an empty fragment or custom inner content to satisfy the 'children' prop */}
+        <></>
+      </OnboardingLayout>
+    </div>
   );
 }
 
@@ -41,7 +38,6 @@ const steps = [
   { id: "welcome", component: WelcomeStep },
   { id: "motivation", component: Motivation },
   { id: "age", component: Age },
-  { id: "subject", component: Subject },
   { id: "level", component: Level },
   { id: "schedule", component: Schedule },
   { id: "goal", component: Goal },

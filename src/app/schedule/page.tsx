@@ -17,7 +17,7 @@ export default function SchedulePage({ onNext, onBack }: SchedulePageProps) {
 
   return (
     <OnboardingLayout
-      step={5}
+      step={4}
       title="How will learning fit into your day?"
       onContinue={() => {
         if (onNext) {
@@ -36,28 +36,28 @@ export default function SchedulePage({ onNext, onBack }: SchedulePageProps) {
           icon={<Sunrise className="text-orange-400 w-16 h-16" />}
           selected={selected === "morning"}
           onClick={() => setSelected("morning")}
-          className="h-56"
+          className=""
         />
         <SelectionCard
           title="Afternoon break"
           icon={<Sun className="text-yellow-500 w-16 h-16" />}
           selected={selected === "afternoon"}
           onClick={() => setSelected("afternoon")}
-          className="h-56 bg-gradient-to-br from-purple-50 to-white dark:from-purple-950/20 dark:to-transparent"
+          className=" bg-gradient-to-br from-purple-50 to-white dark:from-purple-950/20 dark:to-transparent"
         />
         <SelectionCard
           title="Nightly ritual"
           icon={<MoonStar className="text-indigo-400 w-16 h-16" />}
           selected={selected === "night"}
           onClick={() => setSelected("night")}
-          className="h-56"
+          className=""
         />
         <SelectionCard
           title="Another time"
           icon={<SunDim className="text-pink-400 w-16 h-16" />}
           selected={selected === "other"}
           onClick={() => setSelected("other")}
-          className="h-56"
+          className=""
         />
       </div>
     </OnboardingLayout>

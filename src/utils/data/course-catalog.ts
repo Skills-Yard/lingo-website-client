@@ -1,4 +1,4 @@
-import type { CourseSubject } from "../types";
+import type { CourseSubject } from "@/utils/types/type";
 
 export const courseSubjects: CourseSubject[] = [
   {

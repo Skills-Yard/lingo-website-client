@@ -1,4 +1,4 @@
-import type { CourseSubject } from "../types";
+import type { CourseSubject } from "@/utils/types/type";
 import { CourseArtwork } from "./course-artwork";
 import { CourseCard } from "./course-card";
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { CoursesPage } from "@/features/courses/components/courses-page";
+import { CoursesPage } from "@/components/features/courses/courses-page";
 
 export const metadata: Metadata = {
   title: "Courses | Lingo",

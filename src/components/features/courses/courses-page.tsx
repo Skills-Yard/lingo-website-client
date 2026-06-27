@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { courseSubjects } from "../data/course-catalog";
+import { courseSubjects } from "../../../utils/data/course-catalog";
 import { AllSubjectsOverview } from "./all-subjects-overview";
 import { CourseSection } from "./course-section";
 import { SubjectRail } from "./subject-rail";

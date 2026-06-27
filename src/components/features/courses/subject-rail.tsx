@@ -4,7 +4,7 @@ import { BookOpenCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { CourseSubject } from "../types";
+import type { CourseSubject } from "@/utils/types/type";
 import { SubjectIcon } from "./course-artwork";
 
 type SubjectRailProps = {

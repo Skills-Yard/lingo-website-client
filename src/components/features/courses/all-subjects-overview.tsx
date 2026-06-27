@@ -1,4 +1,4 @@
-import type { CourseSubject } from "../types";
+import { CourseSubject } from "@/utils/types/type";
 import { SubjectIcon } from "./course-artwork";
 
 type AllSubjectsOverviewProps = {

@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
-import type { CourseItem, SubjectTheme } from "../types";
 import { CourseArtwork } from "./course-artwork";
+import { CourseItem, SubjectTheme } from "@/utils/types/type";
 
 type CourseCardProps = {
   course: CourseItem;

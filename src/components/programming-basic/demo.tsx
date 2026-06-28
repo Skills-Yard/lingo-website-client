@@ -143,7 +143,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/lumis.png"
+                src="/images/lumis-wayfing.png"
                 alt="Lumi"
                 className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
                 style={{ filter: 'url(#chroma-white)' }}

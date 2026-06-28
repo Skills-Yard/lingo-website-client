@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { THEORY_SLIDES } from '../../../lib/constants/theorySlides';
 import { TheorySlide } from '../sections/TheorySlide';
 import { OutOfHeartsModal } from '../sections/OutOfHeartsModal';
+import { ConfirmDialog } from '../../ui/confirm-dialog';
 
 interface LessonTheoryViewProps {
   hearts: number;
@@ -28,6 +29,7 @@ export function LessonTheoryView({
   const [selectedQuizOption, setSelectedQuizOption] = useState<number | null>(null);
   const [quizAnswerChecked, setQuizAnswerChecked] = useState(false);
   const [showOutOfHeartsModal, setShowOutOfHeartsModal] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const slide = THEORY_SLIDES[currentSlide];
   const progress = ((currentSlide + 1) / THEORY_SLIDES.length) * 100;
@@ -40,7 +42,7 @@ export function LessonTheoryView({
         <button
           onClick={() => {
             triggerSound('tap');
-            if (confirm("Exit lesson? Progress will be lost.")) setView('map');
+            setShowExitConfirm(true);
           }}
           className="w-9 h-9 flex items-center justify-center text-slate-500 hover:bg-slate-100 rounded-xl transition-all active:scale-95 cursor-pointer"
         >
@@ -139,6 +141,21 @@ export function LessonTheoryView({
           triggerSound={triggerSound}
         />
       )}
+
+      {/* Exit Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showExitConfirm}
+        onClose={() => setShowExitConfirm(false)}
+        onConfirm={() => {
+          setShowExitConfirm(false);
+          setView('map');
+        }}
+        title="Exit lesson?"
+        description="Your current progress in this lesson will be lost."
+        confirmText="Exit"
+        cancelText="Cancel"
+        variant="danger"
+      />
     </main>
   );
 }

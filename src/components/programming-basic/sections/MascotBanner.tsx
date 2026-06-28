@@ -13,7 +13,7 @@ export function MascotBanner({ level, collectedStar, success }: MascotBannerProp
       <div className="w-11 h-11 bg-gradient-to-tr from-amber-400 to-yellow-300 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/lumis.png"
+          src="/images/lumis-wayfing.png"
           alt="Lumi"
           className="w-8 h-8 object-contain"
           style={{ filter: 'url(#chroma-white)' }}

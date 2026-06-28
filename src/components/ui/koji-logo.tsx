@@ -6,6 +6,7 @@ interface LumiLogoProps {
   className?: string;
   variant?: LumiVariant;
   priority?: boolean;
+  noBackground?: boolean;
 }
 
 const lumiArtwork: Record<
@@ -13,12 +14,12 @@ const lumiArtwork: Record<
   { src: string; alt: string; sizes: string }
 > = {
   coding: {
-    src: "/images/lumi1.png",
+    src: "/images/lumi-laptop.png",
     alt: "Lumi coding on a laptop",
     sizes: "(max-width: 640px) 96px, 128px",
   },
   study: {
-    src: "/images/lumi2.png",
+    src: "/images/lumi-book.png",
     alt: "Lumi studying from a book",
     sizes: "(max-width: 640px) 96px, 128px",
   },
@@ -28,8 +29,24 @@ export function LumiLogo({
   className = "w-16 h-16",
   variant = "coding",
   priority = false,
+  noBackground = false,
 }: LumiLogoProps) {
   const artwork = lumiArtwork[variant];
+
+  if (noBackground) {
+    return (
+      <div className={`relative ${className}`}>
+        <Image
+          src={artwork.src}
+          alt={artwork.alt}
+          fill
+          priority={priority}
+          sizes={artwork.sizes}
+          className="object-contain"
+        />
+      </div>
+    );
+  }
 
   return (
     <div

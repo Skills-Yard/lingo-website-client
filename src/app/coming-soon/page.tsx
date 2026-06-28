@@ -2,15 +2,15 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
-import { 
-  Bell, 
-  ArrowLeft, 
-  Sparkles, 
-  Award, 
+import {
+  Bell,
+  ArrowLeft,
+  Sparkles,
+  Award,
   CheckCircle2
 } from "lucide-react";
 import Footer from "@/components/footer";
-import { LumiLogo } from "@/components/icons/koji-logo";
+import { LumiLogo } from "@/components/ui/koji-logo";
 
 const TAB_CONTENT = {
   home: {
@@ -82,9 +82,9 @@ function ComingSoonContent() {
     <div className={`relative flex min-h-screen w-full flex-col items-center bg-gradient-to-b ${content.bgGradient} text-[var(--foreground)] px-4 pb-36 pt-24 transition-all duration-500`}>
       {/* Decorative Background Elements */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_60%)] blur-3xl" />
-      
+
       {/* Back button */}
-      <button 
+      <button
         onClick={() => router.back()}
         className="absolute top-6 left-6 flex items-center justify-center gap-1.5 px-4 py-2 border-2 border-b-4 border-border bg-surface text-foreground font-black text-sm rounded-2xl shadow-sm hover:bg-surface-strong transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer z-20"
       >
@@ -95,17 +95,18 @@ function ComingSoonContent() {
       {/* Glass Card Container */}
       <div className="relative z-10 w-full max-w-xl animate-in fade-in slide-in-from-bottom-6 duration-500 ease-out">
         <div className="flex flex-col items-center rounded-[2.5rem] border-2 border-b-[6px] border-border bg-surface/80 p-8 text-center shadow-xl backdrop-blur-xl md:p-10">
-          
+
           {/* Animated Mascot Wrapper */}
           <div className="relative mb-6">
             {/* Soft pulsing halo */}
             <div className="absolute inset-0 -m-3 rounded-[2.5rem] bg-gradient-to-tr from-yellow-300/30 to-purple-400/20 blur-xl animate-pulse" />
-            
+
             {/* The Mascot */}
-            <LumiLogo 
-              variant={content.mascotVariant} 
-              className="h-28 w-28 relative z-10 animate-bounce-slow" 
-              priority 
+            <LumiLogo
+              variant={content.mascotVariant}
+              className="h-28 w-28 relative z-10 animate-bounce-slow"
+              priority
+              noBackground={true}
             />
 
             {/* Decorative Sparkle Icons */}
@@ -158,7 +159,7 @@ function ComingSoonContent() {
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
-                <input 
+                <input
                   type="email"
                   required
                   placeholder="Enter your email..."
@@ -166,7 +167,7 @@ function ComingSoonContent() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-grow h-14 px-5 rounded-2xl border-2 border-b-4 border-border bg-surface text-foreground font-bold placeholder-muted-foreground focus:outline-none focus:border-primary transition-all text-sm"
                 />
-                <button 
+                <button
                   type="submit"
                   className={`h-14 sm:w-auto px-6 border-b-[6px] rounded-2xl text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all active:translate-y-0.5 active:border-b-2 shadow-md ${content.primaryButtonBg}`}
                 >
@@ -176,7 +177,7 @@ function ComingSoonContent() {
               </form>
             )}
 
-            <button 
+            <button
               onClick={() => router.push("/courses")}
               className="w-full h-14 bg-surface hover:bg-surface-strong text-foreground border-2 border-b-4 border-border font-black text-sm rounded-2xl flex items-center justify-center gap-2 transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer shadow-sm"
             >
@@ -186,7 +187,7 @@ function ComingSoonContent() {
 
         </div>
       </div>
-      
+
       {/* Floating Bottom Navigation */}
       <Footer />
     </div>

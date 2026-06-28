@@ -4,20 +4,21 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { 
-  Play, 
-  Lock, 
-  Sparkles, 
-  BookOpen, 
+import {
+  Play,
+  Lock,
+  Sparkles,
+  BookOpen,
   RotateCcw,
-  Code2, 
-  Layers, 
-  Coffee, 
-  Cpu, 
-  Hash, 
-  Compass 
+  Code2,
+  Layers,
+  Coffee,
+  Cpu,
+  Hash,
+  Compass
 } from "lucide-react";
 import Footer from "@/components/footer";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 const COMING_SOON_COURSES = [
   { id: "python", title: "Python", subtitle: "Translate ideas into powerful code", icon: <Code2 className="text-[#3776ab] w-7 h-7" />, color: "#3776ab" },
@@ -31,6 +32,7 @@ const COMING_SOON_COURSES = [
 export function CoursesPage() {
   const [stars, setStars] = useState(0);
   const [hearts, setHearts] = useState(5);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,12 +46,15 @@ export function CoursesPage() {
   }, []);
 
   const handleResetProgress = () => {
-    if (confirm("Are you sure you want to reset all progress and restart onboarding?")) {
-      if (typeof window !== "undefined") {
-        localStorage.clear();
-      }
-      router.push("/auth");
+    setShowResetConfirm(true);
+  };
+
+  const executeReset = () => {
+    setShowResetConfirm(false);
+    if (typeof window !== "undefined") {
+      localStorage.clear();
     }
+    router.push("/auth");
   };
 
   return (
@@ -58,7 +63,7 @@ export function CoursesPage() {
       <header className="w-full max-w-4xl flex items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-3">
           <div className="bg-white border-2 border-b-4 border-slate-200 px-3 py-1.5 rounded-2xl shadow-sm flex items-center gap-2">
-            <Image src="/images/lumis.png" alt="Lumi" width={28} height={28} className="w-7 h-7 object-contain" />
+            <Image src="/images/lumis-wayfing.png" alt="Lumi" width={28} height={28} className="w-7 h-7 object-contain" />
             <span className="text-2xl font-black text-slate-800 tracking-tight leading-none">
               Lingo
             </span>
@@ -89,7 +94,7 @@ export function CoursesPage() {
 
       {/* Main Dashboard Container */}
       <div className="w-full max-w-4xl flex-grow flex flex-col gap-8 mb-24 z-10">
-        
+
         {/* Active Hero Course Card */}
         <section className="w-full bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 text-white rounded-[2.5rem] p-6 md:p-8 shadow-xl relative overflow-hidden border-b-[8px] border-indigo-900 active:translate-y-0.5 active:border-b-[4px] transition-all">
           {/* Floating background blobs */}
@@ -108,7 +113,7 @@ export function CoursesPage() {
               <p className="text-indigo-100 text-sm md:text-base font-bold max-w-lg leading-relaxed">
                 Guide Lumi through grids, collect stars, avoid rocks or trees, and master sequence logic using directional commands! 🎮
               </p>
-              
+
               <div className="flex flex-wrap gap-4 pt-2 justify-center md:justify-start">
                 <div className="flex items-center gap-1.5 text-xs font-extrabold text-indigo-200">
                   <BookOpen className="w-4 h-4" />
@@ -122,9 +127,9 @@ export function CoursesPage() {
 
             <div className="flex-shrink-0 flex flex-col items-center gap-4">
               <div className="bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-3xl shadow-lg">
-                <Image src="/images/lumis.png" alt="Lumi" width={80} height={80} className="w-20 h-20 object-contain" />
+                <Image src="/images/lumis-wayfing.png" alt="Lumi" width={80} height={80} className="w-20 h-20 object-contain" />
               </div>
-              
+
               <Link href="/programming_basic">
                 <button className="bg-[#58cc02] border-b-[6px] border-[#3ea800] hover:bg-[#65e002] active:translate-y-0.5 active:border-b-2 text-white font-black text-lg px-8 py-3.5 rounded-2xl shadow-lg flex items-center gap-2 cursor-pointer transition-all">
                   <Play className="w-5 h-5 fill-current" />
@@ -159,16 +164,16 @@ export function CoursesPage() {
                 </span>
 
                 <div className="flex items-start gap-3">
-                  <div 
+                  <div
                     className="flex-shrink-0 size-12 rounded-2xl flex items-center justify-center border shadow-inner"
-                    style={{ 
+                    style={{
                       background: `linear-gradient(135deg, ${course.color}15, var(--surface-strong) 72%)`,
                       borderColor: `${course.color}33`
                     }}
                   >
                     {course.icon}
                   </div>
-                  
+
                   <div className="min-w-0 flex-grow">
                     <h3 className="text-base font-black text-slate-800 leading-tight">
                       {course.title}
@@ -190,6 +195,17 @@ export function CoursesPage() {
           </div>
         </section>
       </div>
+
+      <ConfirmDialog
+        isOpen={showResetConfirm}
+        onClose={() => setShowResetConfirm(false)}
+        onConfirm={executeReset}
+        title="Reset all progress?"
+        description="Are you sure you want to reset all progress and restart onboarding?"
+        confirmText="Reset"
+        cancelText="Cancel"
+        variant="danger"
+      />
 
       <Footer />
     </main>

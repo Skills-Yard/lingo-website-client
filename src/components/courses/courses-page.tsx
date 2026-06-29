@@ -58,7 +58,7 @@ export function CoursesPage() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-gradient-to-b from-sky-100 via-blue-50 to-yellow-50 text-slate-800 font-sans flex flex-col items-center py-6 px-4">
+    <main className="min-h-screen w-full bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 text-slate-800 font-sans flex flex-col items-center py-6 px-4">
       {/* Top Header Row */}
       <header className="w-full max-w-4xl flex items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-3">
@@ -93,16 +93,16 @@ export function CoursesPage() {
       </header>
 
       {/* Main Dashboard Container */}
-      <div className="w-full max-w-4xl flex-grow flex flex-col gap-8 mb-24 z-10">
+      <div className="w-full max-w-4xl grow flex flex-col gap-8 mb-24 z-10">
 
         {/* Active Hero Course Card */}
-        <section className="w-full bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 text-white rounded-[2.5rem] p-6 md:p-8 shadow-xl relative overflow-hidden border-b-[8px] border-indigo-900 active:translate-y-0.5 active:border-b-[4px] transition-all">
+        <section className="w-full bg-linear-to-br from-indigo-600 via-purple-600 to-indigo-700 text-white rounded-[2.5rem] p-6 md:p-8 shadow-xl relative overflow-hidden border-b-[8px] border-indigo-900 active:translate-y-0.5 active:border-b-[4px] transition-all">
           {/* Floating background blobs */}
-          <div className="absolute top-[-30px] right-[-30px] w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-[-50px] left-[-50px] w-80 h-80 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
+          <div className="absolute -top-7.5 -right-7.5 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-12.5 -left-12.5 w-80 h-80 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
-            <div className="flex-grow space-y-4 text-center md:text-left">
+            <div className="grow space-y-4 text-center md:text-left">
               <div className="inline-flex items-center gap-1.5 bg-yellow-400/20 text-yellow-300 font-black text-[11px] uppercase tracking-widest px-3 py-1 rounded-full border border-yellow-400/30">
                 <Sparkles className="w-3 h-3" />
                 Featured Subject
@@ -125,10 +125,8 @@ export function CoursesPage() {
               </div>
             </div>
 
-            <div className="flex-shrink-0 flex flex-col items-center gap-4">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-3xl shadow-lg">
-                <Image src="/images/lumis-wayfing.png" alt="Lumi" width={80} height={80} className="w-20 h-20 object-contain" />
-              </div>
+            <div className="shrink-0 flex flex-col items-center gap-4">
+              <Image src="/images/lumis-wayfing.png" alt="Lumi" width={180} height={180} className="w-32 h-32 object-contain" />
 
               <Link href="/programming_basic">
                 <button className="bg-[#58cc02] border-b-[6px] border-[#3ea800] hover:bg-[#65e002] active:translate-y-0.5 active:border-b-2 text-white font-black text-lg px-8 py-3.5 rounded-2xl shadow-lg flex items-center gap-2 cursor-pointer transition-all">
@@ -165,7 +163,7 @@ export function CoursesPage() {
 
                 <div className="flex items-start gap-3">
                   <div
-                    className="flex-shrink-0 size-12 rounded-2xl flex items-center justify-center border shadow-inner"
+                    className="shrink-0 size-12 rounded-2xl flex items-center justify-center border shadow-inner"
                     style={{
                       background: `linear-gradient(135deg, ${course.color}15, var(--surface-strong) 72%)`,
                       borderColor: `${course.color}33`
@@ -174,7 +172,7 @@ export function CoursesPage() {
                     {course.icon}
                   </div>
 
-                  <div className="min-w-0 flex-grow">
+                  <div className="min-w-0 grow">
                     <h3 className="text-base font-black text-slate-800 leading-tight">
                       {course.title}
                     </h3>

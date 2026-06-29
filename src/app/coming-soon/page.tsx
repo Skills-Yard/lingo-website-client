@@ -11,51 +11,7 @@ import {
 } from "lucide-react";
 import Footer from "@/components/footer";
 import { LumiLogo } from "@/components/ui/koji-logo";
-
-const TAB_CONTENT = {
-  home: {
-    title: "Daily Learning Hub",
-    badge: "Dashboard",
-    badgeColor: "bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-900",
-    mascotVariant: "study" as const,
-    description: "We are building a center for your daily goals. Keep track of your streaks, complete daily quests, compete with friends, and review your mistakes in one single screen.",
-    bgGradient: "from-sky-100/70 via-indigo-50/50 to-yellow-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-900",
-    primaryButtonBg: "bg-indigo-600 border-indigo-800 hover:bg-indigo-500 text-white",
-    statsPreview: [
-      { label: "Daily Quests", value: "3 Active" },
-      { label: "Streaks Hub", value: "Locked" },
-      { label: "XP Multiplier", value: "Ready" }
-    ]
-  },
-  premium: {
-    title: "Lingo Premium",
-    badge: "Supercharge",
-    badgeColor: "bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900",
-    mascotVariant: "coding" as const,
-    description: "Unlock the full potential of your coding journey! Get unlimited hearts, completely ad-free lessons, personalized practice, and exclusive certificate badges upon course completion.",
-    bgGradient: "from-amber-100/60 via-purple-50/40 to-sky-50/30 dark:from-slate-950 dark:via-purple-950/20 dark:to-slate-900",
-    primaryButtonBg: "bg-amber-500 border-amber-700 hover:bg-amber-400 text-slate-950",
-    statsPreview: [
-      { label: "Hearts", value: "∞ Unlimited" },
-      { label: "Ad-free Mode", value: "Active" },
-      { label: "Certificates", value: "Included" }
-    ]
-  },
-  you: {
-    title: "Your Learning Profile",
-    badge: "Progress",
-    badgeColor: "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900",
-    mascotVariant: "study" as const,
-    description: "Your personalized statistics arena. Track your minutes spent coding, total lines of logic verified, unlock trophies for milestones, and show off your achievements on the global leaderboard.",
-    bgGradient: "from-emerald-100/60 via-teal-50/40 to-yellow-50/30 dark:from-slate-950 dark:via-emerald-950/20 dark:to-slate-900",
-    primaryButtonBg: "bg-emerald-600 border-emerald-800 hover:bg-emerald-500 text-white",
-    statsPreview: [
-      { label: "Total Code Runs", value: "Locked" },
-      { label: "Completed Lessons", value: "0" },
-      { label: "Trophy Count", value: "0 / 12" }
-    ]
-  }
-};
+import { TAB_CONTENT } from "@/utils/data/comingSoon";
 
 function ComingSoonContent() {
   const router = useRouter();
@@ -79,9 +35,9 @@ function ComingSoonContent() {
   };
 
   return (
-    <div className={`relative flex min-h-screen w-full flex-col items-center bg-gradient-to-b ${content.bgGradient} text-[var(--foreground)] px-4 pb-36 pt-24 transition-all duration-500`}>
+    <div className={`relative flex min-h-screen w-full flex-col items-center bg-linear-to-b ${content.bgGradient} text-foreground px-4 pb-36 pt-24 transition-all duration-500`}>
       {/* Decorative Background Elements */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.08),_transparent_60%)] blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-160 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_60%)] blur-3xl" />
 
       {/* Back button */}
       <button
@@ -99,7 +55,7 @@ function ComingSoonContent() {
           {/* Animated Mascot Wrapper */}
           <div className="relative mb-6">
             {/* Soft pulsing halo */}
-            <div className="absolute inset-0 -m-3 rounded-[2.5rem] bg-gradient-to-tr from-yellow-300/30 to-purple-400/20 blur-xl animate-pulse" />
+            <div className="absolute inset-0 -m-3 rounded-[2.5rem] bg-linear-to-tr from-yellow-300/30 to-purple-400/20 blur-xl animate-pulse" />
 
             {/* The Mascot */}
             <LumiLogo
@@ -165,7 +121,7 @@ function ComingSoonContent() {
                   placeholder="Enter your email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-grow h-14 px-5 rounded-2xl border-2 border-b-4 border-border bg-surface text-foreground font-bold placeholder-muted-foreground focus:outline-none focus:border-primary transition-all text-sm"
+                  className="grow h-14 px-5 rounded-2xl border-2 border-b-4 border-border bg-surface text-foreground font-bold placeholder-muted-foreground focus:outline-none focus:border-primary transition-all text-sm"
                 />
                 <button
                   type="submit"
@@ -188,7 +144,6 @@ function ComingSoonContent() {
         </div>
       </div>
 
-      {/* Floating Bottom Navigation */}
       <Footer />
     </div>
   );
@@ -197,7 +152,7 @@ function ComingSoonContent() {
 export default function ComingSoonPage() {
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-sky-100 via-blue-50 to-yellow-50 dark:from-slate-950 dark:to-slate-900">
+      <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 dark:from-slate-950 dark:to-slate-900">
         <div className="flex flex-col items-center gap-4">
           <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           <p className="text-sm font-bold text-muted-foreground animate-pulse">Lumi is thinking...</p>

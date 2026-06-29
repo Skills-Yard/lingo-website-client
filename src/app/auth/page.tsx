@@ -1,6 +1,7 @@
 "use client";
 
-import { OnboardingWorkflow } from "@/components/features/auth/views/OnboardingWorkflow";
+import { OnboardingWorkflow } from "@/components/auth/views/OnboardingWorkflow";
+
 
 export default function AuthPage() {
   return <OnboardingWorkflow />;

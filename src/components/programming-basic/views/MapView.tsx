@@ -32,7 +32,7 @@ export function MapView({
   triggerSound,
 }: MapViewProps) {
   return (
-    <main className="min-h-screen relative w-full flex flex-col items-center bg-gradient-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans select-none">
+    <main className="min-h-screen relative w-full flex flex-col items-center bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans select-none">
       {/* Flying star particles */}
       {flyingStars.map(fs => (
         <FlyingStarParticle key={fs.id} fromX={fs.fromX} fromY={fs.fromY} targetRef={starPillRef} />
@@ -68,8 +68,8 @@ export function MapView({
         <img src="/images/map_bg.png" alt="Map background" className="absolute inset-0 w-full h-full object-cover" />
 
         {/* Gradient overlay top & bottom for depth */}
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sky-200/30 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-green-900/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-16 bg-linear-to-b from-sky-200/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-green-900/30 to-transparent pointer-events-none" />
 
         {/* ── SVG path ── */}
         <svg viewBox="0 0 100 90" className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, Volume2 } from "lucide-react";
-import { Button } from "@/components/ui/button"; // Shadcn Button
+import { Button } from "@/components/ui/button";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { LumiLogo } from "@/components/ui/koji-logo";
@@ -51,33 +51,33 @@ export function OnboardingLayout({
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,var(--surface)_100%)] text-[var(--foreground)]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,_rgba(253,224,71,0.28),_transparent_60%)]" />
-      <div className="pointer-events-none absolute right-[-4rem] top-28 h-44 w-44 rounded-full bg-[radial-gradient(circle,_rgba(125,211,252,0.24),_transparent_70%)] blur-2xl" />
-      <div className="pointer-events-none absolute left-[-3rem] top-[32rem] h-52 w-52 rounded-full bg-[radial-gradient(circle,_rgba(196,181,253,0.2),_transparent_72%)] blur-3xl" />
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[linear-gradient(180deg,var(--background)_0%,var(--surface)_100%)] text-foreground">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,rgba(253,224,71,0.28),transparent_60%)]" />
+      <div className="pointer-events-none absolute -right-16 top-28 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(125,211,252,0.24),transparent_70%)] blur-2xl" />
+      <div className="pointer-events-none absolute -left-12 top-128 h-52 w-52 rounded-full bg-[radial-gradient(circle,rgba(196,181,253,0.2),transparent_72%)] blur-3xl" />
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col p-4 sm:p-6">
         {/* Top Navigation & Progress */}
         {(resolvedStep !== undefined && resolvedStep <= 7) && (
           <div className="flex items-center justify-between mb-2 gap-4">
-            <button onClick={handleBack} className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] p-2 -ml-2 shadow-sm transition hover:bg-[var(--surface-strong)]">
+            <button onClick={handleBack} className="rounded-full border border-border bg-surface p-2 -ml-2 shadow-sm transition hover:bg-surface-strong">
               <ChevronLeft className="w-6 h-6" />
             </button>
 
-            <div className="flex-1 flex gap-2 max-w-[220px]">
+            <div className="flex-1 flex gap-2 max-w-55">
               {Array.from({ length: resolvedTotalSteps }).map((_, i) => (
                 <div
                   key={i}
                   className={`h-2 rounded-full flex-1 ${i < resolvedStep
                       ? "bg-[linear-gradient(90deg,#facc15_0%,#60a5fa_100%)] shadow-[0_0_12px_rgba(96,165,250,0.35)]"
-                      : "bg-[color:var(--border)]"
+                      : "bg-border"
                     }`}
                 />
               ))}
             </div>
 
-            <button className="rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] p-2 -mr-2 shadow-sm transition hover:bg-[var(--surface-strong)]">
-              <Volume2 className="w-6 h-6 text-[color:var(--muted)]" />
+            <button className="rounded-full border border-border bg-surface p-2 -mr-2 shadow-sm transition hover:bg-surface-strong">
+              <Volume2 className="w-6 h-6 text-muted" />
             </button>
           </div>
         )}
@@ -94,7 +94,7 @@ export function OnboardingLayout({
           )}
           <div className="text-center space-y-2 w-full">
             <h1 className="text-2xl font-bold tracking-tight text-balance">{title}</h1>
-            {subtitle && <p className="text-[var(--muted)] text-lg text-pretty">{subtitle}</p>}
+            {subtitle && <p className="text-muted text-lg text-pretty">{subtitle}</p>}
           </div>
 
           <div className="w-full flex flex-col items-center justify-center">
@@ -104,7 +104,7 @@ export function OnboardingLayout({
 
         {/* Sticky Bottom Button */}
         {showContinueButton && (
-          <div className="fixed bottom-0 left-0 right-0 flex justify-center bg-gradient-to-t from-[var(--background)] via-[var(--background)] to-transparent p-4 sm:p-6 z-10">
+          <div className="fixed bottom-0 left-0 right-0 flex justify-center bg-linear-to-t from-background via-background to-transparent p-4 sm:p-6 z-10">
             <div className="w-full max-w-md">
               <Button
                 className="h-14 w-full rounded-2xl border-0 bg-[linear-gradient(135deg,#facc15_0%,#60a5fa_55%,#818cf8_100%)] text-lg font-bold text-slate-950 shadow-[0_16px_30px_rgba(96,165,250,0.28)] transition hover:brightness-105 dark:text-slate-950"

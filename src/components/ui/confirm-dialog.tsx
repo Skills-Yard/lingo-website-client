@@ -102,7 +102,7 @@ export function ConfirmDialog({
         </h3>
 
         {/* Description */}
-        <p className="text-sm font-semibold text-slate-500 mb-6 leading-relaxed max-w-[280px]">
+        <p className="text-sm font-semibold text-slate-500 mb-6 leading-relaxed max-w-70">
           {description}
         </p>
 

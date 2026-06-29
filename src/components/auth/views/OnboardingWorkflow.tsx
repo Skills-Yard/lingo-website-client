@@ -10,7 +10,7 @@ import { ScheduleStep } from "../sections/onboarding_steps/ScheduleStep";
 import { GoalStep } from "../sections/onboarding_steps/GoalStep";
 import { TopicsStep } from "../sections/onboarding_steps/TopicsStep";
 import { LimitlessStep } from "../sections/onboarding_steps/LimitlessStep";
-import { SignupStep } from "../sections/onboarding_steps/SignupStep";
+import { SignupStep } from "../SignupStep";
 
 export function OnboardingWorkflow() {
   const [stepIndex, setStepIndex] = useState(0);

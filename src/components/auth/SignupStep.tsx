@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { OnboardingLayout } from "../OnboardingLayout";
+import { OnboardingLayout } from "./sections/OnboardingLayout";
 
 export function SignupStep({ onBack, onComplete }: { onBack: () => void; onComplete: () => void }) {
   const [email, setEmail] = useState("");
@@ -42,9 +42,9 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
         </div>
 
         <div className="relative flex items-center py-1">
-          <div className="flex-grow border-t-2 border-slate-200" />
-          <span className="mx-4 flex-shrink-0 text-xs font-black tracking-widest text-slate-400">OR</span>
-          <div className="flex-grow border-t-2 border-slate-200" />
+          <div className="grow border-t-2 border-slate-200" />
+          <span className="mx-4 shrink-0 text-xs font-black tracking-widest text-slate-400">OR</span>
+          <div className="grow border-t-2 border-slate-200" />
         </div>
 
         <div className="space-y-3 relative">

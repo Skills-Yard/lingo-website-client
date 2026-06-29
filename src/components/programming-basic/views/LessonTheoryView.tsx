@@ -51,8 +51,8 @@ export function LessonTheoryView({
           </svg>
         </button>
 
-        <div className="flex items-center gap-2 flex-grow mx-3">
-          <div className="flex-grow h-3 bg-slate-100 rounded-full overflow-hidden">
+        <div className="flex items-center gap-2 grow mx-3">
+          <div className="grow h-3 bg-slate-100 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #58cc02, #89e219)' }}
@@ -70,7 +70,7 @@ export function LessonTheoryView({
       </header>
 
       {/* ── Slide body ── */}
-      <div className="flex-grow flex flex-col px-5 pt-4 pb-6 overflow-y-auto">
+      <div className="grow flex flex-col px-5 pt-4 pb-6 overflow-y-auto">
         <TheorySlide
           slide={slide}
           selectedQuizOption={selectedQuizOption}

@@ -16,18 +16,18 @@ export function LevelCard({ codeSnippet, level, description, selected, onClick, 
     <button
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 bg-[var(--surface)] w-full text-center min-h-[120px]",
+        "flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all duration-200 bg-surface w-full text-center min-h-30",
         selected 
           ? "border-purple-500 bg-purple-50 dark:bg-purple-950/20" 
-          : "border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600",
+          : "border-border hover:border-gray-300 dark:hover:border-gray-600",
         className
       )}
     >
-      <div className="font-mono opacity-70 text-[12px] md:text-base text-purple-600 dark:text-purple-400 mb-4 min-h-[40px] flex items-center justify-center">
+      <div className="font-mono opacity-70 text-[12px] md:text-base text-purple-600 dark:text-purple-400 mb-4 min-h-10 flex items-center justify-center">
         {codeSnippet}
       </div>
       <h3 className="font-bold text-xl mb-2">{level}</h3>
-      <p className="text-[var(--muted)] opacity-70 text-[10px] leading-tight">{description}</p>
+      <p className="text-muted opacity-70 text-[10px] leading-tight">{description}</p>
     </button>
   );
 }   

@@ -30,14 +30,14 @@ export function OnboardingLayout({
   continueLabel: _continueLabel = "Continue"
 }: OnboardingLayoutProps) {
   return (
-    <div className="relative min-h-screen w-full bg-gradient-to-b from-sky-100 via-blue-50 to-yellow-50 text-slate-800 font-sans flex flex-col items-center py-6 px-4">
+    <div className="relative min-h-screen w-full bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 text-slate-800 font-sans flex flex-col items-center py-6 px-4">
       {/* Background Clouds decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-40">
-        <div className="absolute top-[10%] left-[-100px] w-[200px] h-[80px] bg-white rounded-full blur-[1px] animate-pulse" />
-        <div className="absolute top-[30%] right-[-120px] w-[250px] h-[90px] bg-white rounded-full blur-[1px]" />
+        <div className="absolute top-[10%] -left-25 w-50 h-20 bg-white rounded-full blur-[1px] animate-pulse" />
+        <div className="absolute top-[30%] -right-30 w-62.5 h-22.5 bg-white rounded-full blur-[1px]" />
       </div>
 
-      <div className="relative w-full max-w-md flex flex-col z-10 flex-grow">
+      <div className="relative w-full max-w-md flex flex-col z-10 grow">
         {/* Navigation & Progress Bar */}
         {step !== undefined && (
           <header className="flex items-center justify-between gap-3 mb-6">
@@ -52,7 +52,7 @@ export function OnboardingLayout({
               {Array.from({ length: totalSteps }).map((_, i) => (
                 <div
                   key={i}
-                  className={`h-2.5 rounded-full flex-grow border border-slate-200/50 shadow-inner ${i < step
+                  className={`h-2.5 rounded-full grow border border-slate-200/50 shadow-inner ${i < step
                       ? "bg-[#58cc02] shadow-[0_0_8px_rgba(88,204,2,0.4)]"
                       : "bg-slate-200"
                     }`}
@@ -69,7 +69,7 @@ export function OnboardingLayout({
         )}
 
         {/* Content Container */}
-        <div className="flex-grow flex flex-col justify-center items-center py-4 mb-28">
+        <div className="grow flex flex-col justify-center items-center py-4 mb-28">
           {showLogo && (
             <div className="mb-6 flex justify-center transform hover:scale-105 transition-transform">
               <LumiLogo variant="study" className="w-24 h-24 drop-shadow-md animate-bounce-slow" priority noBackground={true} />
@@ -94,7 +94,7 @@ export function OnboardingLayout({
 
         {/* Sticky Continue Button */}
         {showContinueButton && (
-          <footer className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-sky-50 via-sky-50/90 to-transparent flex justify-center z-20">
+          <footer className="fixed bottom-0 left-0 right-0 p-4 bg-linear-to-t from-sky-50 via-sky-50/90 to-transparent flex justify-center z-20">
             <div className="w-full max-w-md">
               <button
                 onClick={onContinue}

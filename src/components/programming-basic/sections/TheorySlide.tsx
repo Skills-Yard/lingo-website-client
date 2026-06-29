@@ -35,11 +35,11 @@ export function TheorySlide({
     return (
       <>
         <div className="flex items-start gap-3 mb-6">
-          <div className="flex-grow">
+          <div className="grow">
             <h2 className="text-[26px] font-black text-slate-900 leading-tight mb-3">{slide.title}</h2>
             <p className="text-[14px] text-slate-600 leading-relaxed">{slide.text}</p>
           </div>
-          <div className="flex-shrink-0 w-[110px] h-[130px] flex items-center justify-center">
+          <div className="shrink-0 w-27.5 h-32.5 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/bulb_mascot.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-md" />
           </div>
@@ -53,7 +53,7 @@ export function TheorySlide({
             { icon: '↓', label: 'Put Down' },
           ].map(item => (
             <div key={item.label} className="flex items-center gap-3 bg-white border-2 border-[#d7f5c5] rounded-2xl px-4 py-3 shadow-sm">
-              <div className="w-9 h-9 rounded-xl bg-[#58cc02] flex items-center justify-center text-white font-black text-lg shadow-sm flex-shrink-0">
+              <div className="w-9 h-9 rounded-xl bg-[#58cc02] flex items-center justify-center text-white font-black text-lg shadow-sm shrink-0">
                 {item.icon}
               </div>
               <span className="text-[14px] font-bold text-slate-800">{item.label}</span>
@@ -126,11 +126,11 @@ export function TheorySlide({
                 }}
                 className={`flex items-start gap-3 w-full text-left p-4 border-2 border-b-4 rounded-2xl transition-all shadow-sm cursor-pointer ${borderCls}`}
               >
-                <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-[11px] flex-shrink-0 mt-0.5 ${iconBg} ${iconColor}`}>
+                <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-[11px] shrink-0 mt-0.5 ${iconBg} ${iconColor}`}>
                   {['A', 'B', 'C'][idx]}
                 </span>
-                <span className="text-[13px] font-semibold leading-snug flex-grow">{opt.text}</span>
-                {isSel && checked && <span className="flex-shrink-0 text-lg mt-0.5">{opt.isCorrect ? '✓' : '✗'}</span>}
+                <span className="text-[13px] font-semibold leading-snug grow">{opt.text}</span>
+                {isSel && checked && <span className="shrink-0 text-lg mt-0.5">{opt.isCorrect ? '✓' : '✗'}</span>}
               </button>
             );
           })}

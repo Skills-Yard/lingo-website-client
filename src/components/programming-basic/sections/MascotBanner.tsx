@@ -10,7 +10,7 @@ interface MascotBannerProps {
 export function MascotBanner({ level, collectedStar, success }: MascotBannerProps) {
   return (
     <div className="w-full bg-white border border-slate-100 shadow-md rounded-2xl p-3 flex gap-3 items-center mb-2 select-none">
-      <div className="w-11 h-11 bg-gradient-to-tr from-amber-400 to-yellow-300 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+      <div className="w-11 h-11 bg-linear-to-tr from-amber-400 to-yellow-300 rounded-xl flex items-center justify-center shadow-md shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/lumis-wayfing.png"
@@ -19,11 +19,11 @@ export function MascotBanner({ level, collectedStar, success }: MascotBannerProp
           style={{ filter: 'url(#chroma-white)' }}
         />
       </div>
-      <div className="flex-grow">
+      <div className="grow">
         <h2 className="text-xs font-extrabold text-slate-800 mb-0.5">{level.subtitle}</h2>
         <p className="text-[10px] text-slate-500 leading-snug">{level.instructions}</p>
       </div>
-      <div className="flex flex-col items-center p-2 bg-slate-50 border border-slate-100 rounded-xl flex-shrink-0 min-w-[60px]">
+      <div className="flex flex-col items-center p-2 bg-slate-50 border border-slate-100 rounded-xl shrink-0 min-w-15">
         {level.starPos ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}

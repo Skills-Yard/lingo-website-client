@@ -63,11 +63,11 @@ export function GameView({
   });
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans flex flex-col items-center py-2 px-3">
+    <main className="relative min-h-screen w-full overflow-hidden bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans flex flex-col items-center py-2 px-3">
       {/* Clouds */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[10%] left-[-150px] w-[200px] h-[80px] bg-white opacity-40 blur-[2px] rounded-full animate-float-slow" />
-        <div className="absolute top-[30%] right-[-180px] w-[250px] h-[90px] bg-white opacity-50 blur-[1px] rounded-full animate-float-medium" />
+        <div className="absolute top-[10%] -left-37.5 w-50 h-20 bg-white opacity-40 blur-[2px] rounded-full animate-float-slow" />
+        <div className="absolute top-[30%] -right-45 w-62.5 h-22.5 bg-white opacity-50 blur-[1px] rounded-full animate-float-medium" />
       </div>
 
       {success === true && <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-50" />}

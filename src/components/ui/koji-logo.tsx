@@ -50,9 +50,9 @@ export function LumiLogo({
 
   return (
     <div
-      className={`relative isolate overflow-hidden rounded-[2rem] border border-white/60 bg-[radial-gradient(circle_at_top,_rgba(255,245,157,0.95),_rgba(255,224,130,0.72)_45%,_rgba(196,181,253,0.42)_100%)] p-2 shadow-[0_20px_45px_rgba(79,70,229,0.18)] ${className}`}
+      className={`relative isolate overflow-hidden rounded-[2rem] border border-white/60 bg-[radial-gradient(circle_at_top,rgba(255,245,157,0.95),rgba(255,224,130,0.72)_45%,rgba(196,181,253,0.42)_100%)] p-2 shadow-[0_20px_45px_rgba(79,70,229,0.18)] ${className}`}
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,_rgba(255,255,255,0.75),_transparent_38%),radial-gradient(circle_at_80%_85%,_rgba(147,197,253,0.35),_transparent_32%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.75),transparent_38%),radial-gradient(circle_at_80%_85%,rgba(147,197,253,0.35),transparent_32%)]" />
       <Image
         src={artwork.src}
         alt={artwork.alt}

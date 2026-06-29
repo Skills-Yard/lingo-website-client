@@ -15,10 +15,10 @@ export function SelectionCard({ title, icon, selected, onClick, className }: Sel
     <button
       onClick={onClick}
       className={cn(
-        "flex flex-col h-42 items-center justify-center p-10 rounded-2xl border-2 transition-all duration-200 bg-[var(--surface)] w-full gap-0",
+        "flex flex-col h-42 items-center justify-center p-10 rounded-2xl border-2 transition-all duration-200 bg-surface w-full gap-0",
         selected 
           ? "border-green-500 bg-green-50 dark:bg-green-950/20" 
-          : "border-[var(--border)] hover:border-gray-300 dark:hover:border-gray-600",
+          : "border-border hover:border-gray-300 dark:hover:border-gray-600",
         className
       )}
     >

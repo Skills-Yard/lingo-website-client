@@ -43,7 +43,7 @@ export function MapNodeCard({
           transition-all duration-150 active:scale-95
           ${
             isLocked
-              ? 'w-12 h-12 bg-slate-400 border-b-[4px] border-slate-500 cursor-not-allowed shadow-md'
+              ? 'w-12 h-12 bg-slate-400 border-b-4 border-slate-500 cursor-not-allowed shadow-md'
               : isDone
               ? 'min-w-14 min-h-14 bg-[#58cc02] border-b-[5px] border-[#3ea800] hover:bg-[#65e002] shadow-[0_4px_14px_rgba(88,204,2,0.45)] cursor-pointer'
               : 'min-w-14 min-h-14 bg-[#58cc02] border-b-[5px] border-[#3ea800] hover:bg-[#65e002] shadow-[0_4px_14px_rgba(88,204,2,0.45)] cursor-pointer ring-4 ring-[#58cc02]/30'

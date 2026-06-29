@@ -34,7 +34,7 @@ export function GameHeader({
         </svg>
       </button>
 
-      <div className="flex-grow">
+      <div className="grow">
         <div className="flex justify-between items-center mb-1 px-1">
           <span className={`text-[10px] font-bold tracking-wide uppercase ${level.isDemo ? 'text-amber-500' : 'text-indigo-600'}`}>
             {level.isDemo ? '🎓 ' : ''}

@@ -96,7 +96,7 @@ export function CoursesPage() {
       <div className="w-full max-w-4xl grow flex flex-col gap-8 mb-24 z-10">
 
         {/* Active Hero Course Card */}
-        <section className="w-full bg-linear-to-br from-indigo-600 via-purple-600 to-indigo-700 text-white rounded-[2.5rem] p-6 md:p-8 shadow-xl relative overflow-hidden border-b-[8px] border-indigo-900 active:translate-y-0.5 active:border-b-[4px] transition-all">
+        <section className="w-full bg-linear-to-br from-indigo-600 via-purple-600 to-indigo-700 text-white rounded-[2.5rem] p-6 md:p-8 shadow-xl relative overflow-hidden border-b-8 border-indigo-900 active:translate-y-0.5 active:border-b-4 transition-all">
           {/* Floating background blobs */}
           <div className="absolute -top-7.5 -right-7.5 w-64 h-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-12.5 -left-12.5 w-80 h-80 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />

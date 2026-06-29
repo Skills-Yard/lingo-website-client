@@ -66,9 +66,6 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
                   height: getTileHeight(tile),
                   transform: 'translate(-50%, -50%)',
                   borderRadius: dims.tileHighlightRadius,
-                  border: '3px solid #fbbf24',
-                  backgroundColor: 'rgba(251, 191, 36, 0.18)',
-                  boxShadow: isActive ? '0 0 14px 3px #fbbf2488' : 'none',
                   opacity: isActive ? 1 : 0,
                   transition: 'opacity 0.25s ease, box-shadow 0.25s ease',
                   zIndex: 5,
@@ -146,7 +143,7 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
             >
               {/* Direction indicator (only for main levels) */}
               <div
-                className="absolute bottom-0 left-1/2 w-5 h-5 rounded-full bg-emerald-500/30 border border-emerald-400 flex items-center justify-center shadow-[0_0_8px_#34d399] transition-transform duration-300 z-0"
+                className="absolute bottom-0 left-1/2 w-12 h-12 rounded-full border border-white/50 bg-[#fbbf24]  flex items-center justify-center  transition-transform drop-shadow-[0_5px_6px_rgb(251,191,36)] duration-300 z-0"
                 style={{
                   transform: `translate(-50%, 50%) scaleY(0.5) rotate(${playerDir === 'up' ? -90 :
                     playerDir === 'right' ? 0 :
@@ -155,14 +152,14 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
                     }deg)`,
                 }}
               >
-                <span className="text-emerald-500 text-[8px] font-black leading-none">➔</span>
+                <span className="text-white text-[12px] font-black leading-none">➔</span>
               </div>
 
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/lumis-wayfing.png"
+                src="/images/running-lumi.webp"
                 alt="Lumi"
-                className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
+                className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)]  z-10"
                 style={{ filter: 'url(#chroma-white)' }}
               />
             </div>

@@ -1,6 +1,6 @@
 export const THEORY_SLIDES = [
   {
-    title: "Welcome to Programming! 🚀",
+    title: "Welcome to Programming!",
     text: "Computers are super powerful, but they aren't smart enough to work on their own. They need us to tell them exactly what to do using special rules and code.",
     instruction: "Let's learn how to speak the computer's language!",
     hasQuiz: false,
@@ -13,7 +13,7 @@ export const THEORY_SLIDES = [
     showCommandsIllustration: true,
   },
   {
-    title: "Test Your Knowledge! 🧠",
+    title: "Test Your Knowledge!",
     text: "Select the correct answer to continue.",
     question: "What is a 'command' in programming?",
     options: [
@@ -24,13 +24,13 @@ export const THEORY_SLIDES = [
     hasQuiz: true,
   },
   {
-    title: "Order Matters! 📊",
+    title: "Order Matters!",
     text: "A computer runs commands step-by-step, in the exact order you write them. This ordered list of commands is called a Program!",
     instruction: "If the order is wrong, the program won't work correctly!",
     hasQuiz: false,
   },
   {
-    title: "Brush Your Teeth! 🦷",
+    title: "Brush Your Teeth!",
     text: "Let's put the steps of brushing your teeth in the correct sequence.",
     question: "Which sequence is correct?",
     options: [
@@ -41,7 +41,7 @@ export const THEORY_SLIDES = [
     hasQuiz: true,
   },
   {
-    title: "Ready to Program! 🤖",
+    title: "Ready to Program!",
     text: "Awesome job! You've learned that programming is giving step-by-step commands to a computer. Now let's help Lumi navigate platforms!",
     instruction: "Click Continue to unlock the Commands level and start programming!",
     hasQuiz: false,

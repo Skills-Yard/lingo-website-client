@@ -21,7 +21,7 @@ export function GameFooter({
   const hasActiveCommands = commands.filter(c => c !== null).length > 0;
 
   return (
-    <footer className="w-full flex gap-3 mb-2 select-none">
+    <footer className="w-full flex justify-between gap-3 mb-2 select-none">
       <button
         onClick={() => {
           triggerSound('tap');
@@ -34,7 +34,7 @@ export function GameFooter({
       <button
         onClick={runSequence}
         disabled={isPlaying || success !== null || !hasActiveCommands}
-        className={`grow flex items-center justify-center gap-2 py-3 rounded-2xl border-2 border-b-4 text-white font-extrabold text-sm shadow-md active:translate-y-0.5 transition-all cursor-pointer ${!hasActiveCommands
+        className={`grow flex items-center max-w-[200px] justify-center gap-2 py-3 rounded-2xl border-2 border-b-4 text-white font-extrabold text-sm shadow-md active:translate-y-0.5 transition-all cursor-pointer ${!hasActiveCommands
           ? 'bg-slate-300 border-slate-400 cursor-not-allowed shadow-none'
           : isPlaying
             ? 'bg-[#58cc02] border-[#3ea800] animate-pulse'
@@ -48,7 +48,7 @@ export function GameFooter({
           </>
         ) : (
           <>
-            <span>▶</span> Run Program
+            <span>▶</span> Run
           </>
         )}
       </button>

@@ -44,7 +44,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
         {/* Game Platform Background */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/platformlayers/2layer-platform-removebg-preview.webp"
+          src="/images/platformlayers/2layer-platform.webp"
           alt="Game Platform"
           className="w-full h-full object-contain transition-all duration-500"
           draggable={false}
@@ -59,13 +59,13 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
             return (
               <div
                 key={`glow-${r}-${c}`}
-                className="absolute pointer-events-none border-[3px] border-yellow-400 bg-yellow-400/15 shadow-[0_0_12px_#fbbf24] transition-all duration-300"
+                className="absolute pointer-events-none border-4 border-[#FFFEFF]  bg-yellow-400/5 shadow-[0_0_22px_#fbbf24] transition-all duration-300"
                 style={{
                   left: `${tile.x + (offset.x ?? 0)}%`,
                   top: `${tile.y + (offset.y ?? 0)}%`,
                   width: getTileWidth(tile),
                   height: getTileHeight(tile),
-                  transform: offset.transform || `translate(-54%, -42%) rotate(0.5deg) scaleY(${dims.tileHighlightScaleY})`,
+                  transform: offset.transform || `translate(-54%, -42%) rotate(1deg) scaleY(${dims.tileHighlightScaleY})`,
                   borderRadius: dims.tileHighlightRadius,
                   opacity: isActive ? 1 : 0,
                   transition: 'opacity 0.25s ease, box-shadow 0.25s ease',
@@ -143,7 +143,7 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/lumis-wayfing.png"
+                src="/images/running-lumi.webp"
                 alt="Lumi"
                 className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
                 style={{ filter: 'url(#chroma-white)' }}

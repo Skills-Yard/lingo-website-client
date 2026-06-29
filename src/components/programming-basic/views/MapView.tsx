@@ -116,7 +116,7 @@ export function MapView({
         {/* ── Mascot bottom right ── */}
         <div className="absolute -bottom-6 -left-4 w-40 h-40 pointer-events-none z-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/bulb_mascot.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-lg" />
+          <img src="/images/lumis-wayfing.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-lg" />
         </div>
       </div>
 

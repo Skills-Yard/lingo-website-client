@@ -10,12 +10,12 @@ interface MascotBannerProps {
 export function MascotBanner({ level, collectedStar, success }: MascotBannerProps) {
   return (
     <div className="w-full bg-white border border-slate-100 shadow-md rounded-2xl p-3 flex gap-3 items-center mb-2 select-none">
-      <div className="w-11 h-11 bg-linear-to-tr from-amber-400 to-yellow-300 rounded-xl flex items-center justify-center shadow-md shrink-0">
+      <div className="w-11 h-11  rounded-xl flex items-center justify-center shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/lumis-wayfing.png"
           alt="Lumi"
-          className="w-8 h-8 object-contain"
+          className="w-16 h-16 object-contain"
           style={{ filter: 'url(#chroma-white)' }}
         />
       </div>

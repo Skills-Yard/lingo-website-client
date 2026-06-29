@@ -19,10 +19,10 @@ export const lesson1Level: LevelConfig = {
   dimensions: {
     platformWidth: '320px',
     platformHeight: '270px',
-    playerWidth: '18%',
+    playerWidth: '17%',
     flagWidth: '17%',
     obstacleWidth: '13%',
-    playerTransform: 'translate(-57%, -98%)',
+    playerTransform: 'translate(-55%, -98%)',
     flagTransform: 'translate(-35%, -95%)',
     obstacleRockTransform: 'translate(-50%, -50%)',
     obstacleTreeTransform: 'translate(-50%, -50%)',

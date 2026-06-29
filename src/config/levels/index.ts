@@ -41,8 +41,8 @@ export interface GridDimensions {
   flagTransform: string;
   obstacleRockTransform: string;
   obstacleTreeTransform: string;
-  tileHighlightWidth?: string;      // ✅ OPTIONAL: Fallback if tile has no width
-  tileHighlightHeight?: string;     // ✅ OPTIONAL: Fallback if tile has no height
+  tileHighlightWidth?: string;  
+  tileHighlightHeight?: string;   
   tileHighlightScaleY: string;
   tileHighlightRadius: string;
 }

@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface Option {
   text: string;
   isCorrect: boolean;
@@ -41,7 +39,7 @@ export function TheorySlide({
           </div>
           <div className="shrink-0 w-27.5 h-32.5 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/bulb_mascot.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-md" />
+            <img src="/images/lumis-wayfing.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-md" />
           </div>
         </div>
 
@@ -72,7 +70,7 @@ export function TheorySlide({
     return (
       <div className="flex flex-col items-center text-center gap-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/bulb_mascot.png" alt="🎉" className="w-32 h-32 object-contain animate-bounce" />
+        <img src="/images/lumis-wayfing.png" alt="🎉" className="w-32 h-32 object-contain" />
         <h2 className="text-[26px] font-black text-slate-900 leading-tight">{slide.title}</h2>
         <p className="text-[14px] text-slate-600 leading-relaxed">{slide.text}</p>
         {slide.instruction && (

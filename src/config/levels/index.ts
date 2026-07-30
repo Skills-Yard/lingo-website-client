@@ -1,5 +1,7 @@
 import { demoLevel } from "./demo";
 import { lesson1Level } from "./lesson1";
+import { sortingLevel } from "./sorting";
+
 
 export interface Position {
   r: number;
@@ -63,10 +65,10 @@ export interface LevelConfig {
   isDemo?: boolean;
 
   dimensions: GridDimensions;
-  tileCoordinates: Record<string, TileCoordinate>; // key: "r,c"
 }
 
 export const LEVELS: LevelConfig[] = [
   demoLevel,
-  lesson1Level
+  lesson1Level,
+  sortingLevel
 ];

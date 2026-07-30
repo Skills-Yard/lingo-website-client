@@ -104,7 +104,7 @@ export function LessonTheoryView({
                 : 'bg-[#7c3aed] border-[#5b21b6] hover:bg-[#6d28d9] cursor-pointer'
               }`}
           >
-            Check Answer
+            Submit
           </button>
         ) : (
           <button
@@ -123,7 +123,7 @@ export function LessonTheoryView({
             }}
             className="w-full py-4 rounded-2xl font-black text-[15px] text-white border-b-4 bg-[#7c3aed] border-[#5b21b6] hover:bg-[#6d28d9] shadow-lg active:translate-y-0.5 transition-all cursor-pointer"
           >
-            Continue
+            {slide.hasQuiz ? 'Got it!' : 'Continue'}
           </button>
         )}
       </div>

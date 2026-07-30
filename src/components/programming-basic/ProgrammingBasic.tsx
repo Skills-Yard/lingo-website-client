@@ -9,6 +9,7 @@ import { useSound } from '@/hooks/useSound';
 import { useLevelProgression } from '@/hooks/useLevelProgression';
 import { LEVELS } from '@/config/levels';
 import { useGameState } from '@/hooks/useGameState';
+import { SortingGameView } from './sorting-game';
 
 
 export default function ProgrammingBasic() {
@@ -73,6 +74,25 @@ export default function ProgrammingBasic() {
         setLevelStates={setLevelStates}
         setView={setView}
         triggerFlyingStars={triggerFlyingStars}
+        triggerSound={triggerSound}
+      />
+    );
+  }
+
+  if (view === 'sorting_game') {
+    return (
+      <SortingGameView
+        hearts={hearts}
+        setHearts={setHearts}
+        stars={stars}
+        setStars={setStars}
+        visualStars={visualStars}
+        setView={setView}
+        levelStates={levelStates}
+        setLevelStates={setLevelStates}
+        currentLevelIdx={currentLevelIdx}
+        setCurrentLevelIdx={setCurrentLevelIdx}
+        handleLevelSuccessContinue={handleLevelSuccessContinue}
         triggerSound={triggerSound}
       />
     );

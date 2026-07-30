@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AlertTriangle, LogOut, HelpCircle, Info } from 'lucide-react';
+import { AlertTriangle, LogOut, Info } from 'lucide-react';
 
 interface ConfirmDialogProps {
   isOpen: boolean;

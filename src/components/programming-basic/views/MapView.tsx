@@ -15,7 +15,7 @@ interface MapViewProps {
   levelStates: Record<string, 'locked' | 'unlocked' | 'completed' | 'demo_completed'>;
   setCurrentLevelIdx: (idx: number) => void;
   resetLevel: () => void;
-  setView: (view: 'map' | 'lesson1_theory' | 'game') => void;
+  setView: (view: 'map' | 'lesson1_theory' | 'game' | 'sorting_game') => void;
   triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
 }
 
@@ -107,6 +107,9 @@ export function MapView({
                   setCurrentLevelIdx(startIdx);
                   resetLevel();
                   setView('game');
+                } else if (node.id === 3) {
+                  setCurrentLevelIdx(2);
+                  setView('sorting_game');
                 }
               }}
             />

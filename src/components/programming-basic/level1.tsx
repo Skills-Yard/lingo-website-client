@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, Direction, TileCoordinate } from '../../config/levels';
+import { Position, Direction } from '../../config/levels';
 import { lesson1Level } from '../../config/levels/lesson1';
 
 interface Level1PlatformProps {
@@ -9,6 +9,18 @@ interface Level1PlatformProps {
   executingStep: number | null;
   collectedStar: boolean;
 }
+
+const TILE_COORDS: Record<string, { x: number; y: number; width?: string; height?: string }> = {
+  '0,0': { x: 21.5, y: 22, width: '30%', height: '22%' },
+  '0,1': { x: 50, y: 22, width: '31%', height: '22%' },
+  '0,2': { x: 79, y: 22, width: '30%', height: '22%' },
+  '1,0': { x: 20, y: 45, width: '31%', height: '24%' },
+  '1,1': { x: 50, y: 43, width: '33%', height: '22%' },
+  '1,2': { x: 84, y: 41, width: '32%', height: '22%' },
+  '2,0': { x: 18, y: 68, width: '32%', height: '25%' },
+  '2,1': { x: 50, y: 66, width: '34%', height: '25%' },
+  '2,2': { x: 84, y: 64, width: '33%', height: '25%' },
+};
 
 export const Level1Platform: React.FC<Level1PlatformProps> = ({
   playerPos,
@@ -20,14 +32,14 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
   const dims = lesson1Level.dimensions;
 
   const getTileConfig = (r: number, c: number) => {
-    return lesson1Level.tileCoordinates[`${r},${c}`] || { x: 50, y: 50 };
+    return TILE_COORDS[`${r},${c}`] || { x: 50, y: 50 };
   };
 
-  const getTileWidth = (tile: TileCoordinate) => {
+  const getTileWidth = (tile: { width?: string }) => {
     return tile.width ?? dims.tileHighlightWidth ?? '31%';
   };
 
-  const getTileHeight = (tile: TileCoordinate) => {
+  const getTileHeight = (tile: { height?: string }) => {
     return tile.height ?? dims.tileHighlightHeight ?? '22%';
   };
 
@@ -48,7 +60,6 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
           className="w-full h-full object-contain transition-all duration-500"
           draggable={false}
         />
-
 
         {/* ── 9 Static Tile Glows ── one per grid cell, only active tile shows */}
         {Array.from({ length: lesson1Level.gridRows }, (_, r) =>
@@ -75,19 +86,17 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
           })
         )}
 
-
         {/* Render dynamic Flag item */}
         {(() => {
           const tile = getTileConfig(lesson1Level.flagPos.r, lesson1Level.flagPos.c);
-          const offset = tile.flagOffset || {};
           return (
             <div
               className="absolute z-10 transition-all duration-300"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.flagWidth,
-                transform: offset.transform || dims.flagTransform,
+                transform: dims.flagTransform,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -104,16 +113,15 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
         {/* Render Obstacles (Rocks/Trees) */}
         {lesson1Level.obstacles.map((obs, idx) => {
           const tile = getTileConfig(obs.r, obs.c);
-          const offset = tile.obstacleOffset || {};
           return (
             <div
               key={idx}
               className="absolute z-20"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.obstacleWidth,
-                transform: offset.transform || (obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform),
+                transform: obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,15 +138,14 @@ export const Level1Platform: React.FC<Level1PlatformProps> = ({
         {/* Player Lumi */}
         {(() => {
           const tile = getTileConfig(playerPos.r, playerPos.c);
-          const offset = tile.playerOffset || {};
           return (
             <div
               className="absolute z-30 transition-all duration-500 ease-out flex flex-col items-center overflow-visible"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.playerWidth,
-                transform: offset.transform || dims.playerTransform,
+                transform: dims.playerTransform,
               }}
             >
               {/* Direction indicator (only for main levels) */}

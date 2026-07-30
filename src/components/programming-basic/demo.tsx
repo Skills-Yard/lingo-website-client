@@ -1,5 +1,5 @@
 import React from 'react';
-import { Position, Direction, TileCoordinate } from '../../config/levels';
+import { Position, Direction } from '../../config/levels';
 import { demoLevel } from '../../config/levels/demo';
 
 interface DemoPlatformProps {
@@ -9,25 +9,25 @@ interface DemoPlatformProps {
   executingStep: number | null;
 }
 
+const TILE_COORDS: Record<string, { x: number; y: number; width?: string; height?: string }> = {
+  '0,0': { x: 31, y: 21, width: '41%', height: '43%' },
+  '0,1': { x: 71, y: 21, width: '41%', height: '43%' },
+  '1,0': { x: 29, y: 58, width: '43.2%', height: '47.2%' },
+  '1,1': { x: 74, y: 58, width: '43.2%', height: '47.2%' },
+};
+
 export const DemoPlatform: React.FC<DemoPlatformProps> = ({
   playerPos,
-  playerDir: _playerDir,
+  playerDir,
   isPlaying: _isPlaying,
   executingStep: _executingStep,
 }) => {
   const dims = demoLevel.dimensions;
 
   const getTileConfig = (r: number, c: number) => {
-    return demoLevel.tileCoordinates[`${r},${c}`] || { x: 50, y: 50 };
+    return TILE_COORDS[`${r},${c}`] || { x: 50, y: 50 };
   };
 
-  const getTileWidth = (tile: TileCoordinate) => {
-    return tile.width ?? dims.tileHighlightWidth ?? '43.2%';
-  };
-
-  const getTileHeight = (tile: TileCoordinate) => {
-    return tile.height ?? dims.tileHighlightHeight ?? '47.2%';
-  };
 
   return (
     <div className="flex flex-col items-center gap-1">
@@ -50,44 +50,18 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
           draggable={false}
         />
 
-        {/* Static Tile Glows ── one per grid cell, only active tile shows */}
-        {Array.from({ length: demoLevel.gridRows }, (_, r) =>
-          Array.from({ length: demoLevel.gridCols }, (_, c) => {
-            const tile = getTileConfig(r, c);
-            const isActive = playerPos.r === r && playerPos.c === c;
-            const offset = tile.highlightOffset || {};
-            return (
-              <div
-                key={`glow-${r}-${c}`}
-                className="absolute pointer-events-none border-4 border-[#FFFEFF]  bg-yellow-400/5 shadow-[0_0_22px_#fbbf24] transition-all duration-300"
-                style={{
-                  left: `${tile.x + (offset.x ?? 0)}%`,
-                  top: `${tile.y + (offset.y ?? 0)}%`,
-                  width: getTileWidth(tile),
-                  height: getTileHeight(tile),
-                  transform: offset.transform || `translate(-54%, -42%) rotate(1deg) scaleY(${dims.tileHighlightScaleY})`,
-                  borderRadius: dims.tileHighlightRadius,
-                  opacity: isActive ? 1 : 0,
-                  transition: 'opacity 0.25s ease, box-shadow 0.25s ease',
-                  zIndex: 5,
-                }}
-              />
-            );
-          })
-        )}
 
         {/* Render dynamic Flag item */}
         {(() => {
           const tile = getTileConfig(demoLevel.flagPos.r, demoLevel.flagPos.c);
-          const offset = tile.flagOffset || {};
           return (
             <div
               className="absolute z-10 transition-all duration-300"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.flagWidth,
-                transform: offset.transform || dims.flagTransform,
+                transform: dims.flagTransform,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -104,16 +78,15 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
         {/* Render Obstacles (Rocks/Trees) */}
         {demoLevel.obstacles.map((obs, idx) => {
           const tile = getTileConfig(obs.r, obs.c);
-          const offset = tile.obstacleOffset || {};
           return (
             <div
               key={idx}
               className="absolute z-20"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.obstacleWidth,
-                transform: offset.transform || (obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform),
+                transform: obs.type === 'rock' ? dims.obstacleRockTransform : dims.obstacleTreeTransform,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -130,22 +103,35 @@ export const DemoPlatform: React.FC<DemoPlatformProps> = ({
         {/* Player Lumi */}
         {(() => {
           const tile = getTileConfig(playerPos.r, playerPos.c);
-          const offset = tile.playerOffset || {};
           return (
             <div
               className="absolute z-30 transition-all duration-500 ease-out flex flex-col items-center overflow-visible"
               style={{
-                left: `${tile.x + (offset.x ?? 0)}%`,
-                top: `${tile.y + (offset.y ?? 0)}%`,
+                left: `${tile.x}%`,
+                top: `${tile.y}%`,
                 width: dims.playerWidth,
-                transform: offset.transform || dims.playerTransform,
+                transform: dims.playerTransform,
               }}
             >
+              {/* Direction indicator (only for main levels) */}
+              <div
+                className="absolute bottom-0 left-1/2 w-12 h-12 rounded-full border border-white/50 bg-[#fbbf24]  flex items-center justify-center  transition-transform drop-shadow-[0_5px_6px_rgb(251,191,36)] duration-300 z-0"
+                style={{
+                  transform: `translate(-50%, 50%) scaleY(0.5) rotate(${playerDir === 'up' ? -90 :
+                    playerDir === 'right' ? 0 :
+                      playerDir === 'down' ? 90 :
+                        180
+                    }deg)`,
+                }}
+              >
+                <span className="text-white text-[12px] font-black leading-none">➔</span>
+              </div>
+
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/running-lumi.webp"
                 alt="Lumi"
-                className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)] animate-bounce-slow z-10"
+                className="w-full h-auto object-contain drop-shadow-[0_5px_6px_rgba(0,0,0,0.3)]  z-10"
                 style={{ filter: 'url(#chroma-white)' }}
               />
             </div>

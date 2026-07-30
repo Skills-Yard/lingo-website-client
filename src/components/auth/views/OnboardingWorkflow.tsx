@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { WelcomeStep } from "../sections/onboarding_steps/WelcomeStep";
 import { MotivationStep } from "../sections/onboarding_steps/MotivationStep";
@@ -11,6 +10,7 @@ import { GoalStep } from "../sections/onboarding_steps/GoalStep";
 import { TopicsStep } from "../sections/onboarding_steps/TopicsStep";
 import { LimitlessStep } from "../sections/onboarding_steps/LimitlessStep";
 import { SignupStep } from "../SignupStep";
+import { useState } from "react";
 
 export function OnboardingWorkflow() {
   const [stepIndex, setStepIndex] = useState(0);
@@ -26,6 +26,9 @@ export function OnboardingWorkflow() {
   };
 
   const stepsList = [
+    // { id: "brand_intro", component: BrandIntroStep },
+    // { id: "meet_lumi_intro", component: MeetLumiIntroStep },
+    // { id: "ready_intro", component: ReadyIntroStep },
     { id: "welcome", component: WelcomeStep },
     { id: "motivation", component: MotivationStep },
     { id: "age", component: AgeStep },
@@ -37,8 +40,18 @@ export function OnboardingWorkflow() {
   ];
 
   if (stepIndex < stepsList.length) {
-    const CurrentStep = stepsList[stepIndex].component;
-    return <CurrentStep onNext={handleNext} onBack={handleBack} />;
+    const step = stepsList[stepIndex];
+    const CurrentStep = step.component;
+
+    // Custom props for specific steps
+    const extraProps: Record<string, any> = {};
+    if (step.id === "meet_lumi_intro") {
+      extraProps.onSkipToAuth = () => {
+        setStepIndex(stepsList.length); // Skip straight to SignupStep at the end
+      };
+    }
+
+    return <CurrentStep onNext={handleNext} onBack={handleBack} {...extraProps} />;
   }
 
   return <SignupStep onBack={handleBack} onComplete={handleComplete} />;

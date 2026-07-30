@@ -9,7 +9,7 @@ export function useLevelProgression({
   triggerFlyingStars: (nodeId: number, count: number) => void;
   triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
 }) {
-  const [view, setView] = useState<'map' | 'lesson1_theory' | 'game'>('map');
+  const [view, setView] = useState<'map' | 'lesson1_theory' | 'game' | 'sorting_game'>('map');
   const [levelStates, setLevelStates] = useState<Record<string, 'locked' | 'unlocked' | 'completed' | 'demo_completed'>>({
     level1: 'unlocked',
     level2: 'locked',
@@ -50,6 +50,12 @@ export function useLevelProgression({
       setLevelStates(prev => ({ ...prev, level2: 'completed', level3: 'unlocked' }));
       setStars(prev => prev + 50);
       triggerFlyingStars(2, 3);
+      setView('map');
+    } else if (currentLevelIdx === 2) {
+      // Sorting done → award 50 stars, unlock level 4, return to map
+      setLevelStates(prev => ({ ...prev, level3: 'completed', level4: 'unlocked' }));
+      setStars(prev => prev + 50);
+      triggerFlyingStars(3, 3);
       setView('map');
     }
   }, [currentLevelIdx, setStars, triggerFlyingStars, triggerSound]);

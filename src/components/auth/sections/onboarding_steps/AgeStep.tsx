@@ -24,7 +24,7 @@ export function AgeStep({ onNext, onBack }: StepProps) {
           placeholder="Your age"
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          className="text-2xl font-black h-16 rounded-2xl border border-slate-200 bg-white dark:bg-[#111722] dark:border-[#1e293b] dark:text-white px-6 w-full max-w-xs text-center focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500 focus:outline-none transition-all shadow-xs"
+          className="text-2xl font-black h-16 rounded-2xl border border-border bg-card text-foreground px-6 w-full max-w-xs text-center focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-xs"
           autoFocus
         />
       </div>

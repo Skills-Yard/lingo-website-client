@@ -20,7 +20,7 @@ export function TheorySlide({
   quizAnswerChecked,
   triggerSound,
 }: TheorySlideProps) {
-  // Extract first word for emerald green highlight
+  // Extract first word for brand-color highlight
   const titleParts = slide.title.split(" ");
   const firstWord = titleParts[0];
   const remainingTitle = titleParts.slice(1).join(" ");
@@ -30,7 +30,7 @@ export function TheorySlide({
     const cmdType = opt.commandType as keyof typeof COMMAND_DETAILS | undefined;
     if (cmdType && COMMAND_DETAILS[cmdType]) {
       return (
-        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[#182232] flex items-center justify-center p-1 shrink-0">
+        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center p-1 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={COMMAND_DETAILS[cmdType].imageSrc}
@@ -43,27 +43,27 @@ export function TheorySlide({
 
     if (idx === 0) {
       return (
-        <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0">
+        <div className="w-10 h-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
           <MessageSquare className="w-5 h-5 fill-current" />
         </div>
       );
     }
     if (idx === 1) {
       return (
-        <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-950/50 text-teal-600 dark:text-teal-300 flex items-center justify-center shrink-0">
+        <div className="w-10 h-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
           <BookOpen className="w-5 h-5" />
         </div>
       );
     }
     if (idx === 2) {
       return (
-        <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-300 flex items-center justify-center shrink-0">
+        <div className="w-10 h-10 rounded-full bg-muted text-muted-foreground flex items-center justify-center shrink-0">
           <Compass className="w-5 h-5" />
         </div>
       );
     }
     return (
-      <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-300 flex items-center justify-center shrink-0 font-black text-sm">
+      <div className="w-10 h-10 rounded-full bg-muted text-muted-foreground flex items-center justify-center shrink-0 font-black text-sm">
         {String.fromCharCode(65 + idx)}
       </div>
     );
@@ -71,15 +71,15 @@ export function TheorySlide({
 
   return (
     <div className="flex flex-col gap-4 select-none">
-      {/* ── Title with emerald highlight on first word ── */}
+      {/* ── Title with brand-color highlight on first word ── */}
       <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-center md:text-left">
-        <span className="text-emerald-600 dark:text-emerald-400">{firstWord} </span>
-        <span className="text-slate-900 dark:text-white">{remainingTitle}</span>
+        <span className="text-primary">{firstWord} </span>
+        <span className="text-foreground">{remainingTitle}</span>
       </h1>
 
       {/* ── Main Media / 3D Card ── */}
       {slide.imageSrc ? (
-        <div className="relative w-full h-64 md:h-72 bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] flex items-center justify-center overflow-hidden shadow-sm p-3">
+        <div className="relative w-full h-64 md:h-72 bg-card rounded-3xl border border-border flex items-center justify-center overflow-hidden shadow-sm p-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={slide.imageSrc}
@@ -88,7 +88,7 @@ export function TheorySlide({
           />
         </div>
       ) : slide.showCommandsIllustration ? (
-        <div className="relative w-full bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] p-5 shadow-sm">
+        <div className="relative w-full bg-card rounded-3xl border border-border p-5 shadow-sm">
           <div className="grid grid-cols-2 gap-3 mb-3">
             {[
               { icon: "↑", label: "Go Straight" },
@@ -98,23 +98,23 @@ export function TheorySlide({
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex items-center gap-3 bg-slate-50 dark:bg-[#182232] border border-slate-200 dark:border-[#22365a] rounded-2xl p-3"
+                className="flex items-center gap-3 bg-muted border border-border rounded-2xl p-3"
               >
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center shadow-xs">
+                <div className="w-8 h-8 rounded-xl bg-primary text-primary-foreground font-black flex items-center justify-center shadow-xs">
                   {item.icon}
                 </div>
-                <span className="text-xs md:text-sm font-bold text-slate-800 dark:text-white">
+                <span className="text-xs md:text-sm font-bold text-foreground">
                   {item.label}
                 </span>
               </div>
             ))}
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium text-center">
+          <p className="text-xs text-muted-foreground font-medium text-center">
             {slide.instruction || "The computer follows your commands step-by-step!"}
           </p>
         </div>
       ) : (
-        <div className="relative w-full h-52 bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] flex flex-col items-center justify-center p-6 shadow-sm text-center">
+        <div className="relative w-full h-52 bg-card rounded-3xl border border-border flex flex-col items-center justify-center p-6 shadow-sm text-center">
           <div className="w-24 h-24 mb-2 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -123,7 +123,7 @@ export function TheorySlide({
               className="w-full h-full object-contain animate-bounce-slow"
             />
           </div>
-          <p className="text-sm md:text-base font-semibold text-slate-600 dark:text-slate-300 max-w-sm">
+          <p className="text-sm md:text-base font-semibold text-muted-foreground max-w-sm">
             {slide.text}
           </p>
         </div>
@@ -131,7 +131,7 @@ export function TheorySlide({
 
       {/* ── Subtitle / Question Description if applicable ── */}
       {slide.hasQuiz && slide.question && (
-        <p className="text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 px-1">
+        <p className="text-xs md:text-sm font-bold text-muted-foreground px-1">
           {slide.question}
         </p>
       )}
@@ -144,22 +144,19 @@ export function TheorySlide({
             const isChecked = quizAnswerChecked;
             const isCorrect = opt.isCorrect;
 
-            let cardBorder =
-              "border-slate-200 bg-white hover:border-slate-300 dark:border-[#1e293b] dark:bg-[#111722] dark:hover:border-slate-700";
-            let radioStyle = "border-slate-300 dark:border-slate-600";
-            let titleColor = "text-slate-900 dark:text-white";
+            let cardBorder = "border-border bg-card hover:border-muted-foreground/50";
+            let radioStyle = "border-muted-foreground/60";
+            let titleColor = "text-foreground";
 
             if (isSelected && !isChecked) {
-              cardBorder =
-                "border-emerald-500 bg-emerald-50/60 dark:bg-[#0c2017] dark:border-emerald-500 ring-1 ring-emerald-500/30";
-              radioStyle = "border-emerald-500 dark:border-emerald-400";
-              titleColor = "text-emerald-700 dark:text-emerald-300";
+              cardBorder = "border-primary bg-secondary ring-1 ring-primary/30";
+              radioStyle = "border-primary";
+              titleColor = "text-primary";
             } else if (isSelected && isChecked) {
               if (isCorrect) {
-                cardBorder =
-                  "border-emerald-500 bg-emerald-50/80 dark:bg-[#0c2017] dark:border-emerald-500 ring-1 ring-emerald-500/40";
-                radioStyle = "border-emerald-500 dark:border-emerald-400";
-                titleColor = "text-emerald-700 dark:text-emerald-300";
+                cardBorder = "border-primary bg-secondary ring-1 ring-primary/40";
+                radioStyle = "border-primary";
+                titleColor = "text-primary";
               } else {
                 cardBorder =
                   "border-rose-500 bg-rose-50/80 dark:bg-[#260c11] dark:border-rose-500 ring-1 ring-rose-500/40";
@@ -186,7 +183,7 @@ export function TheorySlide({
                       {opt.text}
                     </span>
                     {opt.explanation && !isChecked && (
-                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 line-clamp-1">
+                      <span className="text-xs text-muted-foreground font-medium mt-0.5 line-clamp-1">
                         {opt.explanation}
                       </span>
                     )}
@@ -201,9 +198,7 @@ export function TheorySlide({
                     {isSelected && (
                       <div
                         className={`w-3 h-3 rounded-full transition-transform scale-100 ${
-                          isChecked && !isCorrect
-                            ? "bg-rose-500 dark:bg-rose-400"
-                            : "bg-emerald-600 dark:bg-emerald-400"
+                          isChecked && !isCorrect ? "bg-rose-500 dark:bg-rose-400" : "bg-primary"
                         }`}
                       />
                     )}

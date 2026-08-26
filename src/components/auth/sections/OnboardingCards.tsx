@@ -20,8 +20,8 @@ export function SelectionCard({ title, subtitle, icon, selected, onClick, classN
       className={cn(
         "flex flex-col items-center justify-center p-5 md:p-6 rounded-2xl border transition-all duration-200 w-full min-h-32 shadow-xs cursor-pointer active:scale-98 text-center",
         selected
-          ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 ring-2 ring-emerald-500/20"
-          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/80 text-slate-800 dark:border-[#1e293b] dark:bg-[#111722] dark:hover:border-slate-700 dark:text-white",
+          ? "border-primary bg-secondary text-secondary-foreground ring-2 ring-primary/20"
+          : "border-border bg-card hover:border-muted-foreground/50 hover:bg-surface-strong text-foreground",
         className
       )}
     >
@@ -30,8 +30,8 @@ export function SelectionCard({ title, subtitle, icon, selected, onClick, classN
           className={cn(
             "w-12 h-12 rounded-full flex items-center justify-center mb-2.5 transition-transform",
             selected
-              ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300"
-              : "bg-slate-100 text-slate-600 dark:bg-[#182232] dark:text-slate-300"
+              ? "bg-primary/15 text-primary"
+              : "bg-muted text-muted-foreground"
           )}
         >
           {icon}
@@ -39,7 +39,7 @@ export function SelectionCard({ title, subtitle, icon, selected, onClick, classN
       )}
       <span className="font-extrabold text-sm md:text-base leading-snug">{title}</span>
       {subtitle && (
-        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">{subtitle}</span>
+        <span className="text-xs text-muted-foreground font-medium mt-0.5">{subtitle}</span>
       )}
     </button>
   );
@@ -61,15 +61,15 @@ export function LevelCard({ codeSnippet, level, description, selected, onClick }
       className={cn(
         "flex flex-col items-center justify-center p-5 rounded-2xl border transition-all duration-200 w-full min-h-36 shadow-xs cursor-pointer active:scale-98 text-center",
         selected
-          ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-300 ring-2 ring-emerald-500/20"
-          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 text-slate-800 dark:border-[#1e293b] dark:bg-[#111722] dark:hover:border-slate-700 dark:text-white"
+          ? "border-primary bg-secondary text-secondary-foreground ring-2 ring-primary/20"
+          : "border-border bg-card hover:border-muted-foreground/50 hover:bg-surface-strong text-foreground"
       )}
     >
-      <div className="font-mono text-xs md:text-sm text-emerald-600 dark:text-emerald-400 mb-2 min-h-8 flex items-center justify-center font-bold">
+      <div className="font-mono text-xs md:text-sm text-primary mb-2 min-h-8 flex items-center justify-center font-bold">
         {codeSnippet}
       </div>
       <h3 className="font-black text-lg md:text-xl mb-1">{level}</h3>
-      <p className="text-xs text-slate-500 dark:text-slate-400 leading-tight font-medium">{description}</p>
+      <p className="text-xs text-muted-foreground leading-tight font-medium">{description}</p>
     </button>
   );
 }

@@ -8,7 +8,7 @@ interface StepProps {
 }
 
 const TopicBubble = ({ text, colorClass }: { text: string; colorClass: string }) => (
-  <div className="group flex cursor-default flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white dark:bg-[#111722] dark:border-[#1e293b] px-3.5 py-2.5 text-center text-xs font-black text-slate-800 dark:text-slate-200 shadow-xs transition-all duration-200 hover:border-emerald-500/50 hover:shadow-sm">
+  <div className="group flex cursor-default flex-col items-center justify-center rounded-2xl border border-border bg-card px-3.5 py-2.5 text-center text-xs font-black text-foreground shadow-xs transition-all duration-200 hover:border-primary/50 hover:shadow-sm">
     <div className={`mb-1.5 h-1.5 w-8 rounded-full ${colorClass} opacity-80 transition-opacity group-hover:opacity-100`} />
     <span className="max-w-[100px] leading-tight font-extrabold">{text}</span>
   </div>
@@ -26,7 +26,7 @@ export function TopicsStep({ onNext, onBack }: StepProps) {
     >
       <div className="relative mx-auto mt-2 flex min-h-[340px] w-full flex-col items-center justify-center gap-3 px-2">
         {/* Background Glow */}
-        <div className="pointer-events-none absolute inset-x-10 top-12 h-64 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-10 top-12 h-64 rounded-full bg-primary/10 dark:bg-primary/5 blur-3xl" />
 
         {/* Mascot Center */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">

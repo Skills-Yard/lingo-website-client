@@ -18,8 +18,8 @@ export function ThemeToggle({ className = "", showLabel = false }: ThemeTogglePr
       onClick={toggleTheme}
       className={`inline-flex items-center justify-center gap-2 p-2.5 rounded-2xl border transition-all duration-200 cursor-pointer shadow-xs active:scale-95 ${
         theme === "dark"
-          ? "bg-[#161f2e] border-[#22365a] text-amber-400 hover:bg-[#1c293d] hover:border-[#324a73]"
-          : "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300"
+          ? "bg-surface-strong border-border text-amber-400 hover:bg-border"
+          : "bg-card border-border text-foreground hover:bg-surface-strong"
       } ${className}`}
       aria-label="Toggle theme"
       title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}

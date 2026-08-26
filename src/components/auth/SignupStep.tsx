@@ -24,7 +24,7 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
           <button
             type="button"
             onClick={onComplete}
-            className="h-14 w-full rounded-2xl border border-slate-200 bg-white text-base font-extrabold text-slate-800 dark:bg-[#111722] dark:border-[#1e293b] dark:text-white flex items-center justify-center gap-3 hover:bg-slate-50 dark:hover:bg-[#182232] active:scale-98 transition-all cursor-pointer shadow-xs"
+            className="h-14 w-full rounded-2xl border border-border bg-card text-base font-extrabold text-foreground flex items-center justify-center gap-3 hover:bg-surface-strong active:scale-98 transition-all cursor-pointer shadow-xs"
           >
             <svg viewBox="0 0 24 24" className="w-5 h-5 shrink-0" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -38,9 +38,9 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
           <button
             type="button"
             onClick={onComplete}
-            className="h-14 w-full rounded-2xl border border-slate-200 bg-white text-base font-extrabold text-slate-800 dark:bg-[#111722] dark:border-[#1e293b] dark:text-white flex items-center justify-center gap-3 hover:bg-slate-50 dark:hover:bg-[#182232] active:scale-98 transition-all cursor-pointer shadow-xs"
+            className="h-14 w-full rounded-2xl border border-border bg-card text-base font-extrabold text-foreground flex items-center justify-center gap-3 hover:bg-surface-strong active:scale-98 transition-all cursor-pointer shadow-xs"
           >
-            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-slate-900 dark:text-white shrink-0" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-foreground shrink-0" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.05 13.921c-.015-2.38 1.95-3.526 2.042-3.585-1.11-1.61-2.834-1.83-3.414-1.854-1.442-.143-2.81.841-3.541.841-.715 0-1.848-.824-3.033-.801-1.536.02-2.955.882-3.743 2.235-1.597 2.748-.408 6.81 1.144 9.027.765 1.09 1.66 2.302 2.857 2.257 1.157-.043 1.602-.733 2.992-.733 1.39 0 1.796.733 3.011.71 1.23-.021 2.015-1.11 2.766-2.186.87-1.258 1.23-2.477 1.248-2.54-.027-.01-2.313-.878-2.329-3.371zM15.111 7.55c.636-.763 1.066-1.823.948-2.884-1.05.042-2.314.692-2.969 1.455-.519.601-1.033 1.684-.897 2.716 1.173.088 2.28-.624 2.918-1.287z" />
             </svg>
             Continue with Apple
@@ -48,9 +48,9 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
         </div>
 
         <div className="relative flex items-center py-1">
-          <div className="grow border-t border-slate-200 dark:border-slate-800" />
-          <span className="mx-4 shrink-0 text-xs font-black tracking-widest text-slate-400">OR</span>
-          <div className="grow border-t border-slate-200 dark:border-slate-800" />
+          <div className="grow border-t border-border" />
+          <span className="mx-4 shrink-0 text-xs font-black tracking-widest text-muted-foreground">OR</span>
+          <div className="grow border-t border-border" />
         </div>
 
         <div className="space-y-3 relative">
@@ -59,7 +59,7 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-14 w-full rounded-2xl border border-slate-200 bg-white dark:bg-[#111722] dark:border-[#1e293b] dark:text-white px-4 text-base font-bold focus:border-emerald-500 dark:focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500 focus:outline-none transition-all shadow-xs"
+            className="h-14 w-full rounded-2xl border border-border bg-card text-foreground px-4 text-base font-bold focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all shadow-xs"
           />
 
           <button
@@ -68,8 +68,8 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
             disabled={!email}
             className={`h-14 w-full rounded-2xl font-black text-base md:text-lg transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-98 ${
               !email
-                ? "bg-slate-200 text-slate-400 border border-slate-300 dark:bg-[#182232] dark:border-[#1e293b] dark:text-slate-500 cursor-not-allowed shadow-none"
-                : "bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white"
+                ? "bg-muted text-muted-foreground border border-border cursor-not-allowed shadow-none"
+                : "bg-primary hover:bg-primary/90 text-primary-foreground"
             }`}
           >
             <span>Sign up</span>
@@ -77,16 +77,16 @@ export function SignupStep({ onBack, onComplete }: { onBack: () => void; onCompl
           </button>
         </div>
 
-        <p className="text-center text-xs font-medium text-slate-400 dark:text-slate-500 px-4 leading-relaxed">
+        <p className="text-center text-xs font-medium text-muted-foreground px-4 leading-relaxed">
           By clicking Sign up, I agree to Lingo&apos;s{" "}
-          <Link href="#" className="underline hover:text-emerald-600 dark:hover:text-emerald-400">Terms</Link> and{" "}
-          <Link href="#" className="underline hover:text-emerald-600 dark:hover:text-emerald-400">Privacy Policy</Link>.
+          <Link href="#" className="underline hover:text-primary">Terms</Link> and{" "}
+          <Link href="#" className="underline hover:text-primary">Privacy Policy</Link>.
         </p>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 pt-4 text-center mt-1">
-          <p className="text-sm font-bold text-slate-600 dark:text-slate-400">
+        <div className="border-t border-border pt-4 text-center mt-1">
+          <p className="text-sm font-bold text-muted-foreground">
             Existing user?{" "}
-            <Link href="#" onClick={onComplete} className="font-extrabold text-emerald-600 dark:text-emerald-400 underline hover:text-emerald-700">
+            <Link href="#" onClick={onComplete} className="font-extrabold text-primary underline hover:text-primary/80">
               Sign in
             </Link>
           </p>

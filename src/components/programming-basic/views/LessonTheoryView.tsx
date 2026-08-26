@@ -87,7 +87,7 @@ export function LessonTheoryView({
               triggerSound("tap");
               setShowExitConfirm(true);
             }}
-            className="w-10 h-10 flex items-center justify-center rounded-2xl bg-white dark:bg-[#111722] border border-slate-200 dark:border-[#1e293b] text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#182232] transition-all active:scale-95 cursor-pointer shadow-xs"
+            className="w-10 h-10 flex items-center justify-center rounded-2xl bg-card border border-border text-foreground hover:bg-surface-strong transition-all active:scale-95 cursor-pointer shadow-xs"
             aria-label="Back"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -96,8 +96,8 @@ export function LessonTheoryView({
           {/* Segmented Step Indicator */}
           <div className="grow flex flex-col items-center gap-1.5 px-2">
             <div className="text-xs font-black tracking-wider flex items-center gap-1">
-              <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{formattedStep}</span>
-              <span className="text-slate-400 dark:text-slate-500 font-semibold">/ {formattedTotal}</span>
+              <span className="text-primary font-extrabold">{formattedStep}</span>
+              <span className="text-muted-foreground font-semibold">/ {formattedTotal}</span>
             </div>
             <div className="w-full flex gap-1">
               {Array.from({ length: total }).map((_, i) => (
@@ -105,8 +105,8 @@ export function LessonTheoryView({
                   key={i}
                   className={`h-1.5 rounded-full grow transition-all duration-300 ${
                     i <= currentSlide
-                      ? "bg-emerald-600 dark:bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.35)]"
-                      : "bg-slate-200 dark:bg-[#1e293b]"
+                      ? "bg-primary shadow-[0_0_6px_rgba(1,161,127,0.35)]"
+                      : "bg-muted"
                   }`}
                 />
               ))}
@@ -119,8 +119,8 @@ export function LessonTheoryView({
               onClick={() => setBookmarked(!bookmarked)}
               className={`w-10 h-10 flex items-center justify-center rounded-2xl border transition-all active:scale-95 cursor-pointer shadow-xs ${
                 bookmarked
-                  ? "bg-emerald-50 border-emerald-300 text-emerald-600 dark:bg-emerald-950/40 dark:border-emerald-700 dark:text-emerald-400"
-                  : "bg-white dark:bg-[#111722] border-slate-200 dark:border-[#1e293b] text-slate-600 dark:text-slate-300"
+                  ? "bg-secondary border-primary/40 text-primary"
+                  : "bg-card border-border text-muted-foreground"
               }`}
               title="Bookmark question"
             >
@@ -159,10 +159,10 @@ export function LessonTheoryView({
               type="button"
               disabled={selectedQuizOption === null}
               onClick={handleCheckAnswer}
-              className={`w-full h-14 rounded-2xl font-black text-base md:text-lg text-white transition-all flex items-center justify-center gap-2 shadow-lg active:scale-98 cursor-pointer ${
+              className={`w-full h-14 rounded-2xl font-black text-base md:text-lg transition-all flex items-center justify-center gap-2 shadow-lg active:scale-98 cursor-pointer ${
                 selectedQuizOption === null
-                  ? "bg-slate-200 border border-slate-300 text-slate-400 dark:bg-[#182232] dark:border-[#1e293b] dark:text-slate-500 cursor-not-allowed shadow-none"
-                  : "bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669]"
+                  ? "bg-muted border border-border text-muted-foreground cursor-not-allowed shadow-none"
+                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
               }`}
             >
               <span>Submit</span>
@@ -175,7 +175,7 @@ export function LessonTheoryView({
             <div
               className={`w-full rounded-3xl p-5 border transition-all duration-300 animate-pop-in flex flex-col gap-4 shadow-xl ${
                 isCurrentAnswerCorrect
-                  ? "bg-[#f0fdf4] dark:bg-[#0a1a14] border-[#86efac] dark:border-[#14532d] text-[#065f46] dark:text-[#a7f3d0]"
+                  ? "bg-secondary border-primary/40 text-secondary-foreground"
                   : "bg-[#fff1f2] dark:bg-[#1f090d] border-[#fecdd3] dark:border-[#881337] text-[#9f1239] dark:text-[#fecdd3]"
               }`}
             >
@@ -184,7 +184,7 @@ export function LessonTheoryView({
                 <div className="flex items-start gap-3">
                   <div className="shrink-0 mt-0.5">
                     {isCurrentAnswerCorrect ? (
-                      <CheckCircle2 className="w-8 h-8 text-emerald-600 dark:text-emerald-400 fill-emerald-100 dark:fill-emerald-950/60" />
+                      <CheckCircle2 className="w-8 h-8 text-primary fill-secondary" />
                     ) : (
                       <XCircle className="w-8 h-8 text-rose-600 dark:text-rose-400 fill-rose-100 dark:fill-rose-950/60" />
                     )}
@@ -192,9 +192,7 @@ export function LessonTheoryView({
                   <div className="space-y-1">
                     <h3
                       className={`text-xl font-black leading-tight ${
-                        isCurrentAnswerCorrect
-                          ? "text-emerald-700 dark:text-emerald-300"
-                          : "text-rose-600 dark:text-rose-400"
+                        isCurrentAnswerCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"
                       }`}
                     >
                       {isCurrentAnswerCorrect ? "Correct!" : "Oops! Not quite."}
@@ -202,7 +200,7 @@ export function LessonTheoryView({
                     <p
                       className={`text-xs md:text-sm font-bold leading-snug ${
                         isCurrentAnswerCorrect
-                          ? "text-emerald-800/90 dark:text-emerald-300/90"
+                          ? "text-secondary-foreground/90"
                           : "text-rose-700/90 dark:text-rose-300/90"
                       }`}
                     >
@@ -230,8 +228,8 @@ export function LessonTheoryView({
                 onClick={handleNextSlide}
                 className={`w-full h-13 rounded-2xl font-black text-base md:text-lg text-white transition-all flex items-center justify-center gap-2 shadow-md active:scale-98 cursor-pointer ${
                   isCurrentAnswerCorrect
-                    ? "bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669]"
-                    : "bg-[#dc2626] hover:bg-[#b91c1c] dark:bg-[#ef4444] dark:hover:bg-[#dc2626]"
+                    ? "bg-primary hover:bg-primary/90"
+                    : "bg-destructive hover:bg-destructive/90"
                 }`}
               >
                 <span>Continue</span>
@@ -245,7 +243,7 @@ export function LessonTheoryView({
             <button
               type="button"
               onClick={handleNextSlide}
-              className="w-full h-14 rounded-2xl font-black text-base md:text-lg bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white shadow-lg active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full h-14 rounded-2xl font-black text-base md:text-lg bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>{slide.isEnd ? "Finish & Start Level" : "Continue"}</span>
               <ArrowRight className="w-5 h-5" />

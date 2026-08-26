@@ -19,10 +19,10 @@ export function BrandIntroStep({ onNext }: StepProps) {
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center font-sans bg-background text-foreground p-0 sm:p-4 transition-colors">
-      <div className="w-full h-screen sm:h-[760px] sm:max-h-[90vh] sm:max-w-[390px] sm:rounded-3xl overflow-hidden flex flex-col justify-between p-6 relative bg-white dark:bg-[#111722] border border-slate-200 dark:border-[#1e293b] shadow-xl">
+      <div className="w-full h-screen sm:h-[760px] sm:max-h-[90vh] sm:max-w-[390px] sm:rounded-3xl overflow-hidden flex flex-col justify-between p-6 relative bg-card border border-border shadow-xl">
         {/* Lingo Title */}
         <div className="flex justify-center mt-12 sm:mt-10">
-          <h1 className="text-5xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight font-sans select-none drop-shadow-xs">
+          <h1 className="text-5xl font-black text-primary tracking-tight font-sans select-none drop-shadow-xs">
             Lingo
           </h1>
         </div>
@@ -42,7 +42,7 @@ export function BrandIntroStep({ onNext }: StepProps) {
             </svg>
           </div>
 
-          <div className="w-[200px] h-[200px] rounded-full border-4 border-emerald-500/20 bg-gradient-to-b from-emerald-100 to-teal-50 dark:from-emerald-950/60 dark:to-[#182232] flex items-center justify-center overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+          <div className="w-[200px] h-[200px] rounded-full border-4 border-primary/20 bg-gradient-to-b from-primary/15 to-secondary flex items-center justify-center overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={transparentSrc}
@@ -57,16 +57,16 @@ export function BrandIntroStep({ onNext }: StepProps) {
           <button
             type="button"
             onClick={onNext}
-            className="w-full h-14 rounded-2xl bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white font-black text-lg transition-all active:scale-98 shadow-lg cursor-pointer flex items-center justify-center gap-2 select-none"
+            className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-lg transition-all active:scale-98 shadow-lg cursor-pointer flex items-center justify-center gap-2 select-none"
           >
             <span>Continue</span>
             <ArrowRight className="w-5 h-5" />
           </button>
 
           <div className="flex gap-2">
-            <div className="h-1.5 w-12 rounded-full bg-emerald-600 dark:bg-emerald-400 transition-all duration-300" />
-            <div className="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-[#1e293b] transition-all duration-300" />
-            <div className="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-[#1e293b] transition-all duration-300" />
+            <div className="h-1.5 w-12 rounded-full bg-primary transition-all duration-300" />
+            <div className="h-1.5 w-12 rounded-full bg-muted transition-all duration-300" />
+            <div className="h-1.5 w-12 rounded-full bg-muted transition-all duration-300" />
           </div>
         </div>
       </div>

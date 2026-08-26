@@ -1,5 +1,6 @@
-import React from 'react';
-import { CommandType } from '../../../utils/types';
+import React from "react";
+import { CommandType } from "../../../utils/types";
+import { Play, RotateCcw } from "lucide-react";
 
 interface GameFooterProps {
   isPlaying: boolean;
@@ -7,7 +8,7 @@ interface GameFooterProps {
   commands: (CommandType | null)[];
   runSequence: () => void;
   resetLevel: () => void;
-  triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
+  triggerSound: (type: "tap" | "step" | "pickup" | "win" | "lose" | "hint") => void;
 }
 
 export function GameFooter({
@@ -18,28 +19,33 @@ export function GameFooter({
   resetLevel,
   triggerSound,
 }: GameFooterProps) {
-  const hasActiveCommands = commands.filter(c => c !== null).length > 0;
+  const hasActiveCommands = commands.filter((c) => c !== null).length > 0;
 
   return (
     <footer className="w-full flex justify-between gap-3 mb-2 select-none">
       <button
+        type="button"
         onClick={() => {
-          triggerSound('tap');
+          triggerSound("tap");
           resetLevel();
         }}
-        className="flex items-center gap-2 justify-center py-3 px-5 rounded-2xl border-2 border-b-4 border-slate-200 hover:bg-slate-50 text-indigo-600 font-extrabold text-sm shadow-sm active:translate-y-0.5 transition-all w-1/3 cursor-pointer"
+        className="flex items-center gap-2 justify-center py-3 px-5 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 dark:bg-[#111722] dark:border-[#1e293b] dark:hover:bg-[#182232] text-slate-700 dark:text-slate-200 font-extrabold text-sm shadow-xs active:scale-98 transition-all w-1/3 cursor-pointer"
       >
-        Reset
+        <RotateCcw className="w-4 h-4" />
+        <span>Reset</span>
       </button>
+
       <button
+        type="button"
         onClick={runSequence}
         disabled={isPlaying || success !== null || !hasActiveCommands}
-        className={`grow flex items-center max-w-[200px] justify-center gap-2 py-3 rounded-2xl border-2 border-b-4 text-white font-extrabold text-sm shadow-md active:translate-y-0.5 transition-all cursor-pointer ${!hasActiveCommands
-          ? 'bg-slate-300 border-slate-400 cursor-not-allowed shadow-none'
-          : isPlaying
-            ? 'bg-[#58cc02] border-[#3ea800] animate-pulse'
-            : 'bg-[#58cc02] border-[#3ea800] hover:bg-[#65e002]'
-          }`}
+        className={`grow flex items-center justify-center gap-2 py-3 rounded-2xl text-white font-extrabold text-sm shadow-md active:scale-98 transition-all cursor-pointer ${
+          !hasActiveCommands
+            ? "bg-slate-200 text-slate-400 border border-slate-300 dark:bg-[#182232] dark:border-[#1e293b] dark:text-slate-500 cursor-not-allowed shadow-none"
+            : isPlaying
+            ? "bg-emerald-600 dark:bg-emerald-500 animate-pulse"
+            : "bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669]"
+        }`}
       >
         {isPlaying ? (
           <>
@@ -48,7 +54,8 @@ export function GameFooter({
           </>
         ) : (
           <>
-            <span>▶</span> Run
+            <Play className="w-4 h-4 fill-current" />
+            <span>Run Program</span>
           </>
         )}
       </button>

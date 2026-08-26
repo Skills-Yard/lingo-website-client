@@ -1,14 +1,14 @@
-import React from 'react';
-import { GameHeader } from '../sections/GameHeader';
-import { MascotBanner } from '../sections/MascotBanner';
-import { GameBoard } from '../sections/GameBoard';
-import { CommandPalette } from '../sections/CommandPalette';
-import { GameFooter } from '../sections/GameFooter';
-import { CompletionModal } from '../sections/CompletionModal';
-import { useGameExecution } from '../../../hooks/useGameExecution';
-import { GameState } from '../../../hooks/useGameState';
-import { LevelConfig } from '../../../utils/types';
-import { LEVELS } from '../../../lib/constants/levels';
+import React from "react";
+import { GameHeader } from "../sections/GameHeader";
+import { MascotBanner } from "../sections/MascotBanner";
+import { GameBoard } from "../sections/GameBoard";
+import { CommandPalette } from "../sections/CommandPalette";
+import { GameFooter } from "../sections/GameFooter";
+import { CompletionModal } from "../sections/CompletionModal";
+import { useGameExecution } from "../../../hooks/useGameExecution";
+import { GameState } from "../../../hooks/useGameState";
+import { LevelConfig } from "../../../utils/types";
+import { LEVELS } from "../../../lib/constants/levels";
 
 interface GameViewProps {
   currentLevelIdx: number;
@@ -19,9 +19,9 @@ interface GameViewProps {
   setStars: React.Dispatch<React.SetStateAction<number>>;
   visualStars: number;
   gameState: GameState;
-  setView: (view: 'map' | 'lesson1_theory' | 'game') => void;
+  setView: (view: "map" | "lesson1_theory" | "game") => void;
   handleLevelSuccessContinue: () => void;
-  triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
+  triggerSound: (type: "tap" | "step" | "pickup" | "win" | "lose" | "hint") => void;
 }
 
 export function GameView({
@@ -63,13 +63,7 @@ export function GameView({
   });
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans flex flex-col items-center py-2 px-3">
-      {/* Clouds */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[10%] -left-37.5 w-50 h-20 bg-white opacity-40 blur-[2px] rounded-full animate-float-slow" />
-        <div className="absolute top-[30%] -right-45 w-62.5 h-22.5 bg-white opacity-50 blur-[1px] rounded-full animate-float-medium" />
-      </div>
-
+    <main className="relative min-h-screen w-full overflow-hidden bg-background text-foreground font-sans flex flex-col items-center py-2 px-3 transition-colors duration-200">
       {success === true && <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-50" />}
 
       <div className="relative w-full max-w-xl flex flex-col z-10">

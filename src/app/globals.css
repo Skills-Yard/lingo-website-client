@@ -7,49 +7,69 @@
 :root {
   color-scheme: light;
   --surface: #ffffff;
-  --surface-strong: #eef6ff;
-  --border: #d8e7ff;
+  --surface-strong: #f1f5f9;
+  --border: #e2e8f0;
   --muted: #64748b;
-  --background: #fffdf2;
-  --foreground: #1e293b;
+  --background: #f8fafc;
+  --foreground: #0f172a;
   --card: #ffffff;
-  --card-foreground: #1e293b;
+  --card-foreground: #0f172a;
   --popover: #ffffff;
-  --popover-foreground: #1e293b;
-  --primary: #3b82f6;
-  --primary-foreground: #eff6ff;
-  --secondary: #fef3c7;
-  --secondary-foreground: #1f2937;
+  --popover-foreground: #0f172a;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #f0fdf4;
+  --secondary-foreground: #065f46;
   --muted-foreground: #64748b;
-  --accent: #ddd6fe;
-  --accent-foreground: #312e81;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --input: #d8e7ff;
-  --ring: #60a5fa;
-  --chart-1: #facc15;
-  --chart-2: #60a5fa;
-  --chart-3: #818cf8;
-  --chart-4: #f59e0b;
-  --chart-5: #38bdf8;
-  --radius: 0.625rem;
+  --destructive-foreground: #ffffff;
+  --input: #e2e8f0;
+  --ring: #10b981;
+  --radius: 1rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1e293b;
-  --sidebar-primary: #3b82f6;
-  --sidebar-primary-foreground: #eff6ff;
-  --sidebar-accent: #fef3c7;
-  --sidebar-accent-foreground: #1f2937;
-  --sidebar-border: #d8e7ff;
-  --sidebar-ring: #60a5fa;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f0fdf4;
+  --sidebar-accent-foreground: #065f46;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #10b981;
 }
 
+.dark,
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --background: #07111f;
+  --background: #080c14;
   --foreground: #f8fafc;
-  --surface: #0f1b30;
-  --surface-strong: #162742;
-  --border: #22365a;
-  --muted: #a9b8d0;
+  --surface: #111722;
+  --surface-strong: #182232;
+  --card: #111722;
+  --card-foreground: #f8fafc;
+  --popover: #111722;
+  --popover-foreground: #f8fafc;
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  --secondary: #13271f;
+  --secondary-foreground: #6ee7b7;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #059669;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #10b981;
+  --sidebar: #111722;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #10b981;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #13271f;
+  --sidebar-accent-foreground: #6ee7b7;
+  --sidebar-border: #1e293b;
+  --sidebar-ring: #10b981;
 }
 
 @theme inline {
@@ -68,15 +88,11 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -101,50 +117,10 @@
 body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   transition: background-color 0.2s ease, color 0.2s ease;
-  background-image:
-    radial-gradient(circle at top, rgba(250, 204, 21, 0.12), transparent 28%),
-    radial-gradient(circle at 85% 18%, rgba(96, 165, 250, 0.14), transparent 24%);
-  background-attachment: fixed;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-.dark {
-  --background: #07111f;
-  --foreground: #f8fafc;
-  --surface: #0f1b30;
-  --surface-strong: #162742;
-  --card: #0f1b30;
-  --card-foreground: #f8fafc;
-  --popover: #0f1b30;
-  --popover-foreground: #f8fafc;
-  --primary: #7dd3fc;
-  --primary-foreground: #082f49;
-  --secondary: #1e293b;
-  --secondary-foreground: #fef3c7;
-  --muted: #1a2740;
-  --muted-foreground: #a9b8d0;
-  --accent: #312e81;
-  --accent-foreground: #e0e7ff;
-  --destructive: #f87171;
-  --border: #22365a;
-  --input: #22365a;
-  --ring: #7dd3fc;
-  --chart-1: #facc15;
-  --chart-2: #7dd3fc;
-  --chart-3: #a78bfa;
-  --chart-4: #f59e0b;
-  --chart-5: #38bdf8;
-  --sidebar: #0f1b30;
-  --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #7dd3fc;
-  --sidebar-primary-foreground: #082f49;
-  --sidebar-accent: #1e293b;
-  --sidebar-accent-foreground: #fef3c7;
-  --sidebar-border: #22365a;
-  --sidebar-ring: #7dd3fc;
 }
 
 @layer base {
@@ -161,59 +137,16 @@ html {
   }
 }
 
-/* Custom animations for Duolingo game */
+/* Animations */
 @keyframes floatSlow {
-  0% {
-    transform: translateX(-50px);
-  }
-
-  50% {
-    transform: translateX(100vw);
-  }
-
-  100% {
-    transform: translateX(-50px);
-  }
-}
-
-@keyframes floatMedium {
-  0% {
-    transform: translateX(50px);
-  }
-
-  50% {
-    transform: translateX(-100vw);
-  }
-
-  100% {
-    transform: translateX(55px);
-  }
-}
-
-@keyframes floatFast {
-  0% {
-    transform: translateX(-80px);
-  }
-
-  50% {
-    transform: translateX(100vw);
-  }
-
-  100% {
-    transform: translateX(-80px);
-  }
+  0% { transform: translateX(-50px); }
+  50% { transform: translateX(100vw); }
+  100% { transform: translateX(-50px); }
 }
 
 @keyframes bobSlow {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-4px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 @keyframes slideUp {
@@ -221,9 +154,19 @@ html {
     transform: translateY(100%);
     opacity: 0;
   }
-
   100% {
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -232,20 +175,16 @@ html {
   animation: floatSlow 75s infinite linear;
 }
 
-.animate-float-medium {
-  animation: floatMedium 55s infinite linear;
-}
-
-.animate-float-fast {
-  animation: floatFast 35s infinite linear;
-}
-
 .animate-bounce-slow {
   animation: bobSlow 3s infinite ease-in-out;
 }
 
 .animate-slide-up {
   animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-pop-in {
+  animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ── Sorting Game 3D Scene Styles ─────────────────────────────────────────── */

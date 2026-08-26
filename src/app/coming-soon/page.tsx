@@ -7,11 +7,13 @@ import {
   ArrowLeft,
   Sparkles,
   Award,
-  CheckCircle2
+  CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import Footer from "@/components/footer";
 import { LumiLogo } from "@/components/ui/koji-logo";
 import { TAB_CONTENT } from "@/utils/data/comingSoon";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 function ComingSoonContent() {
   const router = useRouter();
@@ -35,112 +37,89 @@ function ComingSoonContent() {
   };
 
   return (
-    <div className={`relative flex min-h-screen w-full flex-col items-center bg-linear-to-b ${content.bgGradient} text-foreground px-4 pb-36 pt-24 transition-all duration-500`}>
-      {/* Decorative Background Elements */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-160 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.08),transparent_60%)] blur-3xl" />
+    <div className="relative flex min-h-screen w-full flex-col items-center bg-background text-foreground px-4 pb-36 pt-20 transition-colors duration-200">
+      {/* Top action buttons */}
+      <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-20 max-w-4xl mx-auto">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="flex items-center justify-center gap-1.5 px-4 py-2 border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#111722] text-slate-800 dark:text-white font-extrabold text-sm rounded-2xl shadow-xs hover:bg-slate-50 dark:hover:bg-[#182232] transition-all active:scale-95 cursor-pointer"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back</span>
+        </button>
 
-      {/* Back button */}
-      <button
-        onClick={() => router.back()}
-        className="absolute top-6 left-6 flex items-center justify-center gap-1.5 px-4 py-2 border-2 border-b-4 border-border bg-surface text-foreground font-black text-sm rounded-2xl shadow-sm hover:bg-surface-strong transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer z-20"
-      >
-        <ArrowLeft className="w-4 h-4" />
-        Back
-      </button>
+        <ThemeToggle className="w-10 h-10 rounded-2xl" />
+      </div>
 
-      {/* Glass Card Container */}
-      <div className="relative z-10 w-full max-w-xl animate-in fade-in slide-in-from-bottom-6 duration-500 ease-out">
-        <div className="flex flex-col items-center rounded-[2.5rem] border-2 border-b-[6px] border-border bg-surface/80 p-8 text-center shadow-xl backdrop-blur-xl md:p-10">
-
+      {/* Card Container */}
+      <div className="relative z-10 w-full max-w-lg mt-6">
+        <div className="flex flex-col items-center rounded-3xl border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#111722] p-7 md:p-9 text-center shadow-lg transition-colors">
           {/* Animated Mascot Wrapper */}
-          <div className="relative mb-6">
-            {/* Soft pulsing halo */}
-            <div className="absolute inset-0 -m-3 rounded-[2.5rem] bg-linear-to-tr from-yellow-300/30 to-purple-400/20 blur-xl animate-pulse" />
-
-            {/* The Mascot */}
+          <div className="relative mb-5">
+            <div className="absolute inset-0 -m-3 rounded-full bg-emerald-500/10 dark:bg-emerald-500/5 blur-xl animate-pulse" />
             <LumiLogo
               variant={content.mascotVariant}
-              className="h-28 w-28 relative z-10 animate-bounce-slow"
+              className="h-24 w-24 relative z-10 animate-bounce-slow"
               priority
               noBackground={true}
             />
-
-            {/* Decorative Sparkle Icons */}
-            <Sparkles className="absolute -top-3 -right-3 h-6 w-6 text-amber-400 animate-pulse" />
-            <Award className="absolute -bottom-2 -left-3 h-7 w-7 text-indigo-400" />
+            <Sparkles className="absolute -top-2 -right-2 h-5 w-5 text-amber-400 animate-pulse" />
+            <Award className="absolute -bottom-1 -left-2 h-6 w-6 text-emerald-500" />
           </div>
 
           {/* Tagline Badge */}
-          <span className={`inline-flex items-center gap-1 px-3.5 py-1 rounded-full border-2 font-black text-xs uppercase tracking-wider mb-4 ${content.badgeColor}`}>
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full border border-emerald-300 dark:border-emerald-800/60 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-extrabold text-xs uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             {content.badge} Mode
           </span>
 
           {/* Heading */}
-          <h1 className="mb-4 text-3xl md:text-4xl font-black tracking-tight leading-tight">
-            {content.title} <span className="text-primary">is Brewing</span>
+          <h1 className="mb-3 text-2xl md:text-3xl font-black tracking-tight leading-tight">
+            {content.title} <span className="text-emerald-600 dark:text-emerald-400">in Progress</span>
           </h1>
 
           {/* Description */}
-          <p className="mb-8 text-muted-foreground text-sm md:text-base font-bold leading-relaxed max-w-md">
+          <p className="mb-6 text-slate-500 dark:text-slate-400 text-sm md:text-base font-medium leading-relaxed max-w-sm">
             {content.description}
           </p>
 
-          {/* Stats Preview Card */}
-          <div className="w-full bg-surface-strong/60 border-2 border-border/80 rounded-3xl p-5 mb-8 text-left">
-            <h3 className="text-xs font-black text-muted-foreground uppercase tracking-widest mb-3 border-b-2 border-border pb-1.5 flex items-center justify-between">
-              <span>Feature Preview</span>
-              <span className="text-[10px] bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded-md">Upcoming</span>
-            </h3>
-            <div className="grid grid-cols-3 gap-3 text-center">
-              {content.statsPreview.map((stat, idx) => (
-                <div key={idx} className="flex flex-col gap-1.5 p-2 bg-surface/50 border border-border/50 rounded-2xl shadow-sm">
-                  <span className="text-[10px] font-black text-muted-foreground uppercase tracking-wider leading-none">
-                    {stat.label}
-                  </span>
-                  <span className="text-xs md:text-sm font-black text-foreground">
-                    {stat.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Action Form / Button */}
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-3">
             {isSubscribed ? (
-              <div className="flex items-center justify-center gap-2 p-4 bg-emerald-50 dark:bg-emerald-950/20 border-2 border-emerald-200 dark:border-emerald-900 rounded-2xl text-emerald-600 dark:text-emerald-400 font-extrabold text-sm animate-in zoom-in-95 duration-200">
+              <div className="flex items-center justify-center gap-2 p-4 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-800 rounded-2xl text-emerald-700 dark:text-emerald-300 font-bold text-sm">
                 <CheckCircle2 className="w-5 h-5 shrink-0" />
-                <span>Awesome! We&apos;ll notify you as soon as it launches.</span>
+                <span>Awesome! We&apos;ll notify you when it launches.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5">
                 <input
                   type="email"
                   required
                   placeholder="Enter your email..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="grow h-14 px-5 rounded-2xl border-2 border-b-4 border-border bg-surface text-foreground font-bold placeholder-muted-foreground focus:outline-none focus:border-primary transition-all text-sm"
+                  className="grow h-13 px-4 rounded-2xl border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#182232] text-slate-900 dark:text-white font-bold placeholder-slate-400 focus:outline-none focus:border-emerald-500 transition-all text-sm shadow-xs"
                 />
                 <button
                   type="submit"
-                  className={`h-14 sm:w-auto px-6 border-b-[6px] rounded-2xl text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer transition-all active:translate-y-0.5 active:border-b-2 shadow-md ${content.primaryButtonBg}`}
+                  className="h-13 px-5 rounded-2xl text-sm font-black bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98 shadow-md"
                 >
-                  <Bell className="h-4.5 w-4.5" />
-                  Notify Me
+                  <Bell className="h-4 w-4" />
+                  <span>Notify Me</span>
                 </button>
               </form>
             )}
 
             <button
+              type="button"
               onClick={() => router.push("/courses")}
-              className="w-full h-14 bg-surface hover:bg-surface-strong text-foreground border-2 border-b-4 border-border font-black text-sm rounded-2xl flex items-center justify-center gap-2 transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer shadow-sm"
+              className="w-full h-13 bg-slate-100 hover:bg-slate-200 dark:bg-[#182232] dark:hover:bg-[#1c293d] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#1e293b] font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
             >
               <span>Explore Active Courses</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-
         </div>
       </div>
 
@@ -151,14 +130,16 @@ function ComingSoonContent() {
 
 export default function ComingSoonPage() {
   return (
-    <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 dark:from-slate-950 dark:to-slate-900">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-          <p className="text-sm font-bold text-muted-foreground animate-pulse">Lumi is thinking...</p>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-10 w-10 animate-spin rounded-full border-3 border-emerald-500 border-t-transparent" />
+            <p className="text-sm font-bold text-slate-400 animate-pulse">Loading...</p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <ComingSoonContent />
     </Suspense>
   );

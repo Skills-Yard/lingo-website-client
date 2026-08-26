@@ -36,25 +36,25 @@ export function SortingViewport({
   slotWidthPercent, workspaceRef, workspaceHeight, handleBlockClick,
 }: SortingViewportProps) {
   return (
-    <div className="relative w-full aspect-video min-h-[350px] bg-slate-950 border-4 border-slate-800 rounded-[32px] overflow-hidden shadow-2xl p-4 flex flex-col justify-between select-none">
+    <div className="relative w-full aspect-video min-h-[350px] bg-slate-950 border-4 border-slate-800 rounded-[32px] overflow-hidden shadow-2xl p-4 max-sm:p-0 flex flex-col justify-between select-none">
 
       <div className="absolute inset-0 bg-radial-gradient(circle at center, #111827 0%, #000000 100%) opacity-95 pointer-events-none" />
       <div
-        className="absolute inset-0 pointer-events-none opacity-10"
-        style={{ backgroundImage: 'radial-gradient(circle at 50% 150px, #3b82f6 0%, transparent 60%)' }}
+        className="absolute inset-0 pointer-events-none opacity-15"
+        style={{ backgroundImage: 'radial-gradient(circle at 50% 150px, #10b981 0%, transparent 60%)' }}
       />
 
       {/* 3D Scene Wrapper */}
       <div className="viewport-3d w-full h-full relative z-10 flex items-center justify-center">
-        <div className="stage-3d w-[92%] h-[85%] relative flex justify-center">
+        <div className="stage-3d w-[92%] max-sm:w-full h-[85%] relative flex justify-center">
 
           {/* Background Watermark */}
           <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0 animate-pulse"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
             style={{ transform: 'translate3d(0, -10px, -50px)' }}
           >
-            <span className="font-mono text-xl font-bold tracking-widest text-slate-700/10">
-              algomaster.io
+            <span className="font-mono text-xl font-black tracking-widest text-emerald-500/10 uppercase">
+              lingo
             </span>
           </div>
 
@@ -137,7 +137,7 @@ export function SortingViewport({
       </div>
 
       {/* Visualizer Status Bar */}
-      <div className="relative z-20 flex justify-between items-center text-[10px] text-slate-400 font-bold px-2">
+      <div className="relative z-20 max-sm:px-4 max-sm:pb-4 flex justify-between items-center text-[10px] text-slate-400 font-bold px-2">
         <div>
           {mode === 'play' ? (
             <span>Swaps: <strong className="text-white text-xs">{moveCount}</strong></span>

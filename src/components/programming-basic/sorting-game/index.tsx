@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { SortingGameViewProps } from '../../../utils/types/Sorting';
-import { getActionText } from '../../../utils/constants/helpers';
-import { useSortingGame } from '@/hooks/useSortingGame';
-import { Header } from './Header';
-import { MascotBanner } from './MascotBanner';
-import { ModeToggle } from './ModeToggle';
-import { SortingViewport } from './SortingViewport';
-import { Controls } from './Controls';
-import { CodeViewer } from './CodeViewer';
-import { WinModal } from './WinModal';
+import { SortingGameViewProps } from "../../../utils/types/Sorting";
+import { getActionText } from "../../../utils/constants/helpers";
+import { useSortingGame } from "@/hooks/useSortingGame";
+import { Header } from "./Header";
+import { MascotBanner } from "./MascotBanner";
+import { ModeToggle } from "./ModeToggle";
+import { SortingViewport } from "./SortingViewport";
+import { Controls } from "./Controls";
+import { CodeViewer } from "./CodeViewer";
+import { WinModal } from "./WinModal";
 
 export function SortingGameView({
   hearts,
@@ -37,21 +37,16 @@ export function SortingGameView({
   });
 
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden bg-linear-to-b from-sky-100 via-blue-50 to-yellow-50 font-sans flex flex-col items-center py-2 px-3 select-none">
-
-      {/* Background Clouds */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[10%] -left-37.5 w-50 h-20 bg-white opacity-40 blur-[2px] rounded-full animate-float-slow" />
-        <div className="absolute top-[25%] -right-45 w-62.5 h-22.5 bg-white opacity-50 blur-[1px] rounded-full animate-float-medium" />
-      </div>
-
+    <main className="relative min-h-screen w-full overflow-x-hidden bg-background text-foreground font-sans flex flex-col items-center py-2 px-3 select-none transition-colors duration-200">
       {/* Main Wrapper */}
       <div className="relative w-full max-w-xl flex flex-col z-10">
-
         <Header
           visualStars={visualStars}
           hearts={hearts}
-          onBack={() => { game.playTap(); setView('map'); }}
+          onBack={() => {
+            game.playTap();
+            setView("map");
+          }}
         />
 
         <MascotBanner message={game.mascotMessage} />
@@ -82,10 +77,13 @@ export function SortingGameView({
         {/* Action Label */}
         <div className="flex justify-center items-center h-10 -mt-2 mb-2">
           {actionText && (
-            <div className={`font-mono text-sm font-bold uppercase tracking-wider px-6 py-1.5 rounded-full border shadow-sm transition-all duration-300 ${game.isSorted
-              ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]'
-              : 'bg-amber-950/80 text-amber-400 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)] animate-pulse'
-              }`}>
+            <div
+              className={`font-mono text-xs font-bold uppercase tracking-wider px-5 py-1.5 rounded-full border shadow-xs transition-all duration-300 ${
+                game.isSorted
+                  ? "bg-emerald-950/80 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+                  : "bg-amber-950/80 text-amber-400 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)] animate-pulse"
+              }`}
+            >
               {actionText}
             </div>
           )}
@@ -113,7 +111,6 @@ export function SortingGameView({
         />
 
         <CodeViewer activeCodeLine={game.activeCodeLine} onRun={game.handleRunCode} />
-
       </div>
 
       {/* Win Modal */}
@@ -121,7 +118,10 @@ export function SortingGameView({
         <WinModal
           mode={game.mode}
           moveCount={game.moveCount}
-          onContinue={() => { game.playTap(); handleLevelSuccessContinue(); }}
+          onContinue={() => {
+            game.playTap();
+            handleLevelSuccessContinue();
+          }}
         />
       )}
     </main>

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
+import { ArrowRight, RotateCcw } from "lucide-react";
 
 interface CompletionModalProps {
   success: boolean;
@@ -9,9 +10,9 @@ interface CompletionModalProps {
   setStars: React.Dispatch<React.SetStateAction<number>>;
   setHearts: React.Dispatch<React.SetStateAction<number>>;
   resetLevel: (keepCommands: boolean) => void;
-  setView: (view: 'map' | 'lesson1_theory' | 'game') => void;
+  setView: (view: "map" | "lesson1_theory" | "game") => void;
   handleLevelSuccessContinue: () => void;
-  triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
+  triggerSound: (type: "tap" | "step" | "pickup" | "win" | "lose" | "hint") => void;
 }
 
 export function CompletionModal({
@@ -29,9 +30,8 @@ export function CompletionModal({
 }: CompletionModalProps) {
   // Generate stable confetti particles on mount
   const particles = useMemo(() => {
-    const colors = ['#FFC107', '#FF5722', '#E91E63', '#9C27B0', '#3F51B5', '#00BCD4', '#4CAF50', '#8BC34A'];
-    return Array.from({ length: 80 }, () => {
-      // Angle between 35 and 145 degrees (bursting upwards)
+    const colors = ["#10b981", "#059669", "#f59e0b", "#3b82f6", "#8b5cf6", "#ec4899", "#14b8a6"];
+    return Array.from({ length: 70 }, () => {
       const angle = (Math.random() * 110 + 35) * (Math.PI / 180);
       const force = Math.random() * 260 + 130;
       const tx = Math.cos(angle) * force;
@@ -57,26 +57,16 @@ export function CompletionModal({
 
   if (success) {
     return (
-      <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in select-none">
-        <div className="w-full max-w-[420px] bg-white rounded-lg p-8 shadow-2xl flex flex-col items-center text-center relative border border-slate-100 animate-scale-in">
+      <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in select-none">
+        <div className="w-full max-w-[400px] bg-white dark:bg-[#111722] rounded-3xl p-7 shadow-2xl flex flex-col items-center text-center relative border border-slate-200 dark:border-[#1e293b] animate-pop-in">
           {/* Confetti styles */}
           <style dangerouslySetInnerHTML={{
             __html: `
             @keyframes confettiBurst {
-              0% {
-                transform: translate(-50%, 0) scale(0.1) rotate(0deg);
-                opacity: 0;
-              }
-              5% {
-                opacity: 1;
-              }
-              80% {
-                opacity: 1;
-              }
-              100% {
-                transform: translate(calc(-50% + var(--tx)), var(--ty)) scale(0.5) rotate(var(--rot));
-                opacity: 0;
-              }
+              0% { transform: translate(-50%, 0) scale(0.1) rotate(0deg); opacity: 0; }
+              5% { opacity: 1; }
+              80% { opacity: 1; }
+              100% { transform: translate(calc(-50% + var(--tx)), var(--ty)) scale(0.5) rotate(var(--rot)); opacity: 0; }
             }
           ` }} />
 
@@ -86,34 +76,36 @@ export function CompletionModal({
               key={i}
               className="absolute pointer-events-none select-none rounded-[2px]"
               style={{
-                bottom: '40%',
-                left: '50%',
+                bottom: "40%",
+                left: "50%",
                 width: p.size,
                 height: p.sizeH,
                 backgroundColor: p.color,
                 zIndex: 10,
-                transformOrigin: 'center',
-                animationName: 'confettiBurst',
+                transformOrigin: "center",
+                animationName: "confettiBurst",
                 animationDuration: p.duration,
                 animationDelay: p.delay,
-                animationTimingFunction: 'cubic-bezier(0.1, 0.8, 0.25, 1)',
-                animationFillMode: 'forwards',
+                animationTimingFunction: "cubic-bezier(0.1, 0.8, 0.25, 1)",
+                animationFillMode: "forwards",
                 ...({
-                  '--tx': p.tx,
-                  '--ty': p.ty,
-                  '--rot': p.rot,
+                  "--tx": p.tx,
+                  "--ty": p.ty,
+                  "--rot": p.rot,
                 } as React.CSSProperties),
               }}
             />
           ))}
 
-          <h3 className="text-[28px] font-black text-slate-800 leading-tight">Awesome!</h3>
-          <p className="text-[17px] font-bold text-[#7c3aed] mt-1.5 flex items-center gap-1 justify-center">
-            You did it! 🎉
+          <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white leading-tight">
+            Awesome!
+          </h3>
+          <p className="text-base font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1 justify-center">
+            You completed the challenge! 🎉
           </p>
 
           {/* Mascot */}
-          <div className="my-7 w-36 h-36 flex items-center justify-center shrink-0 select-none">
+          <div className="my-6 w-32 h-32 flex items-center justify-center shrink-0 select-none">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/lumis-wayfing.png"
@@ -123,44 +115,43 @@ export function CompletionModal({
           </div>
 
           {/* Stats Row */}
-          <div className="grid grid-cols-3 gap-3 w-full mb-8">
-            {/* XP */}
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
-              <span className="text-2xl mb-1 select-none">⭐</span>
-              <span className="text-base font-black text-slate-700">+25</span>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider mt-0.5">XP</span>
+          <div className="grid grid-cols-3 gap-2.5 w-full mb-6">
+            <div className="bg-slate-50 dark:bg-[#182232] border border-slate-200 dark:border-[#22365a] rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
+              <span className="text-xl mb-1 select-none">⭐</span>
+              <span className="text-base font-black text-slate-800 dark:text-white">+25</span>
+              <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">XP</span>
             </div>
 
-            {/* Coins */}
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
-              <span className="text-2xl mb-1 select-none">🪙</span>
-              <span className="text-base font-black text-slate-700">+10</span>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider mt-0.5">Coins</span>
+            <div className="bg-slate-50 dark:bg-[#182232] border border-slate-200 dark:border-[#22365a] rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
+              <span className="text-xl mb-1 select-none">🪙</span>
+              <span className="text-base font-black text-slate-800 dark:text-white">+10</span>
+              <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Coins</span>
             </div>
 
-            {/* Streak */}
-            <div className="bg-slate-50 border border-slate-100 rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
-              <span className="text-2xl mb-1 select-none">🔥</span>
-              <span className="text-base font-black text-slate-700">+1</span>
-              <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider mt-0.5">Streak</span>
+            <div className="bg-slate-50 dark:bg-[#182232] border border-slate-200 dark:border-[#22365a] rounded-2xl py-3 flex flex-col items-center justify-center shadow-xs">
+              <span className="text-xl mb-1 select-none">🔥</span>
+              <span className="text-base font-black text-slate-800 dark:text-white">+1</span>
+              <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Streak</span>
             </div>
           </div>
 
-          {/* Next Lesson Button */}
+          {/* Continue Button */}
           <button
+            type="button"
             onClick={handleLevelSuccessContinue}
-            className="w-full py-4 bg-[#7c3aed] border-b-4 border-[#5b21b6] hover:bg-[#6d28d9] text-white font-black rounded-2xl shadow-lg text-[16px] cursor-pointer transition-all active:translate-y-0.5"
+            className="w-full h-13 bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white font-black rounded-2xl shadow-lg text-base flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98"
           >
-            {currentLevelIdx === 0 ? 'Start Lesson 1' : 'Next Lesson'}
+            <span>{currentLevelIdx === 0 ? "Start Lesson 1" : "Next Challenge"}</span>
+            <ArrowRight className="w-5 h-5" />
           </button>
 
-          {/* Back to Map button */}
           <button
+            type="button"
             onClick={() => {
-              triggerSound('tap');
-              setView('map');
+              triggerSound("tap");
+              setView("map");
             }}
-            className="mt-4 text-[14px] font-black text-[#7c3aed] hover:underline cursor-pointer bg-transparent border-0"
+            className="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer bg-transparent border-0"
           >
             Back to Map
           </button>
@@ -169,29 +160,26 @@ export function CompletionModal({
     );
   }
 
-  // Fallback bottom drawer overlay for level failure (retry and restart flows)
+  // Fallback bottom drawer overlay for failure
   return (
     <div className="fixed bottom-0 left-0 right-0 flex justify-center z-50 p-4 animate-slide-up select-none">
-      <div
-        className={`w-full max-w-[420px] rounded-lg p-5 shadow-2xl border border-b-8 bg-[#ffdfe0] border-[#ff4b4b]`}
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl border-b-4 bg-white/50 border-[#ff4b4b]/30`}
-          >
+      <div className="w-full max-w-[420px] rounded-3xl p-5 shadow-2xl border bg-rose-50 dark:bg-[#1f090d] border-rose-200 dark:border-[#881337] flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl bg-rose-100 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 shrink-0">
             💔
           </div>
           <div>
-            <h3 className="text-base font-black text-slate-800">
-              {hearts <= 0 ? 'Out of Hearts!' : 'Try Again!'}
+            <h3 className="text-base font-black text-rose-900 dark:text-rose-200">
+              {hearts <= 0 ? "Out of Hearts!" : "Try Again!"}
             </h3>
-            <p className="text-[11px] text-slate-500 mt-0.5">
+            <p className="text-xs text-rose-700/80 dark:text-rose-300/80 mt-0.5">
               {hearts <= 0
-                ? 'Refill hearts using stars to continue.'
-                : failureMsg || "Lumi didn't reach the flag."}
+                ? "Refill hearts using stars to continue."
+                : failureMsg || "Lumi didn't reach the goal."}
             </p>
           </div>
         </div>
+
         <div className="flex gap-3">
           {hearts <= 0 ? (
             <>
@@ -199,25 +187,26 @@ export function CompletionModal({
                 disabled={stars < 50}
                 onClick={() => {
                   if (stars >= 50) {
-                    triggerSound('tap');
-                    setStars(p => p - 50);
+                    triggerSound("tap");
+                    setStars((p) => p - 50);
                     setHearts(50);
                     resetLevel(true);
                   }
                 }}
-                className={`w-1/2 py-3 rounded-2xl font-extrabold text-white text-sm border-b-4 transition-all active:translate-y-0.5 ${stars >= 50
-                  ? 'bg-amber-500 border-amber-700 cursor-pointer hover:bg-amber-400'
-                  : 'bg-slate-300 border-slate-400 cursor-not-allowed'
-                  }`}
+                className={`w-1/2 py-3 rounded-2xl font-extrabold text-white text-sm transition-all ${
+                  stars >= 50
+                    ? "bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"
+                    : "bg-slate-300 dark:bg-slate-700 text-slate-400 cursor-not-allowed"
+                }`}
               >
                 Refill (50 ⭐)
               </button>
               <button
                 onClick={() => {
-                  triggerSound('tap');
-                  setView('map');
+                  triggerSound("tap");
+                  setView("map");
                 }}
-                className="w-1/2 py-3 rounded-2xl font-extrabold text-slate-700 text-sm border-b-4 border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition-all active:translate-y-0.5"
+                className="w-1/2 py-3 rounded-2xl font-extrabold text-slate-700 dark:text-slate-200 text-sm border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#111722] hover:bg-slate-50 cursor-pointer transition-all"
               >
                 Return to Map
               </button>
@@ -226,19 +215,19 @@ export function CompletionModal({
             <>
               <button
                 onClick={() => {
-                  triggerSound('tap');
+                  triggerSound("tap");
                   resetLevel(true);
                 }}
-                className="w-1/2 py-3 rounded-2xl font-extrabold text-slate-700 text-sm border-2 border-b-4 border-slate-200 bg-white hover:bg-slate-50 cursor-pointer transition-all active:translate-y-0.5"
+                className="w-1/2 py-3 rounded-2xl font-extrabold text-slate-700 dark:text-slate-200 text-sm border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#111722] hover:bg-slate-50 cursor-pointer transition-all"
               >
                 Retry
               </button>
               <button
                 onClick={() => {
-                  triggerSound('tap');
+                  triggerSound("tap");
                   resetLevel(false);
                 }}
-                className="w-1/2 py-3 bg-[#ff4b4b] border-b-4 border-[#cc2b2b] text-white font-extrabold rounded-2xl text-sm cursor-pointer transition-all active:translate-y-0.5"
+                className="w-1/2 py-3 bg-[#dc2626] hover:bg-[#b91c1c] dark:bg-[#ef4444] text-white font-extrabold rounded-2xl text-sm cursor-pointer transition-all shadow-md"
               >
                 Clear & Restart
               </button>

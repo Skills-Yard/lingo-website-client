@@ -142,7 +142,7 @@ export function Cube({
     <React.Fragment>
       {/* Platform Drop Shadow */}
       <div
-        className="absolute bg-black/60 rounded-full blur-[4px] pointer-events-none"
+        className="absolute  bg-black/60 rounded-full blur-[4px] pointer-events-none"
         style={{
           left: `calc(${leftPos}% - 16px)`,
           width: '32px',

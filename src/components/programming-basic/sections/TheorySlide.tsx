@@ -1,12 +1,16 @@
-import { COMMAND_DETAILS } from '../../../lib/constants/commands';
-import { TheorySlideType as Slide } from '../../../utils/types';
+"use client";
+
+import React from "react";
+import { MessageSquare, BookOpen, HelpCircle, Compass, Play, Sparkles } from "lucide-react";
+import { COMMAND_DETAILS } from "../../../lib/constants/commands";
+import { TheorySlideType as Slide } from "../../../utils/types";
 
 interface TheorySlideProps {
   slide: Slide;
   selectedQuizOption: number | null;
   setSelectedQuizOption: (opt: number | null) => void;
   quizAnswerChecked: boolean;
-  triggerSound: (type: 'tap' | 'step' | 'pickup' | 'win' | 'lose' | 'hint') => void;
+  triggerSound: (type: "tap" | "step" | "pickup" | "win" | "lose" | "hint") => void;
 }
 
 export function TheorySlide({
@@ -16,331 +20,198 @@ export function TheorySlide({
   quizAnswerChecked,
   triggerSound,
 }: TheorySlideProps) {
-  if (slide.showCommandsIllustration) {
-    return (
-      <>
-        <div className="flex items-start gap-3 mb-6">
-          <div className="grow">
-            <h2 className="text-[26px] font-black text-slate-900 leading-tight mb-3">{slide.title}</h2>
-            <p className="text-[14px] text-slate-600 leading-relaxed">{slide.text}</p>
-          </div>
-          <div className="shrink-0 w-27.5 h-32.5 flex items-center justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/lumis-wayfing.png" alt="Mascot" className="w-full h-full object-contain drop-shadow-md" />
-          </div>
-        </div>
+  // Extract first word for emerald green highlight
+  const titleParts = slide.title.split(" ");
+  const firstWord = titleParts[0];
+  const remainingTitle = titleParts.slice(1).join(" ");
 
-        <div className="flex flex-col gap-3">
-          {[
-            { icon: '↑', label: 'Go Straight' },
-            { icon: '←', label: 'Turn Left' },
-            { icon: '✋', label: 'Pick Up' },
-            { icon: '↓', label: 'Put Down' },
-          ].map(item => (
-            <div key={item.label} className="flex items-center gap-3 bg-white border-2 border-[#d7f5c5] rounded-2xl px-4 py-3 shadow-sm">
-              <div className="w-9 h-9 rounded-xl bg-[#58cc02] flex items-center justify-center text-white font-black text-lg shadow-sm shrink-0">
-                {item.icon}
-              </div>
-              <span className="text-[14px] font-bold text-slate-800">{item.label}</span>
-            </div>
-          ))}
-        </div>
-
-        <p className="text-[13px] font-semibold text-slate-500 text-center mt-5">
-          {slide.instruction || "The computer follows your commands exactly!"}
-        </p>
-      </>
-    );
-  }
-
-  if (slide.isEnd) {
-    return (
-      <div className="flex flex-col items-center text-center gap-4">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/lumis-wayfing.png" alt="🎉" className="w-32 h-32 object-contain" />
-        <h2 className="text-[26px] font-black text-slate-900 leading-tight">{slide.title}</h2>
-        <p className="text-[14px] text-slate-600 leading-relaxed">{slide.text}</p>
-        {slide.instruction && (
-          <div className="bg-indigo-50 border border-indigo-100 rounded-2xl px-4 py-3 w-full">
-            <p className="text-[12px] font-bold text-indigo-600">{slide.instruction}</p>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  if (slide.hasQuiz && slide.options) {
-    // Render the explanation/feedback layout if the answer has been checked/submitted
-    if (quizAnswerChecked && selectedQuizOption !== null) {
-      const selectedOption = slide.options[selectedQuizOption];
-      const isCorrect = selectedOption?.isCorrect ?? false;
-      const title = isCorrect 
-        ? (slide.explanation?.correctTitle ?? "Great choice!") 
-        : (slide.explanation?.incorrectTitle ?? "Not quite!");
-      const text = selectedOption?.explanation ?? (isCorrect
-        ? (slide.explanation?.correctText ?? "That is correct!")
-        : (slide.explanation?.incorrectText ?? "That is incorrect!"));
-      const remember = slide.explanation?.rememberText ?? "Every command has a specific action.";
-
+  // Default option badges mapping
+  const getOptionBadge = (idx: number, opt: any) => {
+    const cmdType = opt.commandType as keyof typeof COMMAND_DETAILS | undefined;
+    if (cmdType && COMMAND_DETAILS[cmdType]) {
       return (
-        <div className="flex flex-col gap-4 animate-fade-in select-none">
-          {/* Explanation Header & presenter mascot */}
-          <div className="flex justify-between items-start gap-4">
-            <div className="grow">
-              <h2 className={`text-[26px] font-black leading-tight ${isCorrect ? 'text-[#58cc02]' : 'text-[#ff4b4b]'}`}>
-                {title}
-              </h2>
-              <p className="text-[14px] text-slate-600 leading-relaxed mt-2">{text}</p>
-            </div>
-            <div className="shrink-0 w-24 h-24 relative select-none">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/lumis-wayfing.png"
-                alt="Presenter Mascot"
-                className="w-full h-full object-contain drop-shadow-md animate-bounce-slow"
-                style={{ transform: 'scaleX(-1) rotate(-10deg)' }}
-              />
-            </div>
-          </div>
-
-          {/* Visual Illustration */}
-          {slide.imageSrc && (
-            <div className="relative w-full h-[180px] bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center overflow-hidden mb-1 shadow-sm">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={slide.imageSrc}
-                alt={slide.title}
-                className="w-full h-full object-contain"
-              />
-            </div>
-          )}
-
-          {!slide.imageSrc && slide.quizIllustration && slide.quizIllustration.type === 'command_demonstration' && (
-            <div className="relative w-full h-40 bg-linear-to-b from-indigo-50/50 to-blue-50/20 rounded-2xl border border-slate-100 flex items-center justify-center overflow-visible mb-1 shadow-sm">
-              <div className="relative w-[180px] h-[100px] mt-4">
-                {/* Isometric Tiles */}
-                <div 
-                  className="absolute w-[80px] h-[45px] bg-[#89e219] border-b-[6px] border-[#58cc02] rounded-[10px]"
-                  style={{
-                    transform: 'rotateX(55deg) rotateZ(-45deg) translate(0px, 0px)',
-                    boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-                  }}
-                />
-                <div 
-                  className="absolute w-[80px] h-[45px] bg-[#a2ec3b] border-b-[6px] border-[#73db16] rounded-[10px]"
-                  style={{
-                    transform: 'rotateX(55deg) rotateZ(-45deg) translate(70px, -70px)',
-                    boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-                  }}
-                />
-
-                {/* Lumi Character */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/lumis-wayfing.png"
-                  alt="Lumi"
-                  className="absolute w-14 h-14 object-contain z-10 bottom-[20px] left-[15px]"
-                  style={{ filter: 'url(#chroma-white)' }}
-                />
-
-                {/* Floating Command Icon and dashed curve */}
-                <div className="absolute -top-[15px] right-[20px] flex flex-col items-center z-20">
-                  <div className="w-12 h-12 rounded-full bg-indigo-50 border-2 border-indigo-200 flex items-center justify-center shadow-lg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src={COMMAND_DETAILS[slide.quizIllustration.commandType].imageSrc} 
-                      alt={slide.quizIllustration.commandType} 
-                      className="w-7 h-7 object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* Star item for pickup */}
-                {slide.quizIllustration.commandType === 'pickup' && (
-                  <img 
-                    src="/images/star.png" 
-                    alt="Star" 
-                    className="absolute w-8 h-8 object-contain z-10 top-[5px] right-[40px] animate-pulse"
-                  />
-                )}
-
-                {/* SVG Dashed Curve */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ overflow: 'visible' }}>
-                  <path
-                    d="M 45 45 Q 85 0 135 15"
-                    fill="none"
-                    stroke="#818cf8"
-                    strokeWidth="3"
-                    strokeDasharray="5,5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-            </div>
-          )}
-
-          {/* Lavender Remember Box */}
-          <div className="bg-[#f5f3ff] border border-[#e9e3ff] rounded-2xl p-4 flex gap-3 items-start mt-2 shadow-xs">
-            <span className="text-lg">💡</span>
-            <div className="flex flex-col">
-              <span className="text-[11px] font-black text-[#7c3aed] uppercase tracking-wider">Remember</span>
-              <span className="text-[13px] font-bold text-slate-700 leading-normal mt-0.5">{remember}</span>
-            </div>
-          </div>
+        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[#182232] flex items-center justify-center p-1 shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={COMMAND_DETAILS[cmdType].imageSrc}
+            alt={opt.text}
+            className="w-6 h-6 object-contain"
+          />
         </div>
       );
     }
 
+    if (idx === 0) {
+      return (
+        <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-950/50 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0">
+          <MessageSquare className="w-5 h-5 fill-current" />
+        </div>
+      );
+    }
+    if (idx === 1) {
+      return (
+        <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-950/50 text-teal-600 dark:text-teal-300 flex items-center justify-center shrink-0">
+          <BookOpen className="w-5 h-5" />
+        </div>
+      );
+    }
+    if (idx === 2) {
+      return (
+        <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-300 flex items-center justify-center shrink-0">
+          <Compass className="w-5 h-5" />
+        </div>
+      );
+    }
     return (
-      <div className="flex flex-col gap-4 select-none">
-        <h2 className="text-[22px] font-black text-slate-900 leading-tight">{slide.title}</h2>
-        <p className="text-[14px] text-slate-600">{slide.text}</p>
-        {slide.question && (
-          <p className="text-[12px] font-black text-slate-400 uppercase tracking-widest mt-1">{slide.question}</p>
-        )}
+      <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-600 dark:text-amber-300 flex items-center justify-center shrink-0 font-black text-sm">
+        {String.fromCharCode(65 + idx)}
+      </div>
+    );
+  };
 
-        {/* Render generated image asset if provided */}
-        {slide.imageSrc && (
-          <div className="relative w-full h-[180px] bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center overflow-hidden mb-2 shadow-sm">
+  return (
+    <div className="flex flex-col gap-4 select-none">
+      {/* ── Title with emerald highlight on first word ── */}
+      <h1 className="text-2xl md:text-3xl font-black tracking-tight leading-tight text-center md:text-left">
+        <span className="text-emerald-600 dark:text-emerald-400">{firstWord} </span>
+        <span className="text-slate-900 dark:text-white">{remainingTitle}</span>
+      </h1>
+
+      {/* ── Main Media / 3D Card ── */}
+      {slide.imageSrc ? (
+        <div className="relative w-full h-64 md:h-72 bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] flex items-center justify-center overflow-hidden shadow-sm p-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={slide.imageSrc}
+            alt={slide.title}
+            className="w-full h-full object-contain rounded-2xl"
+          />
+        </div>
+      ) : slide.showCommandsIllustration ? (
+        <div className="relative w-full bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] p-5 shadow-sm">
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            {[
+              { icon: "↑", label: "Go Straight" },
+              { icon: "←", label: "Turn Left" },
+              { icon: "✋", label: "Pick Up" },
+              { icon: "↓", label: "Put Down" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center gap-3 bg-slate-50 dark:bg-[#182232] border border-slate-200 dark:border-[#22365a] rounded-2xl p-3"
+              >
+                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black flex items-center justify-center shadow-xs">
+                  {item.icon}
+                </div>
+                <span className="text-xs md:text-sm font-bold text-slate-800 dark:text-white">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 font-medium text-center">
+            {slide.instruction || "The computer follows your commands step-by-step!"}
+          </p>
+        </div>
+      ) : (
+        <div className="relative w-full h-52 bg-white dark:bg-[#111722] rounded-3xl border border-slate-200 dark:border-[#1e293b] flex flex-col items-center justify-center p-6 shadow-sm text-center">
+          <div className="w-24 h-24 mb-2 flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={slide.imageSrc}
-              alt={slide.title}
-              className="w-full h-full object-contain"
+              src="/images/lumis-wayfing.png"
+              alt="Lumi"
+              className="w-full h-full object-contain animate-bounce-slow"
             />
           </div>
-        )}
+          <p className="text-sm md:text-base font-semibold text-slate-600 dark:text-slate-300 max-w-sm">
+            {slide.text}
+          </p>
+        </div>
+      )}
 
-        {/* Custom Visual Illustration for command quizzes */}
-        {!slide.imageSrc && slide.quizIllustration && slide.quizIllustration.type === 'command_demonstration' && (
-          <div className="relative w-full h-40 bg-linear-to-b from-indigo-50/50 to-blue-50/20 rounded-2xl border border-slate-100 flex items-center justify-center overflow-visible mb-2 shadow-sm">
-            <div className="relative w-[180px] h-[100px] mt-4">
-              {/* Isometric Tiles */}
-              <div 
-                className="absolute w-[80px] h-[45px] bg-[#89e219] border-b-[6px] border-[#58cc02] rounded-[10px]"
-                style={{
-                  transform: 'rotateX(55deg) rotateZ(-45deg) translate(0px, 0px)',
-                  boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-                }}
-              />
-              <div 
-                className="absolute w-[80px] h-[45px] bg-[#a2ec3b] border-b-[6px] border-[#73db16] rounded-[10px]"
-                style={{
-                  transform: 'rotateX(55deg) rotateZ(-45deg) translate(70px, -70px)',
-                  boxShadow: '0 8px 16px rgba(0,0,0,0.1)',
-                }}
-              />
+      {/* ── Subtitle / Question Description if applicable ── */}
+      {slide.hasQuiz && slide.question && (
+        <p className="text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 px-1">
+          {slide.question}
+        </p>
+      )}
 
-              {/* Lumi Character */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/lumis-wayfing.png"
-                alt="Lumi"
-                className="absolute w-14 h-14 object-contain z-10 bottom-[20px] left-[15px]"
-                style={{ filter: 'url(#chroma-white)' }}
-              />
-
-              {/* Floating Command Icon and dashed curve */}
-              <div className="absolute -top-[15px] right-[20px] flex flex-col items-center z-20">
-                <div className="w-12 h-12 rounded-full bg-indigo-50 border-2 border-indigo-200 flex items-center justify-center shadow-lg">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={COMMAND_DETAILS[slide.quizIllustration.commandType].imageSrc} 
-                    alt={slide.quizIllustration.commandType} 
-                    className="w-7 h-7 object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* If it's a pickup, show a star on the destination tile */}
-              {slide.quizIllustration.commandType === 'pickup' && (
-                <img 
-                  src="/images/star.png" 
-                  alt="Star" 
-                  className="absolute w-8 h-8 object-contain z-10 top-[5px] right-[40px] animate-pulse"
-                />
-              )}
-
-              {/* SVG Dashed Curve */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ overflow: 'visible' }}>
-                <path
-                  d="M 45 45 Q 85 0 135 15"
-                  fill="none"
-                  stroke="#818cf8"
-                  strokeWidth="3"
-                  strokeDasharray="5,5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-          </div>
-        )}
-
+      {/* ── Quiz Options List ── */}
+      {slide.hasQuiz && slide.options && (
         <div className="flex flex-col gap-3">
           {slide.options.map((opt, idx) => {
-            const isSel = selectedQuizOption === idx;
-            const checked = quizAnswerChecked;
-            let borderCls = 'border-slate-200 bg-white text-slate-800 hover:border-indigo-300 hover:bg-indigo-50/30';
-            let iconBg = 'bg-slate-100';
-            let iconColor = 'text-slate-400';
+            const isSelected = selectedQuizOption === idx;
+            const isChecked = quizAnswerChecked;
+            const isCorrect = opt.isCorrect;
 
-            if (isSel && !checked) {
-              borderCls = 'border-[#7c3aed] bg-[#f5f3ff] text-[#6d28d9] ring-2 ring-indigo-100';
-              iconBg = 'bg-[#7c3aed]';
-              iconColor = 'text-white';
-            } else if (isSel && checked) {
-              if (opt.isCorrect) {
-                borderCls = 'border-[#58cc02] bg-[#d7f5c5] text-[#2d7a00]';
-                iconBg = 'bg-[#58cc02]';
-                iconColor = 'text-white';
+            let cardBorder =
+              "border-slate-200 bg-white hover:border-slate-300 dark:border-[#1e293b] dark:bg-[#111722] dark:hover:border-slate-700";
+            let radioStyle = "border-slate-300 dark:border-slate-600";
+            let titleColor = "text-slate-900 dark:text-white";
+
+            if (isSelected && !isChecked) {
+              cardBorder =
+                "border-emerald-500 bg-emerald-50/60 dark:bg-[#0c2017] dark:border-emerald-500 ring-1 ring-emerald-500/30";
+              radioStyle = "border-emerald-500 dark:border-emerald-400";
+              titleColor = "text-emerald-700 dark:text-emerald-300";
+            } else if (isSelected && isChecked) {
+              if (isCorrect) {
+                cardBorder =
+                  "border-emerald-500 bg-emerald-50/80 dark:bg-[#0c2017] dark:border-emerald-500 ring-1 ring-emerald-500/40";
+                radioStyle = "border-emerald-500 dark:border-emerald-400";
+                titleColor = "text-emerald-700 dark:text-emerald-300";
               } else {
-                borderCls = 'border-[#ff4b4b] bg-[#ffdfe0] text-[#cc2b2b]';
-                iconBg = 'bg-[#ff4b4b]';
-                iconColor = 'text-white';
+                cardBorder =
+                  "border-rose-500 bg-rose-50/80 dark:bg-[#260c11] dark:border-rose-500 ring-1 ring-rose-500/40";
+                radioStyle = "border-rose-500 dark:border-rose-400";
+                titleColor = "text-rose-600 dark:text-rose-400";
               }
             }
 
             return (
               <button
                 key={idx}
-                disabled={checked}
+                type="button"
+                disabled={isChecked}
                 onClick={() => {
-                  triggerSound('tap');
+                  triggerSound("tap");
                   setSelectedQuizOption(idx);
                 }}
-                className={`flex items-center gap-4 w-full text-left p-3.5 border-2 border-b-4 rounded-2xl transition-all shadow-sm cursor-pointer ${borderCls}`}
+                className={`w-full flex items-center justify-between p-4 md:p-4.5 rounded-2xl border transition-all duration-200 text-left shadow-xs cursor-pointer active:scale-99 ${cardBorder}`}
               >
-                {opt.commandType ? (
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 p-0.5 border ${isSel ? 'bg-indigo-100 border-indigo-200' : 'bg-slate-50 border-slate-200'}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={COMMAND_DETAILS[opt.commandType].imageSrc}
-                      alt={opt.text}
-                      className="w-full h-full object-contain"
-                    />
+                <div className="flex items-center gap-3.5 min-w-0 grow">
+                  {getOptionBadge(idx, opt)}
+                  <div className="flex flex-col min-w-0 pr-2">
+                    <span className={`font-bold text-base md:text-[17px] leading-tight ${titleColor}`}>
+                      {opt.text}
+                    </span>
+                    {opt.explanation && !isChecked && (
+                      <span className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5 line-clamp-1">
+                        {opt.explanation}
+                      </span>
+                    )}
                   </div>
-                ) : (
-                  <span className={`w-7 h-7 rounded-lg flex items-center justify-center font-black text-[11px] shrink-0 ${iconBg} ${iconColor}`}>
-                    {['A', 'B', 'C', 'D'][idx]}
-                  </span>
-                )}
-                <span className="text-[14px] font-bold leading-snug grow">{opt.text}</span>
-                {isSel && checked && <span className="shrink-0 text-lg">{opt.isCorrect ? '✓' : '✗'}</span>}
+                </div>
+
+                {/* Radio Indicator */}
+                <div className="shrink-0 pl-2">
+                  <div
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${radioStyle}`}
+                  >
+                    {isSelected && (
+                      <div
+                        className={`w-3 h-3 rounded-full transition-transform scale-100 ${
+                          isChecked && !isCorrect
+                            ? "bg-rose-500 dark:bg-rose-400"
+                            : "bg-emerald-600 dark:bg-emerald-400"
+                        }`}
+                      />
+                    )}
+                  </div>
+                </div>
               </button>
             );
           })}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-4 select-none">
-      <h2 className="text-[26px] font-black text-slate-900 leading-tight">{slide.title}</h2>
-      <p className="text-[14px] text-slate-600 leading-relaxed">{slide.text}</p>
-      {slide.instruction && (
-        <div className="bg-indigo-50 border border-indigo-100 rounded-2xl px-4 py-3">
-          <p className="text-[12px] font-bold text-indigo-600 text-center">{slide.instruction}</p>
         </div>
       )}
     </div>

@@ -1,5 +1,8 @@
 "use client";
 
+import React from "react";
+import { ChevronLeft, ArrowRight } from "lucide-react";
+
 interface StepProps {
   onNext: () => void;
   onBack: () => void;
@@ -7,113 +10,61 @@ interface StepProps {
 
 export function ReadyIntroStep({ onNext, onBack }: StepProps) {
   return (
-    <div className="min-h-screen w-full  flex items-center justify-center font-sans p-0 sm:p-4">
-      {/* Mobile Card Mockup Container */}
-      <div className="w-full h-screen sm:h-[760px] sm:max-h-[90vh] sm:max-w-[390px] sm:rounded-[36px] overflow-hidden   flex flex-col justify-between p-6 relative ">
-
-        {/* Floating Pixel Grids Decoration */}
-        <div className="absolute top-16 right-6 flex flex-col gap-0.5 opacity-15 pointer-events-none select-none">
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-transparent" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-          </div>
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-transparent" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-          </div>
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-transparent" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-transparent" />
-          </div>
-        </div>
-
-        <div className="absolute bottom-32 left-6 flex flex-col gap-0.5 opacity-15 pointer-events-none select-none">
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-transparent" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-          </div>
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-transparent" />
-          </div>
-          <div className="flex gap-0.5">
-            <div className="w-4 h-4 bg-transparent" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-            <div className="w-4 h-4 bg-[#7C73E6] rounded-sm" />
-          </div>
-        </div>
-
+    <div className="min-h-screen w-full flex items-center justify-center font-sans bg-background text-foreground p-0 sm:p-4 transition-colors">
+      <div className="w-full h-screen sm:h-[760px] sm:max-h-[90vh] sm:max-w-[390px] sm:rounded-3xl overflow-hidden flex flex-col justify-between p-6 relative bg-white dark:bg-[#111722] border border-slate-200 dark:border-[#1e293b] shadow-xl">
         {/* Top Control Bar */}
-        <div className="flex items-center justify-between mt-4 z-10">
-          {/* Back Icon Skip-Media Button */}
+        <div className="flex items-center justify-between mt-3 z-10">
           <button
+            type="button"
             onClick={onBack}
-            className="w-10 h-10 rounded-2xl bg-[#9E94F8] border-2 border-b-4 border-indigo-900 flex items-center justify-center transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer shadow-sm hover:brightness-105"
+            className="w-10 h-10 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-[#182232] dark:hover:bg-[#1c293d] border border-slate-200 dark:border-[#1e293b] flex items-center justify-center transition-all active:scale-95 cursor-pointer shadow-xs"
+            aria-label="Back"
           >
-            <svg className="w-5 h-5 fill-white text-white" viewBox="0 0 24 24">
-              <path d="M6 19h2V5H6v14zm3.5-7L18 5v14l-8.5-7z" />
-            </svg>
-          </button>
-
-          {/* Sound Mute-Slash Button */}
-          <button
-            className="w-10 h-10 rounded-2xl bg-[#9E94F8] border-2 border-b-4 border-indigo-900 flex items-center justify-center transition-all active:translate-y-0.5 active:border-b-2 cursor-pointer shadow-sm hover:brightness-105"
-          >
-            <svg className="w-5 h-5 fill-none stroke-white stroke-[2.5]" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6L4.5 9H1.5v6h3l4.5 3V6z" />
-            </svg>
+            <ChevronLeft className="w-5 h-5 text-slate-700 dark:text-slate-300" />
           </button>
         </div>
 
         {/* Top Header Text */}
-        <div className="text-center mt-4 px-2 z-10">
-          <p className="text-sm font-extrabold text-slate-800 leading-relaxed max-w-[280px] mx-auto">
-            You need to answer just 7 quick questions! (Please)
+        <div className="text-center mt-3 px-2 z-10">
+          <p className="text-sm md:text-base font-bold text-slate-600 dark:text-slate-400 leading-relaxed max-w-[280px] mx-auto">
+            Just a few quick questions to personalize your plan!
           </p>
         </div>
 
         {/* Character Image */}
         <div className="relative flex justify-center items-center my-auto max-h-[220px] z-10">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/new-cractor1.png"
-            alt="Lumi pleading sad"
-            className="w-[180px] h-[180px] object-contain select-none transform hover:scale-105 transition-transform duration-300 animate-pulse-slow"
+            alt="Lumi ready character"
+            className="w-[180px] h-[180px] object-contain select-none transform hover:scale-105 transition-transform duration-300 animate-bounce-slow"
           />
         </div>
 
         {/* Ready Mate? Prompt */}
-        <div className="text-center mb-4 z-10">
-          <h2 className="text-3xl font-extrabold text-slate-800 leading-tight">
-            Ready mate?
+        <div className="text-center mb-3 z-10">
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white leading-tight">
+            Ready to <span className="text-emerald-600 dark:text-emerald-400">start?</span>
           </h2>
         </div>
 
         {/* Action Buttons & Page Indicator */}
-        <div className="flex flex-col gap-4 mt-auto mb-8 sm:mb-4 items-center z-10">
-          {/* Ready since forever Button */}
+        <div className="flex flex-col gap-4 mt-auto mb-6 items-center z-10">
           <button
+            type="button"
             onClick={onNext}
-            className="w-full h-14 rounded-2xl bg-[#7C73E6] border-b-4 border-[#5E54C9] hover:bg-[#8C83FA] text-white font-black text-lg transition-all active:translate-y-0.5 active:border-b-2 shadow-md cursor-pointer flex items-center justify-center select-none"
+            className="w-full h-14 rounded-2xl bg-[#059669] hover:bg-[#047857] dark:bg-[#10b981] dark:hover:bg-[#059669] text-white font-black text-lg transition-all active:scale-98 shadow-lg cursor-pointer flex items-center justify-center gap-2 select-none"
           >
-            Ready since forever
+            <span>Let&apos;s go</span>
+            <ArrowRight className="w-5 h-5" />
           </button>
 
-          {/* Progress Dash Indicators */}
-          <div className="flex gap-2.5 mt-2">
-            <div className="h-1.5 w-12 rounded-full bg-[#7C73E6] opacity-30 transition-all duration-300" />
-            <div className="h-1.5 w-12 rounded-full bg-[#7C73E6] opacity-30 transition-all duration-300" />
-            <div className="h-1.5 w-12 rounded-full bg-[#7C73E6] opacity-100 transition-all duration-300 shadow-[0_0_6px_rgba(124,115,230,0.5)]" />
+          <div className="flex gap-2">
+            <div className="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-[#1e293b] transition-all duration-300" />
+            <div className="h-1.5 w-12 rounded-full bg-slate-200 dark:bg-[#1e293b] transition-all duration-300" />
+            <div className="h-1.5 w-12 rounded-full bg-emerald-600 dark:bg-emerald-400 transition-all duration-300" />
           </div>
         </div>
-
       </div>
     </div>
   );

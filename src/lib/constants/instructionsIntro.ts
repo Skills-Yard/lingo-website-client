@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { HelpCircle, Megaphone } from "lucide-react";
+import { HelpCircle, BookOpen } from "lucide-react";
 
 export interface QuizOption {
   text: string;
@@ -22,7 +22,8 @@ export type InstructionsSlide =
       kind: "cover";
       highlightWord: string;
       title: string;
-      imageSrc: string;
+      imageLight: string;
+      imageDark: string;
       lines: string[];
       highlightLine: string;
       revealLabel: string;
@@ -71,7 +72,8 @@ export const INSTRUCTIONS_INTRO_SLIDES: InstructionsSlide[] = [
     kind: "cover",
     highlightWord: "Programmer",
     title: "is a problem solver.",
-    imageSrc: "/images/thinkingBlack.png",
+    imageLight: "/images/thinkingWhite.png",
+    imageDark: "/images/thinkingBlack.png",
     lines: ["Before we write code,", "let's learn how"],
     highlightLine: "programmer think.",
     revealLabel: "Tap to reveal",
@@ -98,7 +100,7 @@ export const INSTRUCTIONS_INTRO_SLIDES: InstructionsSlide[] = [
       {
         text: "Giving Instruction",
         subtitle: "Teacher is giving an instruction to the class.",
-        icon: Megaphone,
+        icon: BookOpen,
         isCorrect: true,
       },
     ],

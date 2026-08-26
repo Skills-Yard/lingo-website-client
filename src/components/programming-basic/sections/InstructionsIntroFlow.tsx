@@ -1,19 +1,22 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { Poppins } from "next/font/google";
 import {
   ChevronLeft,
   Bookmark,
   ArrowRight,
-  CheckCircle2,
-  XCircle,
+  Check,
+  X,
   Play,
   Network,
   Sparkles,
+  Sparkle,
 } from "lucide-react";
 import { INSTRUCTIONS_INTRO_SLIDES } from "@/lib/constants/instructionsIntro";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useSound } from "@/hooks/useSound";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,7 +34,7 @@ interface InstructionsIntroFlowProps {
 function TeacherIllustration({ compact = false }: { compact?: boolean }) {
   return (
     <div
-      className={`relative w-full rounded-2xl overflow-hidden shadow-sm ${compact ? "h-48 md:h-56" : "aspect-[390/360]"}`}
+      className={`relative w-full rounded-2xl overflow-hidden shadow-sm ${compact ? "h-36 md:h-40" : "aspect-[390/360]"}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -60,6 +63,7 @@ export function InstructionsIntroFlow({
   const [selected, setSelected] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const triggerSound = useSound(true);
 
   const total = INSTRUCTIONS_INTRO_SLIDES.length;
   const slide = INSTRUCTIONS_INTRO_SLIDES[index];
@@ -93,13 +97,24 @@ export function InstructionsIntroFlow({
     if (isQuiz && !checked) {
       if (selected === null) return;
       setChecked(true);
+      triggerSound(isCorrect ? "win" : "lose");
+      return;
+    }
+    if (isQuiz && checked && !isCorrect) {
+      // Wrong answer: let the learner try again instead of moving on.
+      setSelected(null);
+      setChecked(false);
       return;
     }
     goNext();
   };
 
   const primaryLabel =
-    slide.kind === "teacher-quiz" && !checked ? slide.submitLabel : slide.cta;
+    slide.kind === "teacher-quiz" && !checked
+      ? slide.submitLabel
+      : isQuiz && checked && !isCorrect
+        ? "Try Again"
+        : slide.cta;
   const feedbackTitle =
     slide.kind === "teacher-quiz"
       ? isCorrect
@@ -111,11 +126,11 @@ export function InstructionsIntroFlow({
 
   return (
     <main
-      className={`${poppins.className} min-h-screen w-full max-w-full overflow-x-hidden bg-background text-foreground flex flex-col items-center transition-colors duration-200`}
+      className={`${poppins.className} h-screen w-full max-w-full overflow-hidden bg-background text-foreground flex flex-col items-center transition-colors duration-200`}
     >
-      <div className={`w-full max-w-md flex flex-col grow px-4 py-4 ${isQuiz && checked ? "pb-56" : "pb-32"}`}>
-        {/* ── Header (same on every slide) ── */}
-        <header className="flex items-center justify-between gap-2.5 mb-5 select-none">
+      <div className="w-full max-w-md flex flex-col h-full">
+        {/* ── Header (same on every slide) — fixed height, never scrolls or gets covered ── */}
+        <header className="shrink-0 flex items-center justify-between gap-2.5 px-4 pt-4 pb-3 select-none">
           <button
             onClick={goBack}
             className="w-10 h-10 flex items-center justify-center rounded-lg bg-card border border-border text-foreground hover:bg-surface-strong transition-all active:scale-95 cursor-pointer shadow-xs"
@@ -163,8 +178,12 @@ export function InstructionsIntroFlow({
           </div>
         </header>
 
-        {/* ── Body ── */}
-        <div className="grow flex flex-col gap-4 select-none">
+        {/* ── Body — the only part that scrolls, so header/footer are always fully visible ── */}
+        <div
+          className="flex-1 min-h-0 overflow-y-auto px-4 scrollbar-none"
+          style={{ msOverflowStyle: "none" }}
+        >
+        <div className="flex flex-col gap-3 select-none min-h-full pb-3">
           {slide.kind === "cover" && (
             <div className="flex flex-col gap-3 text-center">
               <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-balance">
@@ -172,12 +191,20 @@ export function InstructionsIntroFlow({
                 <span className="text-foreground">{slide.title}</span>
               </h1>
 
-              <div className="relative w-full h-36 bg-card rounded-2xl border border-border flex items-center justify-center overflow-hidden shadow-sm p-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={slide.imageSrc}
+              <div className="relative w-full h-36 flex items-center justify-center overflow-hidden p-3">
+                <Image
+                  src={slide.imageLight}
                   alt=""
-                  className="h-full max-w-full object-contain"
+                  width={759}
+                  height={512}
+                  className="h-full w-auto max-w-full object-contain dark:hidden"
+                />
+                <Image
+                  src={slide.imageDark}
+                  alt=""
+                  width={743}
+                  height={512}
+                  className="hidden h-full w-auto max-w-full object-contain dark:block"
                 />
               </div>
 
@@ -195,17 +222,17 @@ export function InstructionsIntroFlow({
                 </p>
               </div>
 
-              <div className="w-full rounded-2xl bg-[#1A1C22] p-6 flex items-center gap-5 shadow-lg mt-1">
-                <div className="w-16 h-16 shrink-0 flex items-center justify-center">
+              <div className="w-full h-40 rounded-[8px] bg-[#1A1C22] p-6 flex items-center gap-5 shadow-lg mt-1">
+                <div className="w-16 h-40 shrink-0 flex items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src="/images/box.png"
                     alt=""
-                    className="w-full h-full object-contain"
+                    className="w-full h-[150px] object-contain"
                   />
                 </div>
                 <div className="text-left">
-                  <p className="text-sm text-white font-medium">
+                  <p className="text-[14px] text-white font-medium">
                     {slide.revealLabel}
                   </p>
                   <p className="text-sm text-[#BEBEBE] font-medium">about</p>
@@ -233,14 +260,14 @@ export function InstructionsIntroFlow({
 
           {slide.kind === "teacher-quiz" && (
             <>
-              <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-center md:text-left">
+              <h1 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-center md:text-left">
                 <span className="text-primary">{slide.highlightWord}</span>{" "}
                 <span className="text-foreground">{slide.title}</span>
               </h1>
 
               <TeacherIllustration compact />
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
                 {slide.options.map((opt, idx) => {
                   const isSelected = selected === idx;
                   const Icon = opt.icon;
@@ -278,20 +305,23 @@ export function InstructionsIntroFlow({
                       key={opt.text}
                       type="button"
                       disabled={checked}
-                      onClick={() => setSelected(idx)}
-                      className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all duration-200 text-left shadow-xs cursor-pointer active:scale-99 ${cardBorder}`}
+                      onClick={() => {
+                        triggerSound("tap");
+                        setSelected(idx);
+                      }}
+                      className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all duration-200 text-left shadow-xs cursor-pointer active:scale-99 ${cardBorder}`}
                     >
-                      <div className="flex items-center gap-3.5 min-w-0 grow">
+                      <div className="flex items-center gap-3 min-w-0 grow">
                         <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${iconWrap}`}
+                          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${iconWrap}`}
                         >
-                          <Icon className="w-5 h-5" />
+                          <Icon className="w-4 h-4" />
                         </div>
                         <div className="flex flex-col min-w-0 pr-2">
-                          <span className="font-medium text-base leading-tight text-foreground">
+                          <span className="font-medium text-sm leading-tight text-foreground">
                             {opt.text}
                           </span>
-                          {!checked && (
+                          {!(checked && isSelected) && (
                             <span className="text-xs text-muted-foreground font-normal mt-0.5 line-clamp-1">
                               {opt.subtitle}
                             </span>
@@ -300,11 +330,11 @@ export function InstructionsIntroFlow({
                       </div>
                       <div className="shrink-0 pl-2">
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${radioStyle}`}
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${radioStyle}`}
                         >
                           {isSelected && (
                             <div
-                              className={`w-3 h-3 rounded-full ${
+                              className={`w-2.5 h-2.5 rounded-full ${
                                 checked && !opt.isCorrect
                                   ? "bg-rose-500"
                                   : "bg-primary"
@@ -366,7 +396,14 @@ export function InstructionsIntroFlow({
               </h1>
 
               <div className="relative w-full h-56 md:h-64 rounded-xl bg-[#1A1C22] flex items-center justify-center overflow-hidden shadow-lg">
-                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-xl">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/vedioImg.png"
+                  alt="What are Instructions? video thumbnail"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/30" />
+                <div className="relative w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-xl">
                   <Play className="w-6 h-6 text-primary fill-primary ml-0.5" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-2.5 bg-black/40" />
@@ -381,44 +418,66 @@ export function InstructionsIntroFlow({
             </>
           )}
         </div>
-      </div>
+        </div>
 
-      {/* ── Footer ── */}
-      <footer className="fixed bottom-0 left-0 right-0 z-40 flex justify-center bg-gradient-to-t from-background via-background to-transparent pt-4 pb-4 px-4 backdrop-blur-xs">
-        <div className="w-full max-w-md flex flex-col gap-3">
+        {/* ── Footer — shrink-0, in normal flow, so it can never overlap scrollable content above it ── */}
+        <footer className="shrink-0 px-4 pt-3 pb-4 bg-background">
+          <div className="w-full flex flex-col gap-3">
           {isQuiz && checked && selectedOption && (
             <div
-              className={`w-full rounded-2xl p-4 border transition-all duration-300 animate-pop-in flex items-center justify-between gap-3 shadow-xl ${
-                isCorrect
-                  ? "bg-secondary border-primary/40"
-                  : "bg-[#fff1f2] dark:bg-[#1f090d] border-[#fecdd3] dark:border-[#881337]"
-              }`}
+              className="w-full rounded-xl p-3.5 flex items-center justify-between gap-2 animate-pop-in overflow-hidden"
+              style={{
+                background: isCorrect
+                  ? "linear-gradient(180deg, rgba(1,161,127,0.16) 0%, rgba(255,255,255,0) 98.7%)"
+                  : "linear-gradient(180deg, rgba(225,29,72,0.16) 0%, rgba(255,255,255,0) 98.7%)",
+              }}
             >
-              <div className="flex items-start gap-2.5 min-w-0">
-                {isCorrect ? (
-                  <CheckCircle2 className="w-6 h-6 text-primary shrink-0 mt-0.5" />
-                ) : (
-                  <XCircle className="w-6 h-6 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
-                )}
-                <div className="min-w-0">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2.5 mb-1">
+                  <div
+                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                      isCorrect ? "bg-primary" : "bg-rose-600 dark:bg-rose-500"
+                    }`}
+                  >
+                    {isCorrect ? (
+                      <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                    ) : (
+                      <X className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                    )}
+                  </div>
                   <h3
-                    className={`text-base font-semibold leading-tight ${isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"}`}
+                    className={`text-base font-semibold leading-none ${isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"}`}
                   >
                     {feedbackTitle}
                   </h3>
-                  <p
-                    className={`text-xs font-medium leading-snug mt-0.5 ${isCorrect ? "text-secondary-foreground/90" : "text-rose-700/90 dark:text-rose-300/90"}`}
-                  >
-                    {feedbackBody}
-                  </p>
                 </div>
+                <p
+                  className={`text-xs font-medium leading-[1.4] ${isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"}`}
+                >
+                  {feedbackBody}
+                </p>
               </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/sliceAnswer.png"
-                alt=""
-                className="w-16 h-16 shrink-0 object-contain animate-bounce-slow"
-              />
+
+              <div className="relative w-27.5 h-21 shrink-0">
+                <Sparkle
+                  className="absolute w-3.5 h-3.5 text-amber-400 fill-amber-400"
+                  style={{ left: 92, top: 0 }}
+                />
+                <Sparkle
+                  className="absolute w-3 h-3 text-[#ABA8FC] fill-[#ABA8FC]"
+                  style={{ left: 0, top: 49 }}
+                />
+                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#ABA8FC]" style={{ left: 2, top: 22 }} />
+                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#FF8585]" style={{ left: 0, top: 25 }} />
+                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#FF8585]" style={{ left: 106, top: 58 }} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/sliceAnswer.png"
+                  alt=""
+                  className="absolute w-20.5 h-19.75 object-contain -scale-x-100 animate-bounce-slow"
+                  style={{ left: 20, top: 5 }}
+                />
+              </div>
             </div>
           )}
 
@@ -437,8 +496,9 @@ export function InstructionsIntroFlow({
             <span>{primaryLabel}</span>
             <ArrowRight className="w-5 h-5" />
           </button>
-        </div>
-      </footer>
+          </div>
+        </footer>
+      </div>
     </main>
   );
 }

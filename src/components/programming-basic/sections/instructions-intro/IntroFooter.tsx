@@ -15,6 +15,11 @@ interface IntroFooterProps {
   onPrimaryAction: () => void;
   /** Quiz result banner shown above the button once an answer has been checked. */
   feedback?: QuizFeedback | null;
+  /**
+   * Full-width CTA bar (default). When false the CTA shrinks to a bottom-right pill
+   * with an arrow — the "Got It" treatment on the teacher-intro screen (desktop).
+   */
+  ctaFullWidth?: boolean;
 }
 
 /** Fixed bottom bar: the optional quiz feedback banner plus the primary call-to-action. */
@@ -23,13 +28,14 @@ export function IntroFooter({
   primaryState,
   onPrimaryAction,
   feedback,
+  ctaFullWidth = true,
 }: IntroFooterProps) {
   return (
-    <footer className="shrink-0 px-4 pt-3 pb-3 bg-background dark:bg-[#1E1E1E]">
+    <footer className="shrink-0 px-4 pt-3 pb-3 bg-background dark:bg-[#0D1016]">
       <div className="w-full flex flex-col gap-3">
         {feedback && (
           <div
-            className="w-full rounded-[6px] p-3.5 flex items-center justify-between gap-2 animate-pop-in overflow-hidden"
+            className="w-full rounded-[6px] p-3.5 flex items-center justify-between gap-2 animate-pop-in overflow-hidden md:hidden"
             style={{
               background: feedback.isCorrect
                 ? "linear-gradient(180deg, rgba(1,161,127,0.16) 0%, rgba(255,255,255,0) 98.7%)"
@@ -90,6 +96,8 @@ export function IntroFooter({
           onClick={onPrimaryAction}
           disabled={primaryState === "disabled"}
           className={`w-full h-13 rounded-[6px] font-medium text-base transition-all flex items-center justify-center gap-2 shadow-lg active:scale-98 cursor-pointer ${
+            ctaFullWidth ? "" : "md:w-auto md:self-end md:min-w-44 md:px-10"
+          } ${
             primaryState === "disabled"
               ? "bg-muted text-muted-foreground cursor-not-allowed shadow-none"
               : primaryState === "retry"
@@ -98,7 +106,7 @@ export function IntroFooter({
           }`}
         >
           <span>{primaryLabel}</span>
-          <ArrowRight className="w-5 h-5" />
+          <ArrowRight className={`w-5 h-5 ${ctaFullWidth ? "md:hidden" : ""}`} />
         </button>
       </div>
     </footer>

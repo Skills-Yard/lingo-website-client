@@ -1,3 +1,4 @@
+import { Check, X } from "lucide-react";
 import type { TeacherQuizSlide } from "@/lib/constants/instructionsIntro";
 import { TeacherIllustration } from "./TeacherIllustration";
 
@@ -15,21 +16,27 @@ export function TeacherQuizScreen({
   checked,
   onSelect,
 }: TeacherQuizScreenProps) {
+  const selectedOption = selected !== null ? slide.options[selected] : null;
+  const isCorrect = !!selectedOption?.isCorrect;
+  const showFeedback = checked && selectedOption;
+  const feedbackTitle = isCorrect ? slide.correctTitle : slide.incorrectTitle;
+  const feedbackBody = isCorrect ? slide.correctText : slide.incorrectText;
+
   return (
-    <>
-      <h1 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-center md:text-left">
+    <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-x-10 md:items-center md:min-h-full md:content-center">
+      <h1 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-center md:text-left md:col-start-1 md:row-start-1">
         <span className="text-primary">{slide.highlightWord}</span>{" "}
         <span className="text-foreground">{slide.title}</span>
       </h1>
 
       <TeacherIllustration
-        className="h-36 md:h-68.75"
+        className="h-36 md:h-80 md:col-start-1 md:row-start-2"
         fit="cover"
         imageLight="/images/answerImgWhite.png"
         imageDark="/images/answerImgBlack.png"
       />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 md:col-start-2 md:row-start-1 md:row-span-2 md:self-center">
         {slide.options.map((opt, idx) => {
           const isSelected = selected === idx;
           const Icon = opt.icon;
@@ -98,7 +105,52 @@ export function TeacherQuizScreen({
             </button>
           );
         })}
+
+        {/* Desktop shows the result inline with the options; mobile keeps it in the footer. */}
+        {showFeedback && (
+          <div
+            className={`hidden md:flex items-center justify-between gap-3 rounded-[12px] p-4 overflow-hidden animate-pop-in ${
+              isCorrect ? "bg-primary/10" : "bg-rose-500/10"
+            }`}
+          >
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <div
+                  className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${
+                    isCorrect ? "bg-primary" : "bg-rose-600 dark:bg-rose-500"
+                  }`}
+                >
+                  {isCorrect ? (
+                    <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                  ) : (
+                    <X className="w-3.5 h-3.5 text-white" strokeWidth={3} />
+                  )}
+                </div>
+                <h3
+                  className={`text-sm font-semibold ${
+                    isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"
+                  }`}
+                >
+                  {feedbackTitle}
+                </h3>
+              </div>
+              <p
+                className={`text-xs font-medium leading-snug ${
+                  isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"
+                }`}
+              >
+                {feedbackBody}
+              </p>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/sliceAnswer.png"
+              alt=""
+              className="w-16 h-16 object-contain shrink-0 -scale-x-100 animate-bounce-slow"
+            />
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

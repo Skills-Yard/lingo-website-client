@@ -27,7 +27,7 @@ export function IntroHeader({
         <ChevronLeft className="w-5 h-5" />
       </button>
 
-      <div className="grow flex flex-col items-center gap-1.5 px-2">
+      <div className="grow md:grow-0 md:w-72 flex flex-col items-center gap-1.5 px-2 md:mr-auto md:ml-6">
         <div className="text-xs font-medium tracking-wider flex items-center gap-1">
           <span className="text-primary font-semibold">
             {String(stepNumber).padStart(2, "0")}

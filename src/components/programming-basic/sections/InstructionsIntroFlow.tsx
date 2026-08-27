@@ -110,9 +110,9 @@ export function InstructionsIntroFlow({
 
   return (
     <main
-      className={`${poppins.className} h-screen w-full max-w-full overflow-hidden bg-background dark:bg-[#1E1E1E] text-foreground flex flex-col items-center transition-colors duration-200`}
+      className={`${poppins.className} h-screen w-full max-w-full overflow-hidden bg-background dark:bg-[#0D1016] text-foreground flex flex-col items-center transition-colors duration-200`}
     >
-      <div className="w-full max-w-md flex flex-col h-full">
+      <div className="w-full max-w-md md:max-w-7xl flex flex-col h-full">
         {/* ── Header (same on every slide) — fixed height, never scrolls or gets covered ── */}
         <IntroHeader
           stepNumber={stepNumber}
@@ -124,10 +124,10 @@ export function InstructionsIntroFlow({
 
         {/* ── Body — the only part that scrolls, so header/footer are always fully visible ── */}
         <div
-          className="flex-1 min-h-0 overflow-y-auto px-4 scrollbar-none"
+          className="flex-1 min-h-0 overflow-y-auto px-4 md:px-10 scrollbar-none"
           style={{ msOverflowStyle: "none" }}
         >
-          <div className="flex flex-col gap-3 select-none min-h-full pb-3">
+          <div className="flex flex-col gap-3 select-none min-h-full pb-3 md:pb-0 md:justify-center">
             {slide.kind === "cover" && <CoverScreen slide={slide} />}
             {slide.kind === "teacher-intro" && <TeacherIntroScreen slide={slide} />}
             {slide.kind === "teacher-quiz" && (
@@ -149,6 +149,7 @@ export function InstructionsIntroFlow({
           primaryState={primaryState}
           onPrimaryAction={handlePrimaryAction}
           feedback={feedback}
+          ctaFullWidth={slide.kind !== "teacher-intro"}
         />
       </div>
     </main>

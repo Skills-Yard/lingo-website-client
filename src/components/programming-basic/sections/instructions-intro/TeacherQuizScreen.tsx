@@ -30,7 +30,7 @@ export function TeacherQuizScreen({
       </h1>
 
       <TeacherIllustration
-        className="h-36 md:h-80 md:col-start-1 md:row-start-2"
+        className="h-64 md:h-80 md:col-start-1 md:row-start-2"
         fit="cover"
         imageLight="/images/answerImgWhite.png"
         imageDark="/images/answerImgBlack.png"

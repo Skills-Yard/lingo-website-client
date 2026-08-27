@@ -42,7 +42,7 @@ export function VideoScreen({ slide }: { slide: VideoSlide }) {
         </div>
       </div>
 
-      <div className="w-full rounded-[8px] p-4 flex items-center gap-3 md:col-span-1 md:col-start-5 md:row-start-1 md:self-stretch md:flex-col md:items-start md:justify-center md:text-left [background:linear-gradient(180deg,#EFF4F1_1.3%,rgba(1,161,127,0.12)_67.42%)] dark:[background:linear-gradient(180deg,rgba(255,255,255,0)_1.3%,rgba(1,161,127,0.12)_67.42%)]">
+      <div className="w-full rounded-[8px] p-4 mt-4 md:mt-0 flex items-center gap-3 md:col-span-1 md:col-start-5 md:row-start-1 md:self-stretch md:flex-col md:items-start md:justify-center md:text-left [background:linear-gradient(180deg,#EFF4F1_1.3%,rgba(1,161,127,0.12)_67.42%)] dark:[background:linear-gradient(180deg,rgba(255,255,255,0)_1.3%,rgba(1,161,127,0.12)_67.42%)]">
         <Sparkles className="w-6 h-6 text-primary shrink-0" />
         <p className="text-xs md:text-sm text-secondary-foreground font-medium leading-snug">
           {slide.caption}

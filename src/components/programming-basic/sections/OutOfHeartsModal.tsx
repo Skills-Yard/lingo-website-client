@@ -41,7 +41,7 @@ export function OutOfHeartsModal({
                 setQuizAnswerChecked(false);
               }
             }}
-            className={`w-full py-3.5 rounded-2xl font-black text-sm transition-all active:scale-98 ${
+            className={`w-full py-3.5 rounded-[6px] font-black text-sm transition-all active:scale-98 ${
               stars >= 50
                 ? "bg-amber-500 hover:bg-amber-600 text-white cursor-pointer shadow-md"
                 : "bg-slate-200 dark:bg-[#182232] text-slate-400 dark:text-slate-500 cursor-not-allowed"
@@ -56,7 +56,7 @@ export function OutOfHeartsModal({
               setShowOutOfHeartsModal(false);
               setView("map");
             }}
-            className="w-full py-3.5 rounded-2xl font-black text-sm border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#182232] text-slate-700 dark:text-slate-200 cursor-pointer hover:bg-slate-50 dark:hover:bg-[#1c293d] transition-all"
+            className="w-full py-3.5 rounded-[6px] font-black text-sm border border-slate-200 dark:border-[#1e293b] bg-white dark:bg-[#182232] text-slate-700 dark:text-slate-200 cursor-pointer hover:bg-slate-50 dark:hover:bg-[#1c293d] transition-all"
           >
             Return to Map
           </button>

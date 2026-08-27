@@ -1,22 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { Poppins } from "next/font/google";
-import {
-  ChevronLeft,
-  Bookmark,
-  ArrowRight,
-  Check,
-  X,
-  Play,
-  Network,
-  Sparkles,
-  Sparkle,
-} from "lucide-react";
 import { INSTRUCTIONS_INTRO_SLIDES } from "@/lib/constants/instructionsIntro";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useSound } from "@/hooks/useSound";
+import { IntroHeader } from "./instructions-intro/IntroHeader";
+import { IntroFooter, type PrimaryState } from "./instructions-intro/IntroFooter";
+import { CoverScreen } from "./instructions-intro/CoverScreen";
+import { TeacherIntroScreen } from "./instructions-intro/TeacherIntroScreen";
+import { TeacherQuizScreen } from "./instructions-intro/TeacherQuizScreen";
+import { ExamplesGridScreen } from "./instructions-intro/ExamplesGridScreen";
+import { VideoScreen } from "./instructions-intro/VideoScreen";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,31 +24,10 @@ interface InstructionsIntroFlowProps {
   initialIndex?: number;
 }
 
-/** Teacher-at-the-whiteboard illustration shared by the "Teacher Says" intro and the quiz screen. */
-function TeacherIllustration({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      className={`relative w-full rounded-2xl overflow-hidden shadow-sm ${compact ? "h-36 md:h-40" : "aspect-[390/360]"}`}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/teacherWhite.png"
-        alt="Teacher explaining at the whiteboard"
-        className={`w-full h-full dark:hidden ${compact ? "object-cover" : "object-contain"}`}
-      />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/teacherBlack.png"
-        alt="Teacher explaining at the whiteboard"
-        className={`w-full h-full hidden dark:block ${compact ? "object-cover" : "object-contain"}`}
-      />
-      <div className="absolute top-5 right-5 max-w-32.5 bg-white text-[#2C2C2C] rounded-2xl rounded-bl-sm px-3.5 py-2.5 shadow-lg">
-        <span className="text-xs md:text-sm font-semibold leading-snug">Open Your Notebook</span>
-      </div>
-    </div>
-  );
-}
-
+/**
+ * Orchestrates the instructions-intro flow: owns the step / quiz state and swaps in the
+ * screen component for the current slide. Each screen lives in `./instructions-intro/`.
+ */
 export function InstructionsIntroFlow({
   onComplete,
   initialIndex = 0,
@@ -67,9 +40,7 @@ export function InstructionsIntroFlow({
 
   const total = INSTRUCTIONS_INTRO_SLIDES.length;
   const slide = INSTRUCTIONS_INTRO_SLIDES[index];
-
   const stepNumber = index + 1;
-  const stepTotal = total;
 
   const goNext = () => {
     setSelected(null);
@@ -93,6 +64,11 @@ export function InstructionsIntroFlow({
     isQuiz && selected !== null ? slide.options[selected] : null;
   const isCorrect = !!selectedOption?.isCorrect;
 
+  const handleSelect = (idx: number) => {
+    triggerSound("tap");
+    setSelected(idx);
+  };
+
   const handlePrimaryAction = () => {
     if (isQuiz && !checked) {
       if (selected === null) return;
@@ -115,389 +91,65 @@ export function InstructionsIntroFlow({
       : isQuiz && checked && !isCorrect
         ? "Try Again"
         : slide.cta;
-  const feedbackTitle =
-    slide.kind === "teacher-quiz"
-      ? isCorrect
-        ? slide.correctTitle
-        : slide.incorrectTitle
-      : "";
-  const feedbackBody =
-    slide.kind === "teacher-quiz" ? (isCorrect ? slide.correctText : slide.incorrectText) : "";
+
+  const primaryState: PrimaryState =
+    isQuiz && !checked && selected === null
+      ? "disabled"
+      : isQuiz && checked && !isCorrect
+        ? "retry"
+        : "go";
+
+  const feedback =
+    slide.kind === "teacher-quiz" && checked && selectedOption
+      ? {
+          isCorrect,
+          title: isCorrect ? slide.correctTitle : slide.incorrectTitle,
+          body: isCorrect ? slide.correctText : slide.incorrectText,
+        }
+      : null;
 
   return (
     <main
-      className={`${poppins.className} h-screen w-full max-w-full overflow-hidden bg-background text-foreground flex flex-col items-center transition-colors duration-200`}
+      className={`${poppins.className} h-screen w-full max-w-full overflow-hidden bg-background dark:bg-[#1E1E1E] text-foreground flex flex-col items-center transition-colors duration-200`}
     >
       <div className="w-full max-w-md flex flex-col h-full">
         {/* ── Header (same on every slide) — fixed height, never scrolls or gets covered ── */}
-        <header className="shrink-0 flex items-center justify-between gap-2.5 px-4 pt-4 pb-3 select-none">
-          <button
-            onClick={goBack}
-            className="w-10 h-10 flex items-center justify-center rounded-lg bg-card border border-border text-foreground hover:bg-surface-strong transition-all active:scale-95 cursor-pointer shadow-xs"
-            aria-label="Back"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          <div className="grow flex flex-col items-center gap-1.5 px-2">
-            <div className="text-xs font-medium tracking-wider flex items-center gap-1">
-              <span className="text-primary font-semibold">
-                {String(stepNumber).padStart(2, "0")}
-              </span>
-              <span className="text-muted-foreground">
-                / {String(stepTotal).padStart(2, "0")}
-              </span>
-            </div>
-            <div className="w-full flex gap-1">
-              {Array.from({ length: stepTotal }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-1.5 rounded-full grow transition-all duration-300 ${
-                    i < stepNumber ? "bg-primary" : "bg-muted"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={() => setBookmarked((b) => !b)}
-              className={`w-10 h-10 flex items-center justify-center rounded-lg border transition-all active:scale-95 cursor-pointer shadow-xs ${
-                bookmarked
-                  ? "bg-secondary border-primary/40 text-primary"
-                  : "bg-card border-border text-muted-foreground"
-              }`}
-              aria-label="Bookmark"
-            >
-              <Bookmark
-                className={`w-4 h-4 ${bookmarked ? "fill-current" : ""}`}
-              />
-            </button>
-            <ThemeToggle className="w-10 h-10 rounded-lg" />
-          </div>
-        </header>
+        <IntroHeader
+          stepNumber={stepNumber}
+          stepTotal={total}
+          bookmarked={bookmarked}
+          onBack={goBack}
+          onToggleBookmark={() => setBookmarked((b) => !b)}
+        />
 
         {/* ── Body — the only part that scrolls, so header/footer are always fully visible ── */}
         <div
           className="flex-1 min-h-0 overflow-y-auto px-4 scrollbar-none"
           style={{ msOverflowStyle: "none" }}
         >
-        <div className="flex flex-col gap-3 select-none min-h-full pb-3">
-          {slide.kind === "cover" && (
-            <div className="flex flex-col gap-3 text-center">
-              <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-balance">
-                <span className="text-primary">{slide.highlightWord}</span>{" "}
-                <span className="text-foreground">{slide.title}</span>
-              </h1>
-
-              <div className="relative w-full h-36 flex items-center justify-center overflow-hidden p-3">
-                <Image
-                  src={slide.imageLight}
-                  alt=""
-                  width={759}
-                  height={512}
-                  className="h-full w-auto max-w-full object-contain dark:hidden"
-                />
-                <Image
-                  src={slide.imageDark}
-                  alt=""
-                  width={743}
-                  height={512}
-                  className="hidden h-full w-auto max-w-full object-contain dark:block"
-                />
-              </div>
-
-              <div>
-                {slide.lines.map((line) => (
-                  <p
-                    key={line}
-                    className="text-base md:text-lg font-semibold text-foreground"
-                  >
-                    {line}
-                  </p>
-                ))}
-                <p className="text-base md:text-lg font-semibold text-primary">
-                  {slide.highlightLine}
-                </p>
-              </div>
-
-              <div className="w-full h-40 rounded-[8px] bg-[#1A1C22] p-6 flex items-center gap-5 shadow-lg mt-1">
-                <div className="w-16 h-40 shrink-0 flex items-center justify-center">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/box.png"
-                    alt=""
-                    className="w-full h-[150px] object-contain"
-                  />
-                </div>
-                <div className="text-left">
-                  <p className="text-[14px] text-white font-medium">
-                    {slide.revealLabel}
-                  </p>
-                  <p className="text-sm text-[#BEBEBE] font-medium">about</p>
-                  <p className="text-lg font-semibold tracking-wide text-primary">
-                    {slide.revealSubject}
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {slide.kind === "teacher-intro" && (
-            <>
-              <div className="flex flex-col items-center gap-3 text-center">
-                <p className="text-2xl md:text-3xl font-semibold text-primary">
-                  {slide.eyebrow}
-                </p>
-                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground leading-tight -mt-2">
-                  {slide.title}
-                </h1>
-              </div>
-              <TeacherIllustration />
-            </>
-          )}
-
-          {slide.kind === "teacher-quiz" && (
-            <>
-              <h1 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-center md:text-left">
-                <span className="text-primary">{slide.highlightWord}</span>{" "}
-                <span className="text-foreground">{slide.title}</span>
-              </h1>
-
-              <TeacherIllustration compact />
-
-              <div className="flex flex-col gap-2">
-                {slide.options.map((opt, idx) => {
-                  const isSelected = selected === idx;
-                  const Icon = opt.icon;
-
-                  let cardBorder =
-                    "border-border bg-card hover:border-muted-foreground/50";
-                  let radioStyle = "border-muted-foreground/60";
-                  let iconWrap =
-                    idx === 0
-                      ? "bg-violet-100 dark:bg-violet-950/40 text-violet-600 dark:text-violet-300"
-                      : "bg-secondary text-primary";
-
-                  if (isSelected && !checked) {
-                    cardBorder =
-                      "border-primary bg-secondary ring-1 ring-primary/30";
-                    radioStyle = "border-primary";
-                    iconWrap = "bg-primary/15 text-primary";
-                  } else if (isSelected && checked) {
-                    if (opt.isCorrect) {
-                      cardBorder =
-                        "border-primary bg-secondary ring-1 ring-primary/40";
-                      radioStyle = "border-primary";
-                      iconWrap = "bg-primary/15 text-primary";
-                    } else {
-                      cardBorder =
-                        "border-rose-500 bg-rose-50/80 dark:bg-[#260c11] ring-1 ring-rose-500/40";
-                      radioStyle = "border-rose-500";
-                      iconWrap =
-                        "bg-rose-100 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400";
-                    }
-                  }
-
-                  return (
-                    <button
-                      key={opt.text}
-                      type="button"
-                      disabled={checked}
-                      onClick={() => {
-                        triggerSound("tap");
-                        setSelected(idx);
-                      }}
-                      className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all duration-200 text-left shadow-xs cursor-pointer active:scale-99 ${cardBorder}`}
-                    >
-                      <div className="flex items-center gap-3 min-w-0 grow">
-                        <div
-                          className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${iconWrap}`}
-                        >
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <div className="flex flex-col min-w-0 pr-2">
-                          <span className="font-medium text-sm leading-tight text-foreground">
-                            {opt.text}
-                          </span>
-                          {!(checked && isSelected) && (
-                            <span className="text-xs text-muted-foreground font-normal mt-0.5 line-clamp-1">
-                              {opt.subtitle}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="shrink-0 pl-2">
-                        <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${radioStyle}`}
-                        >
-                          {isSelected && (
-                            <div
-                              className={`w-2.5 h-2.5 rounded-full ${
-                                checked && !opt.isCorrect
-                                  ? "bg-rose-500"
-                                  : "bg-primary"
-                              }`}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </>
-          )}
-
-          {slide.kind === "examples-grid" && (
-            <>
-              <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-center md:text-left text-foreground">
-                {slide.title}
-              </h1>
-
-              <div className="flex flex-col gap-3 justify-center grow">
-                {slide.pairs.map((pair) => (
-                  <div key={pair.leftLabel} className="flex items-center justify-center gap-3">
-                    <div className="flex flex-col items-center gap-1.5 w-24">
-                      <div className="w-20 h-20 rounded-2xl bg-secondary overflow-hidden flex items-center justify-center p-2">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={pair.leftImage} alt={pair.leftLabel} className="w-full h-full object-contain" />
-                      </div>
-                      <span className="text-xs font-medium text-foreground text-center leading-tight">
-                        {pair.leftLabel}
-                      </span>
-                    </div>
-
-                    <div className="w-6 h-0.5 rounded-full bg-primary shrink-0" />
-
-                    <div className="flex flex-col items-center gap-1.5 w-24">
-                      <div className="w-20 h-20 rounded-2xl bg-secondary overflow-hidden flex items-center justify-center p-2">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={pair.rightImage} alt={pair.rightLabel} className="w-full h-full object-contain" />
-                      </div>
-                      <span className="text-xs font-medium text-foreground text-center leading-tight">
-                        {pair.rightLabel}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-
-          {slide.kind === "video" && (
-            <>
-              <h1 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight text-center md:text-left flex items-center gap-2 justify-center md:justify-start">
-                <Network className="w-5 h-5 text-primary shrink-0" />
-                <span className="text-primary">
-                  {slide.highlightWord} {slide.title}
-                </span>
-              </h1>
-
-              <div className="relative w-full h-56 md:h-64 rounded-xl bg-[#1A1C22] flex items-center justify-center overflow-hidden shadow-lg">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/vedioImg.png"
-                  alt="What are Instructions? video thumbnail"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/30" />
-                <div className="relative w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-xl">
-                  <Play className="w-6 h-6 text-primary fill-primary ml-0.5" />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-2.5 bg-black/40" />
-              </div>
-
-              <div className="w-full rounded-xl bg-secondary p-4 flex items-center gap-3">
-                <Sparkles className="w-6 h-6 text-primary shrink-0" />
-                <p className="text-xs md:text-sm text-secondary-foreground font-medium leading-snug">
-                  {slide.caption}
-                </p>
-              </div>
-            </>
-          )}
-        </div>
+          <div className="flex flex-col gap-3 select-none min-h-full pb-3">
+            {slide.kind === "cover" && <CoverScreen slide={slide} />}
+            {slide.kind === "teacher-intro" && <TeacherIntroScreen slide={slide} />}
+            {slide.kind === "teacher-quiz" && (
+              <TeacherQuizScreen
+                slide={slide}
+                selected={selected}
+                checked={checked}
+                onSelect={handleSelect}
+              />
+            )}
+            {slide.kind === "examples-grid" && <ExamplesGridScreen slide={slide} />}
+            {slide.kind === "video" && <VideoScreen slide={slide} />}
+          </div>
         </div>
 
         {/* ── Footer — shrink-0, in normal flow, so it can never overlap scrollable content above it ── */}
-        <footer className="shrink-0 px-4 pt-3 pb-4 bg-background">
-          <div className="w-full flex flex-col gap-3">
-          {isQuiz && checked && selectedOption && (
-            <div
-              className="w-full rounded-xl p-3.5 flex items-center justify-between gap-2 animate-pop-in overflow-hidden"
-              style={{
-                background: isCorrect
-                  ? "linear-gradient(180deg, rgba(1,161,127,0.16) 0%, rgba(255,255,255,0) 98.7%)"
-                  : "linear-gradient(180deg, rgba(225,29,72,0.16) 0%, rgba(255,255,255,0) 98.7%)",
-              }}
-            >
-              <div className="min-w-0">
-                <div className="flex items-center gap-2.5 mb-1">
-                  <div
-                    className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
-                      isCorrect ? "bg-primary" : "bg-rose-600 dark:bg-rose-500"
-                    }`}
-                  >
-                    {isCorrect ? (
-                      <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />
-                    ) : (
-                      <X className="w-3.5 h-3.5 text-white" strokeWidth={3} />
-                    )}
-                  </div>
-                  <h3
-                    className={`text-base font-semibold leading-none ${isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"}`}
-                  >
-                    {feedbackTitle}
-                  </h3>
-                </div>
-                <p
-                  className={`text-xs font-medium leading-[1.4] ${isCorrect ? "text-primary" : "text-rose-600 dark:text-rose-400"}`}
-                >
-                  {feedbackBody}
-                </p>
-              </div>
-
-              <div className="relative w-27.5 h-21 shrink-0">
-                <Sparkle
-                  className="absolute w-3.5 h-3.5 text-amber-400 fill-amber-400"
-                  style={{ left: 92, top: 0 }}
-                />
-                <Sparkle
-                  className="absolute w-3 h-3 text-[#ABA8FC] fill-[#ABA8FC]"
-                  style={{ left: 0, top: 49 }}
-                />
-                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#ABA8FC]" style={{ left: 2, top: 22 }} />
-                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#FF8585]" style={{ left: 0, top: 25 }} />
-                <span className="absolute w-1.5 h-1.5 rounded-full bg-[#FF8585]" style={{ left: 106, top: 58 }} />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/sliceAnswer.png"
-                  alt=""
-                  className="absolute w-20.5 h-19.75 object-contain -scale-x-100 animate-bounce-slow"
-                  style={{ left: 20, top: 5 }}
-                />
-              </div>
-            </div>
-          )}
-
-          <button
-            type="button"
-            onClick={handlePrimaryAction}
-            disabled={isQuiz && !checked && selected === null}
-            className={`w-full h-13 rounded-xl font-medium text-base transition-all flex items-center justify-center gap-2 shadow-lg active:scale-98 cursor-pointer ${
-              isQuiz && !checked && selected === null
-                ? "bg-muted text-muted-foreground cursor-not-allowed shadow-none"
-                : isQuiz && checked && !isCorrect
-                  ? "bg-destructive hover:bg-destructive/90 text-white"
-                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
-            }`}
-          >
-            <span>{primaryLabel}</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
-          </div>
-        </footer>
+        <IntroFooter
+          primaryLabel={primaryLabel}
+          primaryState={primaryState}
+          onPrimaryAction={handlePrimaryAction}
+          feedback={feedback}
+        />
       </div>
     </main>
   );

@@ -67,6 +67,13 @@ export type InstructionsSlide =
       cta: string;
     };
 
+/** Per-screen slide types, so each screen component can be strictly typed to its own slide. */
+export type CoverSlide = Extract<InstructionsSlide, { kind: "cover" }>;
+export type TeacherIntroSlide = Extract<InstructionsSlide, { kind: "teacher-intro" }>;
+export type TeacherQuizSlide = Extract<InstructionsSlide, { kind: "teacher-quiz" }>;
+export type ExamplesGridSlide = Extract<InstructionsSlide, { kind: "examples-grid" }>;
+export type VideoSlide = Extract<InstructionsSlide, { kind: "video" }>;
+
 export const INSTRUCTIONS_INTRO_SLIDES: InstructionsSlide[] = [
   {
     kind: "cover",
